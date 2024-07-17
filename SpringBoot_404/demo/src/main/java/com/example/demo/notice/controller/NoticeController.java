@@ -15,16 +15,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NoticeController {
     private final NoticeService noticeService;
+
     @GetMapping("/list")
     public String getAllNotices(Model model) {
-        List<NoticeDTO> notices=noticeService.getAllNotices();
-        model.addAttribute("notices",notices);
+        List<NoticeDTO> notices = noticeService.getAllNotices();
+        model.addAttribute("notices", notices);
         return "/notice/list"; // 공지사항 리스트 페이지
     }
+
     @GetMapping("/register")
     public String registerNotice() {
         return "/notice/register";
     }
+
     @PostMapping("/register")
     public String register(@ModelAttribute NoticeDTO noticeDTO) {
         noticeService.save(noticeDTO);
@@ -37,15 +40,17 @@ public class NoticeController {
         model.addAttribute("dto", dto);
         return "/notice/read";
     }
+
     @GetMapping("/modify/{bno}")
     public String modify(@PathVariable("bno") Long bno, Model model) {
         NoticeDTO dto = noticeService.readOne(bno);
         model.addAttribute("dto", dto);
         return "/notice/modify";
     }
+
     @PostMapping("/modify")
     public String modify(@ModelAttribute NoticeDTO noticeDTO) {
         noticeService.save(noticeDTO);
-        return "redirect:/notice/read?bno="+noticeDTO.getBno();
+        return "redirect:/notice/read/" + noticeDTO.getBno();
     }
 }
