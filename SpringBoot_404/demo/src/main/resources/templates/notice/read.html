@@ -6,7 +6,7 @@
 </head>
 <body>
     <div>
-        <input type="text"  name="bno" th:value="${dto.bno}" readonly>
+<!--        <input type="text"  name="bno" th:value="${dto.bno}" readonly>-->
     </div>
     <div>
         <input type="text"  name="title" th:value="${dto.title}" readonly>
@@ -21,7 +21,7 @@
     <input type="button" value="목록" >
     </a>
 <!--    <a th:href="|@{/notice/modify}|">-->
-    <a th:href="|@{/templates/notice/modify(no=${dto.bno})}|">
+    <a th:href="|@{/notice/modify/{no}(no=${dto.bno})}|">
     <input type="button" value="수정" >
     </a>
 </body>

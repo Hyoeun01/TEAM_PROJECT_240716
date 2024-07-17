@@ -19,26 +19,33 @@ public class NoticeController {
     public String getAllNotices(Model model) {
         List<NoticeDTO> notices=noticeService.getAllNotices();
         model.addAttribute("notices",notices);
-        return "notice/list"; // 공지사항 리스트 페이지
+        return "/notice/list"; // 공지사항 리스트 페이지
     }
     @GetMapping("/register")
     public String registerNotice() {
-        return "notice/register";
+        return "/notice/register";
     }
     @PostMapping("/register")
     public String register(@ModelAttribute NoticeDTO noticeDTO) {
         noticeService.save(noticeDTO);
         return "redirect:/notice/list";
     }
-    @GetMapping({"/read","/modify"})
-    public void notice(Long no, Model model){
-        NoticeDTO dto=noticeService.readOne(no);
-        model.addAttribute("dto",dto);
-    }
+
     @GetMapping("/read/{bno}")
     public String read(@PathVariable("bno") Long bno, Model model) {
-        NoticeDTO notice = noticeService.readOne(bno);
-        model.addAttribute("notice", notice);
-        return "notice/read";
+        NoticeDTO dto = noticeService.readOne(bno);
+        model.addAttribute("dto", dto);
+        return "/notice/read";
+    }
+    @GetMapping("/modify/{bno}")
+    public String modify(@PathVariable("bno") Long bno, Model model) {
+        NoticeDTO dto = noticeService.readOne(bno);
+        model.addAttribute("dto", dto);
+        return "/notice/modify";
+    }
+    @PostMapping("/modify")
+    public String modify(@ModelAttribute NoticeDTO noticeDTO) {
+        noticeService.save(noticeDTO);
+        return "redirect:/notice/read?bno="+noticeDTO.getBno();
     }
 }

@@ -2,15 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>register</title>
+    <title>modify</title>
 </head>
 <body>
 <form action="/notice/modify" method="post">
+    <input type="hidden" th:field="*{bno}"/>
     <div>
-        <input type="text" placeholder="title" name="title">
+        <input type="text" placeholder="title" name="title" th:value="${dto.title}">
     </div>
     <div>
-        <textarea placeholder="content"></textarea>
+        <textarea placeholder="content" >[[${dto.content}]]</textarea>
     </div>
     <div>
         <input type="text" placeholder="writer" name="writer" readonly>
