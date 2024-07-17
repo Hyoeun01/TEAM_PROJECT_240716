@@ -40,10 +40,10 @@ public class NoticeService {
                 .collect(Collectors.toList());
     }
 
-    public NoticeDTO getNotice(Long bno) {
-        return noticeRepository.stream()
-                .filter(notice -> notice.getBno().equals(bno))
-                .findFirst()
-                .orElse(null);
-    }
+//    public NoticeDTO getNotice(Long bno) {
+//        return noticeRepository.stream()
+//                .filter(notice -> notice.getBno().equals(bno))
+//                .findFirst()
+//                .orElse(null);
+//    }
 }

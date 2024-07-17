@@ -37,7 +37,7 @@ public class NoticeController {
     }
     @GetMapping("/read/{bno}")
     public String read(@PathVariable("bno") Long bno, Model model) {
-        NoticeDTO notice = noticeService.getNotice(bno);
+        NoticeDTO notice = noticeService.readOne(bno);
         model.addAttribute("notice", notice);
         return "notice/read";
     }
