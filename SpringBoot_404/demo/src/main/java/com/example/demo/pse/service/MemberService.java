@@ -8,8 +8,9 @@ import java.util.Optional;
 
 public interface MemberService {
     Member saveMember(Member member);
-    Optional<Member> findByEmail(String email);
-    void changeRole(Role newRole, String email);
-    void deleteMember(String email);
-    Member updateMember(String email, MemberDTO memberDto);
+    Optional<Member> findByMid(String mid);
+    void changeRole(Role newRole, String mid);
+    void deleteMember(String mid);
+    Member updateMember(String mid, MemberDTO memberDto);
+    boolean existsByMid(String mid);
 }

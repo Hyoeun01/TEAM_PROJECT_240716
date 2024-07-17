@@ -9,18 +9,18 @@
     <h2>Login</h2>
     <form th:action="@{/login}" method="post">
         <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+            <label for="mid">ID:</label>
+            <input type="text" id="mid" name="mid" required>
         </div>
         <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <label for="mpw">비밀번호:</label>
+            <input type="password" id="mpw" name="mpw" required>
         </div>
         <div>
-            <button type="submit">Login</button>
+            <button type="submit">로그인</button>
         </div>
     </form>
-    <p>Don't have an account? <a th:href="@{/signup}">Sign up</a></p>
+    <p>계정이 없으신가요? <a th:href="@{/signup}">회원가입</a></p>
 </div>
 </body>
 </html>

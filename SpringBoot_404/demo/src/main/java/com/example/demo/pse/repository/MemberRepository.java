@@ -12,7 +12,8 @@ import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, String> {
-    Optional<Member> findByEmail(String email);
+    boolean existsByMid(String mid);
+    Optional<Member> findByMid(String mid); // 이 부분 추가
 
     @Modifying
     @Transactional

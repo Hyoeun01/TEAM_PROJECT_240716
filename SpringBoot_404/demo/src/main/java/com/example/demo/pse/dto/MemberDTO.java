@@ -5,6 +5,9 @@ import lombok.Data;
 
 @Data
 public class MemberDTO {
+    private String mid;
+    private String mpw;
+    private String confirmMpw;
     private String email;
     private String nickname;
     private String phone;

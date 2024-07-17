@@ -25,32 +25,39 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Optional<Member> findByEmail(String email) {
-        return memberRepository.findByEmail(email);
+    @Transactional(readOnly = true)
+    public Optional<Member> findByMid(String mid) {
+        return memberRepository.findByMid(mid);
     }
 
     @Override
     @Transactional
-    public void changeRole(Role newRole, String email) {
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+    public void changeRole(Role newRole, String mid) {
+        Member member = memberRepository.findByMid(mid).orElseThrow(() -> new RuntimeException("User not found"));
         memberRepository.updateMemberRole(member.getMid(), newRole);
     }
 
     @Override
     @Transactional
-    public void deleteMember(String email) {
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+    public void deleteMember(String mid) {
+        Member member = memberRepository.findByMid(mid).orElseThrow(() -> new RuntimeException("User not found"));
         memberRepository.deleteByMid(member.getMid());
     }
 
     @Override
     @Transactional
-    public Member updateMember(String email, MemberDTO memberDto) {
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+    public Member updateMember(String mid, MemberDTO memberDto) {
+        Member member = memberRepository.findByMid(mid).orElseThrow(() -> new RuntimeException("User not found"));
         member.setEmail(memberDto.getEmail());
         member.setNickname(memberDto.getNickname());
         member.setPhone(memberDto.getPhone());
         member.setPoint(memberDto.getPoint());
         return memberRepository.save(member);
     }
+
+    @Override
+    public boolean existsByMid(String mid) {
+        return memberRepository.existsByMid(mid);
+    }
+
 }

@@ -3,21 +3,36 @@
 <head>
     <title>Sign Up</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script>
+        function checkMid() {
+            var mid = document.getElementById("mid").value;
+            fetch(`/members/checkMid?mid=${mid}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        alert("이미 존재하는 ID입니다.");
+                    } else {
+                        alert("사용 가능한 ID입니다.");
+                    }
+                });
+        }
+    </script>
 </head>
 <body>
 <div class="container">
     <h2>Sign Up</h2>
     <form th:action="@{/members/signup}" th:object="${member}" method="post">
         <div>
-            <label for="mid">Username:</label>
+            <label for="mid">ID:</label>
             <input type="text" id="mid" name="mid" required>
+            <button type="button" onclick="checkMid()">Check ID</button>
         </div>
         <div>
-            <label for="mpw">Password:</label>
+            <label for="mpw">비밀번호:</label>
             <input type="password" id="mpw" name="mpw" required>
         </div>
         <div>
-            <label for="confirmMpw">Confirm Password:</label>
+            <label for="confirmMpw">비밀번호 확인:</label>
             <input type="password" id="confirmMpw" name="confirmMpw" required>
         </div>
         <div>
@@ -25,15 +40,15 @@
             <input type="email" id="email" name="email" required>
         </div>
         <div>
-            <label for="nickname">Nickname:</label>
+            <label for="nickname">닉네임:</label>
             <input type="text" id="nickname" name="nickname" required>
         </div>
         <div>
-            <label for="phone">Phone:</label>
+            <label for="phone">전화번호:</label>
             <input type="text" id="phone" name="phone">
         </div>
         <div>
-            <button type="submit">Sign Up</button>
+            <button type="submit">회원가입</button>
         </div>
     </form>
 </div>
