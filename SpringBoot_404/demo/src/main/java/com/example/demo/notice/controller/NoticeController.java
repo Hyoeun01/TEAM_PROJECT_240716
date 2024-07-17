@@ -26,12 +26,19 @@ public class NoticeController {
         return "notice/register";
     }
     @PostMapping("/register")
-    public String register() {
-return "notice/list";
+    public String register(@ModelAttribute NoticeDTO noticeDTO) {
+        noticeService.save(noticeDTO);
+        return "redirect:/notice/list";
     }
     @GetMapping({"/read","/modify"})
     public void notice(Long no, Model model){
         NoticeDTO dto=noticeService.readOne(no);
         model.addAttribute("dto",dto);
+    }
+    @GetMapping("/read/{bno}")
+    public String read(@PathVariable("bno") Long bno, Model model) {
+        NoticeDTO notice = noticeService.getNotice(bno);
+        model.addAttribute("notice", notice);
+        return "notice/read";
     }
 }

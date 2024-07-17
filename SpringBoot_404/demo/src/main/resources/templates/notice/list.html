@@ -15,7 +15,7 @@
     </tr>
     <tr th:each="dto : ${notices}">
         <td th:text="${dto.bno}"></td>
-        <td th:text="${dto.title}"></td>
+        <td><a th:href="@{/notice/read/{bno}(bno=${dto.bno})}" th:text="${dto.title}"></a></td>
         <td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd')}"></td>
         <td th:text="${dto.writer}"></td>
     </tr>

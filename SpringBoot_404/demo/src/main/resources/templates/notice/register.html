@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
   <meta charset="UTF-8">
   <title>register</title>
@@ -10,10 +11,12 @@
     <input type="text" placeholder="title" name="title">
   </div>
   <div>
-    <textarea placeholder="content"></textarea>
+    <textarea placeholder="content" name="content"></textarea>
   </div>
   <div>
-    <input type="text" placeholder="writer" name="writer" readonly>
+    <input type="text" placeholder="writer" name="writer"  readonly>
+<!--           th:value="${#authentication.principal.writer}" -->
+
   </div>
   <a th:href="|@{/notice/list}|">
   <input type="button" value="목록" >

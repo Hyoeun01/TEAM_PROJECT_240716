@@ -19,8 +19,10 @@ public class NoticeService {
     public Optional<Notice> findByTitle(String title) {
         return noticeRepository.findByTitle(title);
     }
-    public Notice save(Notice notice) {
-        return noticeRepository.save(notice);
+    public NoticeDTO save(NoticeDTO noticeDTO) {
+        Notice notice = modelMapper.map(noticeDTO, Notice.class); // DTO를 엔티티로 변환
+        noticeRepository.save(notice);
+        return modelMapper.map(notice, NoticeDTO.class); // 저장된 엔티티를 다시 DTO로 변환
     }
 
     public NoticeDTO readOne(Long no) {
@@ -36,5 +38,12 @@ public class NoticeService {
         return notices.stream()
                 .map(notice -> modelMapper.map(notice, NoticeDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    public NoticeDTO getNotice(Long bno) {
+        return noticeRepository.stream()
+                .filter(notice -> notice.getBno().equals(bno))
+                .findFirst()
+                .orElse(null);
     }
 }
