@@ -7,19 +7,21 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductSearchImpl extends QuerydslRepositorySupport implements ProductSearch {
     public ProductSearchImpl() {
         super(Product.class);
     }
     @Override
-    public Page<ProductDTO> searchWithAll(String[] types, String keyword, Pageable pageable) {
+    public Page<ProductDTO> searchAll(String[] types, String keyword, Pageable pageable) {
         QProduct product = QProduct.product;
-        JPQLQuery<Product> productJPQLQuery = from(product);
+        JPQLQuery<Product> query = from(product);
 
         if((types != null && types.length > 0) && keyword != null){
             BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -33,15 +35,32 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
                         break;
                 }
             }// end for
-            productJPQLQuery.where(booleanBuilder);
+            query.where(booleanBuilder);
         }
-        productJPQLQuery.groupBy(product);
+        query.groupBy(product);
 
-        getQuerydsl().applyPagination(pageable, productJPQLQuery);
-        JPQLQuery<Tuple> tupleJPQLQuery = productJPQLQuery.select(product.category, product.product_name);
-        List<Tuple> tupleList = tupleJPQLQuery.fetch();
+        getQuerydsl().applyPagination(pageable, query);
 
+        JPQLQuery<Tuple> tupleQuery = query.select(product);
+        List<Tuple> tupleList = tupleQuery.fetch();
 
-        return null;
+        List<ProductDTO> dtoList = tupleList.stream().map(tuple -> {
+            Product product1 = (Product) tuple.get(product);
+
+            ProductDTO dto = ProductDTO.builder()
+                    .product_id(product1.getProduct_id())
+                    .product_name(product1.getProduct_name())
+                    .price(product1.getPrice())
+                    .quantity(product1.getTotal_quantity())
+                    .category(product1.getCategory())
+                    .content(product1.getContent())
+                    .product_img(product1.getProduct_img())
+                    .build();
+            return dto;
+        }).collect(Collectors.toList());
+
+        long totalCount = query.fetchCount();
+
+        return new PageImpl<>(dtoList, pageable, totalCount);
     }
 }

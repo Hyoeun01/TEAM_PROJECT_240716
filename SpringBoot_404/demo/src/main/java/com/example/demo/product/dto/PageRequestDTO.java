@@ -23,7 +23,7 @@ public class PageRequestDTO {
     @Builder.Default
     private int size = 10;
 
-    private String type; // 검색의 종류 : t,c,w,tc,tw,twc
+    private String type; // 검색의 종류 : c,n,cn
     private String keyword;
 
     public String[] getTypes() {

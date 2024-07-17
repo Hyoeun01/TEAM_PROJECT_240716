@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -25,6 +26,11 @@ public class ProductController {
     public void read(Long product_id) {
         ProductDTO productDTO = productService.readProduct(product_id);
         log.info(productDTO);
+    }
+
+    @PostMapping("/read")
+    public void readProduct(Long product_id) {
+
     }
 
 }

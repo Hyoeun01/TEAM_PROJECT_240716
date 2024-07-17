@@ -5,5 +5,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ProductSearch {
-    Page<ProductDTO> searchWithAll(String[] types, String keyword, Pageable pageable);
+    Page<ProductDTO> searchAll(String[] types, String keyword, Pageable pageable);
 }

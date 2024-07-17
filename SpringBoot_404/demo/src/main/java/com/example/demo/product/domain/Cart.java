@@ -24,4 +24,8 @@ public class Cart {
 
     @Column
     private int quantity;
+
+    public void changeQuantity(int quantity) {
+        this.quantity += quantity;
+    }
 }
