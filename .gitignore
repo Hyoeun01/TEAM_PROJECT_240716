@@ -144,6 +144,6 @@
 .idea/libraries/Gradle__org_webjars_swagger_ui_5_2_0.xml
 .idea/libraries/Gradle__org_xmlunit_xmlunit_core_2_9_1.xml
 .idea/libraries/Gradle__org_yaml_snakeyaml_2_2.xml
+.idea/.name
 .idea/modules/demo.iml
-.idea/modules/demo.main.iml
 .idea/modules/demo.test.iml
