@@ -44,10 +44,11 @@
 
     let productsHtml = "";
     for (let i = 0; i < products.length; i++) {
+        let products = products [i]
         productsHtml = productsHtml +
             '<div class="product-card">' +
             '<div>' +
-            '<img class="product-img" src="/img/product/snack/snack_pie.png">' +
+            '<img class="product-img" src="'+ product.imageUrl +'" />' +
             '</div>' +
             '<div class="product-contents">' +
             '<span class="product-name">후렌치 파이</span>' +
