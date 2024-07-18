@@ -23,33 +23,41 @@
 
 </body>
 <script>
-    let products =[
+
+    let products = [
         {
             name: "연세 그릭요거트빵",
-            price:"4,500원",
-            imageUrl:"/img/product/bread/bread_greek.png",
+            price: "4,500원",
+            imageUrl: "/img/product/bread/bread_greek.png",
         },
         {
             name: "픽셀 포켓몬빵",
-            price:"2,100원",
-            imageUrl:"/img/product/bread/bread_poket.png",
+            price: "2,100원",
+            imageUrl: "/img/product/bread/bread_poket.png",
         },
         {
             name: "제로콜라 파인맛",
-            price:"1,200원",
-            imageUrl:"/img/product/drink/drink_pepsi.png",
+            price: "1,200원",
+            imageUrl: "/img/product/drink/drink_pepsi.png",
         },
     ];
-    document.querySelector("#product-list").innerHTML =
-        <div class="product-card">
-            <div>
-                <img class="product-img" src="/img/product/snack/snack_pie.png">
-            </div>
-            <div class="product-contents">
-                <span class="product-name">후렌치 파이</span>
-                <span class="product-price">4,200원</span>
-            </div>
-        </div>
-    <span>상준 편의점</span>
+
+    let productsHtml = "";
+    for (let i = 0; i < products.length; i++) {
+        productsHtml = productsHtml +
+            '<div class="product-card">' +
+            '<div>' +
+            '<img class="product-img" src="/img/product/snack/snack_pie.png">' +
+            '</div>' +
+            '<div class="product-contents">' +
+            '<span class="product-name">후렌치 파이</span>' +
+            '<span class="product-price">4,200원</span>' +
+            '</div>' +
+            '</div>'
+    }
+
+    document.querySelector("#product-list").innerHTML = productsHtml;
+
+
 </script>
 </html>
