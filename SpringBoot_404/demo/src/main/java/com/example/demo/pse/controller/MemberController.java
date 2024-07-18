@@ -21,6 +21,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/members")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MemberController {
 
     private final MemberService memberService;
@@ -38,26 +39,38 @@ public class MemberController {
     @GetMapping("/signup")
     public String showSignupForm(Model model) {
         model.addAttribute("member", new Member());
-        return "signup"; // 회원가입 폼 템플릿 파일 이름
+        return "redirect:/signup";
     }
 
     // 회원가입 처리
     @PostMapping("/signup")
-    public String processSignup(@ModelAttribute Member member) {
+    public ResponseEntity<Object> processSignup(@RequestBody MemberDTO memberDTO) {
+        Member member = new Member();
+        member.setMid(memberDTO.getMid());
+        member.setMpw(memberDTO.getMpw());
+        member.setConfirmMpw(memberDTO.getConfirmMpw());
+        member.setEmail(memberDTO.getEmail());
+        member.setNickname(memberDTO.getNickname());
+        member.setPhone(memberDTO.getPhone());
         memberService.saveMember(member);
-        return "redirect:/members/login";
+        return ResponseEntity.ok(member);
     }
+//    @PostMapping("/signup")
+//    public String processSignup(@ModelAttribute Member member) {
+//        memberService.saveMember(member);
+//        return "redirect:/members/login";
+//    }
 
     // 로그인 폼 보여주기
     @GetMapping("/login")
     public String showLoginForm() {
-        return "login"; // 로그인 폼 템플릿 파일 이름
+        return "/login";
     }
 
     // 로그인 처리
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<Object> processLogin(@RequestParam Map<String, String> loginData) {
+    public ResponseEntity<Object> processLogin(@RequestBody Map<String, String> loginData) {
         try {
             String mid = loginData.get("mid");
             String mpw = loginData.get("mpw");
