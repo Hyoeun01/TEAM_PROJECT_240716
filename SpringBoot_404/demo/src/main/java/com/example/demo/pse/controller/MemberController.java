@@ -2,21 +2,36 @@ package com.example.demo.pse.controller;
 
 import com.example.demo.pse.domain.Member;
 import com.example.demo.pse.dto.MemberDTO;
+import com.example.demo.pse.security.UserPrinciple;
+import com.example.demo.pse.security.jwt.JwtTokenProvider;
 import com.example.demo.pse.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/members")
 public class MemberController {
 
     private final MemberService memberService;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public MemberController(MemberService memberService) {
+    public MemberController(MemberService memberService, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
         this.memberService = memberService;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.authenticationManager = authenticationManager;
     }
 
     // 회원가입 폼 보여주기
@@ -39,6 +54,24 @@ public class MemberController {
         return "login"; // 로그인 폼 템플릿 파일 이름
     }
 
+    // 로그인 처리
+    @PostMapping("/login")
+    @ResponseBody
+    public ResponseEntity<Object> processLogin(@RequestParam Map<String, String> loginData) {
+        try {
+            String mid = loginData.get("mid");
+            String mpw = loginData.get("mpw");
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(mid, mpw));
+            UserPrinciple userDetails = (UserPrinciple) authentication.getPrincipal();
+            Member member = userDetails.getMember();
+            String token = jwtTokenProvider.createToken(userDetails.getUsername(), userDetails.getAuthorities().iterator().next().getAuthority());
+            member.setToken(token);
+            return ResponseEntity.ok(member);
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(401).build();
+        }
+    }
+
     // 회원 정보 업데이트 폼 보여주기
     @GetMapping("/update")
     public String showUpdateForm(Model model, @RequestParam("mid") String mid) {
@@ -55,11 +88,10 @@ public class MemberController {
         return "redirect:/profile"; // 업데이트 후 리디렉션할 페이지
     }
 
-    //ID중복확인
+    // ID중복확인
     @GetMapping("/checkMid")
     @ResponseBody
     public boolean checkMid(@RequestParam String mid) {
         return memberService.existsByMid(mid);
     }
-
 }

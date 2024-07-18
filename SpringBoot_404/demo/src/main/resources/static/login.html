@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
     <title>Login</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+<!--    <link rel="stylesheet" href="@{/css/style.css}">-->
 </head>
 <body>
 <div class="container">
     <h2>Login</h2>
-    <form th:action="@{/login}" method="post">
+    <form action="/members/login" method="post">
         <div>
             <label for="mid">ID:</label>
             <input type="text" id="mid" name="mid" required>
@@ -20,7 +20,7 @@
             <button type="submit">로그인</button>
         </div>
     </form>
-    <p>계정이 없으신가요? <a th:href="@{/signup}">회원가입</a></p>
+    <p>계정이 없으신가요? <a href="/signup">회원가입</a></p>
 </div>
 </body>
 </html>

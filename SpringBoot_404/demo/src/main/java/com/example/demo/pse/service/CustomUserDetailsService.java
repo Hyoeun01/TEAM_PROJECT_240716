@@ -29,6 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return UserPrinciple.builder()
                 .mid(member.getMid())
                 .mpw(member.getMpw()) // 비밀번호는 이미 인코딩된 상태로 저장되어 있음
+                .member(member)
                 .authorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_" + member.getRole().name())))
                 .build();
     }

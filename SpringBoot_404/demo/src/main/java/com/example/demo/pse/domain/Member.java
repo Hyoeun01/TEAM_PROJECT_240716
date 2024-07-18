@@ -32,4 +32,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
+
+    @Transient
+    public String token;
 }

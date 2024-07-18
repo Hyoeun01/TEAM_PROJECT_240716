@@ -1,5 +1,6 @@
 package com.example.demo.pse.security;
 
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class UserPrinciple implements UserDetails {
     private transient String mpw;
     private transient Member member;
     private Set<GrantedAuthority> authorities;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -56,4 +58,6 @@ public class UserPrinciple implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }
