@@ -6,7 +6,7 @@ const ProductList = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        axios.get('/api/products')
+        axios.get('/product/list')
             .then(response => {
                 setProducts(response.data);
             })
@@ -18,10 +18,10 @@ const ProductList = () => {
     return (
         <div className="product-list">
             {products.map(product => (
-                <div key={product.id} className="card">
-                    <img src={product.imageUrl} alt={product.name} />
-                    <h2>{product.name}</h2>
-                    <p>{product.description}</p>
+                <div key={product.product_id} className="card">
+                    <img src="../../public/image1.jpg" alt={product.product_name} />
+                    <h2>{product.product_name}</h2>
+                    <p>{product.category}</p>
                     <p>${product.price}</p>
                 </div>
             ))}
