@@ -1,6 +1,6 @@
 .product-card {
     width: 180px;
-    height: 300px;
+    height: 320px;
     background-color: white;
     margin-right: 24px;
     margin-bottom: 20px;
@@ -30,4 +30,10 @@
     font-size: 16px;
     font-weight: 600;
     margin-top: 2px;
+}
+.product-category {
+    font-size: 15px;
+}
+.product-quantity {
+
 }
