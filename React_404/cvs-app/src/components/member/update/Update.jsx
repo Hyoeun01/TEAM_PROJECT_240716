@@ -39,6 +39,10 @@ const Update = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (member.mpw !== member.confirmMpw) {
+            alert("비밀번호를 다르게 입력하셨습니다. '비밀번호 확인'칸에 다시 비밀번호를 입력해주세요");
+            return;
+        }
         try {
             const response = await axios.post('/members/update', member, {
                 headers: {
@@ -47,6 +51,7 @@ const Update = () => {
             });
             if (response.status === 200) {
                 alert('회원 정보가 성공적으로 업데이트되었습니다.');
+                window.location.href = '/'; // 홈 페이지로 리다이렉트
             } else {
                 alert('회원 정보 업데이트 실패');
             }

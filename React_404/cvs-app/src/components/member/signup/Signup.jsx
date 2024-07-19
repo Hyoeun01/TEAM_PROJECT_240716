@@ -26,6 +26,11 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (mpw !== confirmMpw) {
+            alert("비밀번호를 다르게 입력하셨습니다. '비밀번호 확인'칸에 다시 비밀번호를 입력해주세요");
+            return;
+        }
+
         try {
             const response = await axios.post('/members/signup', {
                 mid,
