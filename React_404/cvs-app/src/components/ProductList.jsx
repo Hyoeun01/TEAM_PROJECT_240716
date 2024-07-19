@@ -6,7 +6,7 @@ const ProductList = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        axios.get('/product/list')
+        axios.get('http://localhost:8080/product/list')
             .then(response => {
                 setProducts(response.data);
             })
@@ -17,9 +17,10 @@ const ProductList = () => {
 
     return (
         <div className="product-list">
+            <h2>물품리스트</h2>
             {products.map(product => (
                 <div key={product.product_id} className="card">
-                    <img src="../../public/image1.jpg" alt={product.product_name} />
+                    {/* <img src='../../public/image1.jpg' alt={product.product_name} /> */}
                     <h2>{product.product_name}</h2>
                     <p>{product.category}</p>
                     <p>${product.price}</p>
