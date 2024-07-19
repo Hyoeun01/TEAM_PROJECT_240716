@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,9 @@ public class MemberController {
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public MemberController(MemberService memberService, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
@@ -159,5 +163,31 @@ public class MemberController {
 
         return ResponseEntity.ok(memberDTO);
     }
+
+    @PostMapping("/delete")
+    @ResponseBody
+    public ResponseEntity<Object> deleteMember(@RequestBody Map<String, String> requestData, HttpServletRequest request) {
+        String mid = requestData.get("mid");
+        String mpw = requestData.get("mpw");
+
+        String token = SecurityUtils.extractAuthTokenFromRequest(request);
+        if (token == null || !jwtTokenProvider.validateToken(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        Authentication auth = jwtTokenProvider.getAuthentication(request);
+        if (!auth.getName().equals(mid)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        Member member = memberService.findByMid(mid).orElseThrow(() -> new RuntimeException("User not found"));
+        if (!passwordEncoder.matches(mpw, member.getMpw())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        memberService.deleteMember(mid);
+        return ResponseEntity.ok().build();
+    }
+
 
 }

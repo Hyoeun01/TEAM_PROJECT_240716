@@ -12,6 +12,9 @@ const Update = () => {
         point: 0,
     });
 
+    const [showModal, setShowModal] = useState(false);
+    const [deletePassword, setDeletePassword] = useState('');
+
     useEffect(() => {
         const fetchMemberData = async () => {
             try {
@@ -61,9 +64,31 @@ const Update = () => {
         }
     };
 
+    const handleDelete = async () => {
+        try {
+            const response = await axios.post('/members/delete', {
+                mid: member.mid,
+                mpw: deletePassword,
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            if (response.status === 200) {
+                alert('탈퇴가 완료되었습니다.');
+                window.location.href = '/'; // 홈 페이지로 리다이렉트
+            } else {
+                alert('회원 탈퇴 실패');
+            }
+        } catch (error) {
+            console.error('회원 탈퇴 중 오류 발생:', error);
+            alert('회원 탈퇴 중 오류가 발생했습니다.');
+        }
+    };
+
     return (
         <div className="container">
-            <h2>Update Profile</h2>
+            <h2>회원정보 수정</h2>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="mid">ID:</label>
@@ -94,9 +119,33 @@ const Update = () => {
                     <input type="number" id="point" name="point" value={member.point} readOnly />
                 </div>
                 <div>
-                    <button type="submit">Update</button>
+                    <button type="submit">수정완료</button>
+                    <button type="button" onClick={() => setShowModal(true)}>회원탈퇴</button>
                 </div>
             </form>
+
+            {showModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <h2>회원 탈퇴</h2>
+                        <p>탈퇴 후 복구가 불가능합니다. 정말로 탈퇴 하시겠습니까?</p>
+                        <div>
+                            <label htmlFor="deletePassword">비밀번호:</label>
+                            <input
+                                type="password"
+                                id="deletePassword"
+                                name="deletePassword"
+                                value={deletePassword}
+                                onChange={(e) => setDeletePassword(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <button onClick={() => setShowModal(false)}>아니오</button>
+                        <button onClick={handleDelete}>탈퇴하기</button>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 };
