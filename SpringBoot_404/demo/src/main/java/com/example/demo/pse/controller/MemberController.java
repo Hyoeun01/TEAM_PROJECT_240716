@@ -5,6 +5,8 @@ import com.example.demo.pse.dto.MemberDTO;
 import com.example.demo.pse.security.UserPrinciple;
 import com.example.demo.pse.security.jwt.JwtTokenProvider;
 import com.example.demo.pse.service.MemberService;
+import com.example.demo.pse.utils.SecurityUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -106,5 +108,24 @@ public class MemberController {
     @ResponseBody
     public boolean checkMid(@RequestParam String mid) {
         return memberService.existsByMid(mid);
+    }
+
+
+    @GetMapping("/checkLogin")
+    @ResponseBody
+    public ResponseEntity<Map<String, Boolean>> checkLogin(HttpServletRequest request) {
+        String token = SecurityUtils.extractAuthTokenFromRequest(request);
+        boolean isLoggedIn = token != null && jwtTokenProvider.validateToken(request);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("isLoggedIn", isLoggedIn);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/logout")
+    @ResponseBody
+    public ResponseEntity<Object> logout() {
+        // 실제로는 서버 측에서 세션을 무효화하거나, 클라이언트 측에서 토큰을 삭제
+        // 여기서는 클라이언트에서 토큰을 삭제하는 것으로 충분함
+        return ResponseEntity.ok().build();
     }
 }

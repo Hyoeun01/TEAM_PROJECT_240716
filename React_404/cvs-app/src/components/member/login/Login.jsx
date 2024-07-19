@@ -49,7 +49,7 @@ const Login = () => {
                     />
                 </div>
                 <div>
-                    <button type="submit">로그인</button>
+                    <button type="submit">Login</button>
                 </div>
             </form>
             <p>계정이 없으신가요? <a href="/signup">회원가입</a></p>
