@@ -2,6 +2,7 @@ package com.example.demo.product.service.product;
 
 import com.example.demo.product.domain.Product;
 import com.example.demo.product.dto.ProductDTO;
+import com.example.demo.product.repository.CartRepository;
 import com.example.demo.product.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

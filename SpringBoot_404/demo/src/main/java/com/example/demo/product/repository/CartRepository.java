@@ -7,8 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface CartRepository  extends JpaRepository<Cart, Long> {
     // cart_id를 조회해서 카운트가 10을 초과하면 register가 불가능하게 만들기
-
-    @Query("select count(c) from Cart c where c.cart_id =:cart_id")
-    long countByCartId(@Param("cart_id") Long cart_id);
+    @Query("select count(c) from Cart c where c.user_id =:user_id")
+    long countByUserId(@Param("user_id") String user_id);
 
 }

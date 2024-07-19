@@ -28,9 +28,6 @@ public class ProductController {
         log.info(productDTO);
     }
 
-    @PostMapping("/read")
-    public void readProduct(Long product_id) {
 
-    }
 
 }

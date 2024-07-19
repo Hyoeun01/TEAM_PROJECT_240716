@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CartService {
 
-    Long register(CartDTO cartDTO);
+    String  register(CartDTO cartDTO);
     List<CartDTO> selectAll();
     void modify(CartDTO cartDTO);
     void remove(Long cart_id);

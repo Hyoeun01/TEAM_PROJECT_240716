@@ -21,12 +21,17 @@ import java.util.stream.Collectors;
 public class CartServiceImpl implements CartService{
 
     private final CartRepository cartRepository;
+    private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
 
     @Override
-    public Long register(CartDTO cartDTO) {
-
-        return 0L;
+    public String  register(CartDTO cartDTO) {
+        Long cartCount = cartRepository.countByUserId(cartDTO.getUser_id());
+        if(cartCount > 10) {
+            return "error";
+        }
+        Cart cart = modelMapper.map(cartDTO, Cart.class);
+        return cartRepository.save(cart).getCart_id().toString();
     }
 
     @Override
