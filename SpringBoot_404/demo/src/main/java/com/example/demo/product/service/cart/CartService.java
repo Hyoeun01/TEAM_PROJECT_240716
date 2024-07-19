@@ -10,5 +10,5 @@ public interface CartService {
     List<CartDTO> selectAll();
     void modify(CartDTO cartDTO);
     void remove(Long cart_id);
-
+    //void addItemToCart(Long cartId, CartItem cartItem);
 }

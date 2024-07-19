@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +28,6 @@ public class ProductServiceImpl implements ProductService{
         return productRepository.findAll().stream()
                 .map(product -> modelMapper.map(product, ProductDTO.class))
                 .collect(Collectors.toList());
-
     }
 
     @Override
@@ -39,7 +39,10 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<ProductDTO> readCategory() {
-        return List.of();
+    public List<ProductDTO> readCategory(String category) {
+        List<Product> products = productRepository.findByCategory(category);
+        return products.stream()
+                .map(product -> modelMapper.map(product, ProductDTO.class))
+                .collect(Collectors.toList());
     }
 }

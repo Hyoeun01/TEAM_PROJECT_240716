@@ -10,7 +10,7 @@ public interface ProductService {
     List<ProductDTO> readAllProducts(); // 전체 조회
 
     ProductDTO readProduct(Long product_id); // 상품 상세보기
-    List<ProductDTO> readCategory(); // 카테고리로 조회
+    List<ProductDTO> readCategory(String category); // 카테고리로 조회
 
     default ProductDTO entityToDTO(Product product) {
         ProductDTO productDTO = ProductDTO.builder()

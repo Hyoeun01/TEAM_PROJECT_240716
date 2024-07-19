@@ -3,6 +3,7 @@ package com.example.demo.product.service.cart;
 import com.example.demo.product.domain.Cart;
 import com.example.demo.product.dto.CartDTO;
 import com.example.demo.product.repository.CartRepository;
+import com.example.demo.product.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,9 +22,10 @@ public class CartServiceImpl implements CartService{
 
     private final CartRepository cartRepository;
     private final ModelMapper modelMapper;
-    
+
     @Override
     public Long register(CartDTO cartDTO) {
+
         return 0L;
     }
 
@@ -46,4 +48,8 @@ public class CartServiceImpl implements CartService{
     public void remove(Long cart_id) {
         cartRepository.deleteById(cart_id);
     }
+
+
+
 }
+
