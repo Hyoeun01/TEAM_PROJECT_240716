@@ -20,7 +20,7 @@ public class ReviewController {
         return new ResponseEntity<>(reviewService.saveReview(review), HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<Object> getReviews() {
 
         return new ResponseEntity<>(reviewService.findAllReviews(), HttpStatus.OK);
