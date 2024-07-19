@@ -58,19 +58,19 @@
         })
         .catch(function (error) {
             console.error("통신 실패:", error);
-            if (error.response) {
-                // 서버가 응답했지만 상태 코드가 2xx 범위에 있지 않음
-                console.error("서버 응답 오류:", error.response.data);
-                console.error("응답 상태 코드:", error.response.status);
-                console.error("응답 헤더:", error.response.headers);
-            } else if (error.request) {
-                // 요청이 만들어졌으나 응답을 받지 못함
-                console.error("요청 데이터:", error.request);
-            } else {
-                // 요청을 설정하는 중에 오류가 발생함
-                console.error("오류 메시지:", error.message);
-            }
-            console.error("설정 정보:", error.config);
+            // if (error.response) {
+            //     // 서버가 응답했지만 상태 코드가 2xx 범위에 있지 않음
+            //     console.error("서버 응답 오류:", error.response.data);
+            //     console.error("응답 상태 코드:", error.response.status);
+            //     console.error("응답 헤더:", error.response.headers);
+            // } else if (error.request) {
+            //     // 요청이 만들어졌으나 응답을 받지 못함
+            //     console.error("요청 데이터:", error.request);
+            // } else {
+            //     // 요청을 설정하는 중에 오류가 발생함
+            //     console.error("오류 메시지:", error.message);
+            // }
+            // console.error("설정 정보:", error.config);
         });
 
 </script>

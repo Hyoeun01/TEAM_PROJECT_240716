@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import ProductList from "../components/ProductList";
 
 const Product = () => {
-    const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState([]);
 
-return (<div>관리페이지</div>);
-
+  return (
+    <div>
+      <ProductList />
+    </div>
+  );
 };
 
 export default Product;
