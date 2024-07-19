@@ -26,14 +26,13 @@
     axios.get("http://localhost:8080/product")
         .then(function (result) {
             console.log("통신 결과 :", result);
-            const products = result.data.products;
+            const products = result.data;
 
             // 서버에서 받은 전체 데이터 로그
             console.log("서버 응답 데이터:", result.data);
 
             // products 데이터가 존재하는지 확인
-            if (result.data && result.data.products) {
-                const products = result.data.products;
+            if (products) {
 
                 let productsHtml = "";
                 for (let i = 0; i < products.length; i++) {
@@ -47,7 +46,7 @@
                         '<span class="product-name">' + product.product_name + "</span>" +
                         '<span class="product-price">' + product.price + "</span>" +
                         '<span class="product-category">' + product.category + "</span>" +
-                        '<span class="product-quantity">' + product.total_quantity + "</span>" +
+                        '<span class="product-quantity">' + "수량 : " + product.total_quantity + "</span>" +
                         "</div>" +
                         '</div>';
                 }

@@ -27,8 +27,4 @@ public class ProductController {
             return "product/list";
     }
 
-    @GetMapping("/list2")
-    public String getProduct2(){
-        return "product/list2";
-    }
 }
