@@ -20,8 +20,8 @@ public class Review {
     @Column(name = "review_exp")
     private String review_exp;
 
-    @Column(name = "user_nickname")
-    private String user_nickname;
+    @Column(name = "nickname")
+    private String nickname;
 
     @Column(name = "p_id")
     private Long p_id;
