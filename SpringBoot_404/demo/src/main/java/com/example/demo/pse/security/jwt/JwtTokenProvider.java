@@ -6,5 +6,6 @@ import org.springframework.security.core.Authentication;
 public interface JwtTokenProvider {
     String createToken(String mid, String role);
     Authentication getAuthentication(HttpServletRequest request);
-    boolean validateToken(HttpServletRequest request);
+    boolean validateToken(String token);
+    String resolveToken(HttpServletRequest request);
 }

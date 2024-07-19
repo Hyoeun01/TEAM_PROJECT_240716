@@ -7,7 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy; // 추가된 부분
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,7 +32,7 @@ public class JwtTokenProviderImpl implements JwtTokenProvider {
 
     private final CustomUserDetailsService customUserDetailsService;
 
-    public JwtTokenProviderImpl(@Lazy CustomUserDetailsService customUserDetailsService) { // 변경된 부분
+    public JwtTokenProviderImpl(@Lazy CustomUserDetailsService customUserDetailsService) {
         this.customUserDetailsService = customUserDetailsService;
     }
 
@@ -55,7 +55,8 @@ public class JwtTokenProviderImpl implements JwtTokenProvider {
 
     @Override
     public Authentication getAuthentication(HttpServletRequest request) {
-        Claims claims = extractClaims(request);
+        String token = resolveToken(request);
+        Claims claims = extractClaims(token);
 
         if (claims == null) {
             return null;
@@ -68,8 +69,8 @@ public class JwtTokenProviderImpl implements JwtTokenProvider {
     }
 
     @Override
-    public boolean validateToken(HttpServletRequest request) {
-        Claims claims = extractClaims(request);
+    public boolean validateToken(String token) {
+        Claims claims = extractClaims(token);
 
         if (claims == null || claims.getExpiration().before(new Date())) {
             return false;
@@ -78,8 +79,16 @@ public class JwtTokenProviderImpl implements JwtTokenProvider {
         return true;
     }
 
-    private Claims extractClaims(HttpServletRequest request) {
-        String token = resolveToken(request);
+    @Override
+    public String resolveToken(HttpServletRequest req) {
+        String bearerToken = req.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+
+    private Claims extractClaims(String token) {
 
         if (token == null) {
             return null;
@@ -94,11 +103,4 @@ public class JwtTokenProviderImpl implements JwtTokenProvider {
                 .getBody();
     }
 
-    private String resolveToken(HttpServletRequest req) {
-        String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
-        }
-        return null;
-    }
 }

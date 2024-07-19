@@ -48,10 +48,12 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public Member updateMember(String mid, MemberDTO memberDto) {
         Member member = memberRepository.findByMid(mid).orElseThrow(() -> new RuntimeException("User not found"));
+        if (!memberDto.getMpw().isEmpty()) {
+            member.setMpw(passwordEncoder.encode(memberDto.getMpw()));
+        }
         member.setEmail(memberDto.getEmail());
         member.setNickname(memberDto.getNickname());
         member.setPhone(memberDto.getPhone());
-        member.setPoint(memberDto.getPoint());
         return memberRepository.save(member);
     }
 

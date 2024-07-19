@@ -8,6 +8,7 @@ import com.example.demo.pse.service.MemberService;
 import com.example.demo.pse.utils.SecurityUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -57,11 +58,6 @@ public class MemberController {
         memberService.saveMember(member);
         return ResponseEntity.ok(member);
     }
-//    @PostMapping("/signup")
-//    public String processSignup(@ModelAttribute Member member) {
-//        memberService.saveMember(member);
-//        return "redirect:/members/login";
-//    }
 
     // 로그인 폼 보여주기
     @GetMapping("/login")
@@ -89,18 +85,31 @@ public class MemberController {
 
     // 회원 정보 업데이트 폼 보여주기
     @GetMapping("/update")
-    public String showUpdateForm(Model model, @RequestParam("mid") String mid) {
-        Member member = memberService.findByMid(mid)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid member mid:" + mid));
-        model.addAttribute("member", member);
+    public String showUpdateForm(Model model) {
         return "update"; // 업데이트 폼 템플릿 파일 이름
     }
 
     // 회원 정보 업데이트 처리
     @PostMapping("/update")
-    public String processUpdate(@RequestParam("mid") String mid, @ModelAttribute MemberDTO memberDTO) {
-        memberService.updateMember(mid, memberDTO);
-        return "redirect:/profile"; // 업데이트 후 리디렉션할 페이지
+    @ResponseBody
+    public ResponseEntity<Object> processUpdate(@RequestBody MemberDTO memberDTO, HttpServletRequest request) {
+        String token = SecurityUtils.extractAuthTokenFromRequest(request);
+        if (token == null || !jwtTokenProvider.validateToken(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String username = jwtTokenProvider.getAuthentication(request).getName();
+        Member member = memberService.findByMid(username).orElseThrow(() -> new RuntimeException("User not found"));
+
+        // 업데이트할 필드 설정
+        member.setMpw(memberDTO.getMpw());
+        member.setConfirmMpw(memberDTO.getConfirmMpw());
+        member.setEmail(memberDTO.getEmail());
+        member.setNickname(memberDTO.getNickname());
+        member.setPhone(memberDTO.getPhone());
+
+        memberService.updateMember(username, memberDTO);
+        return ResponseEntity.ok(member);
     }
 
     // ID중복확인
@@ -115,7 +124,7 @@ public class MemberController {
     @ResponseBody
     public ResponseEntity<Map<String, Boolean>> checkLogin(HttpServletRequest request) {
         String token = SecurityUtils.extractAuthTokenFromRequest(request);
-        boolean isLoggedIn = token != null && jwtTokenProvider.validateToken(request);
+        boolean isLoggedIn = token != null && jwtTokenProvider.validateToken(token);
         Map<String, Boolean> response = new HashMap<>();
         response.put("isLoggedIn", isLoggedIn);
         return ResponseEntity.ok(response);
@@ -128,4 +137,27 @@ public class MemberController {
         // 여기서는 클라이언트에서 토큰을 삭제하는 것으로 충분함
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/me")
+    @ResponseBody
+    public ResponseEntity<MemberDTO> getCurrentMember(HttpServletRequest request) {
+        String token = SecurityUtils.extractAuthTokenFromRequest(request);
+        if (token == null || !jwtTokenProvider.validateToken(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String username = jwtTokenProvider.getAuthentication(request).getName();
+        Member member = memberService.findByMid(username).orElseThrow(() -> new RuntimeException("User not found"));
+
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setMid(member.getMid());
+        memberDTO.setEmail(member.getEmail());
+        memberDTO.setNickname(member.getNickname());
+        memberDTO.setPhone(member.getPhone());
+        memberDTO.setPoint(member.getPoint());
+        memberDTO.setRole(member.getRole());
+
+        return ResponseEntity.ok(memberDTO);
+    }
+
 }

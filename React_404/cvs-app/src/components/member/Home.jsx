@@ -50,12 +50,20 @@ const Home = () => {
         }
     };
 
+
+    const handleUpdateProfile = () => {
+        window.location.href = '/update';
+    };
+
     return (
         <div className="container">
             <h1>Welcome to the Home Page</h1>
             <p>This is the default home page.</p>
             {isLoggedIn ? (
-                <button onClick={handleLogout}>Logout</button>
+                <>
+                    <button onClick={handleLogout}>Logout</button>
+                    <button onClick={handleUpdateProfile}>회원정보 수정</button> 
+                </>
             ) : (
                 <button onClick={handleLogin}>Login</button>
             )}
