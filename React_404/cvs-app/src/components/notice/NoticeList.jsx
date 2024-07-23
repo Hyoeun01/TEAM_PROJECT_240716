@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 const NoticeList = () => {
   const [notices, setNotices] = useState([]);
-  const [loading, setLoading] = useState(true); // 로딩 상태
-  const [error, setError] = useState(null); // 에러 상태
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
-    fetch('/notice/list')
+    fetch('http://localhost:8080/notice/list') // 절대 경로로 변경
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -14,7 +14,7 @@ const NoticeList = () => {
         return response.json();
       })
       .then(data => {
-        console.log('Fetched notices:', data); // 데이터 확인
+        console.log('Fetched notices:', data); 
         setNotices(data);
         setLoading(false);
       })
@@ -25,20 +25,22 @@ const NoticeList = () => {
       });
   }, []);
 
-  if (loading) return <p>Loading...</p>; // 로딩 상태 표시
-  if (error) return <p>Error: {error.message}</p>; // 에러 상태 표시
+  if (loading) return <p>Loading...</p>; 
+  if (error) return <p>Error: {error.message}</p>; 
 
   return (
     <div>
       <h1>Notice List</h1>
       <ul>
         {notices.length > 0 ? notices.map(notice => (
-          <li key={notice.bno}>{notice.title}</li>
+          <li key={notice.bno}>
+            <a href={`/notice/read/${notice.bno}`}>{notice.title}</a>
+          </li>
         )) : <p>No notices found.</p>}
       </ul>
+      <a href="/notice/register"><button>글쓰기</button></a>
     </div>
   );
 }
 
 export default NoticeList;
-

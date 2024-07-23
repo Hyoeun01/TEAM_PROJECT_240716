@@ -9,13 +9,32 @@ const RegisterForm = () => {
       content: formData.get('content'),
       writer: formData.get('writer')
     };
-    // 등록 처리 로직을 추가할 수 있습니다.
-    console.log('새로운 공지사항:', newNotice);
+
+    fetch('http://localhost:8080/notice/register', { // 절대 경로로 변경
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newNotice)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('새로운 공지사항:', data);
+      window.location.href = '/notice/list';
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit} action="/notice/register" method="post">
+      <form onSubmit={handleSubmit}>
         <div>
           <input type="text" placeholder="title" name="title" />
         </div>
@@ -24,12 +43,9 @@ const RegisterForm = () => {
         </div>
         <div>
           <input type="text" placeholder="writer" name="writer" readOnly />
-          {/* React에서는 #authentication.principal.writer를 바로 사용할 수 없으므로,
-              필요한 경우 해당 값을 props로 받아와서 설정해야 합니다. */}
-          {/* 예를 들어, 부모 컴포넌트에서 writer 값을 props로 넘겨받아 사용할 수 있습니다. */}
         </div>
         <div>
-          <button onClick={() => window.location.href='/notice/list'}>목록</button> {/* 목록으로 돌아가는 버튼 */}
+          <button type="button" onClick={() => window.location.href='/notice/list'}>목록</button>
           <input type="submit" value="등록" />
         </div>
       </form>
