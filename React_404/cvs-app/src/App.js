@@ -12,11 +12,11 @@ function App() {
     return (
         <Router>
             <Navbar />
-            <Routes>                
+            <Routes>           
+                <Route path="/" element={<HomePage />} />     
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/update" element={<Update />} />
-                <Route path="/" element={<HomePage />} />
             </Routes>
         </Router>
   );
