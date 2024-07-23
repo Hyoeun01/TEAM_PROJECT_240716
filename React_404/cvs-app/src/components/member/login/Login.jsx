@@ -24,7 +24,7 @@ const Login = () => {
 
     return (
         <div className="container">
-            <h2>Login</h2>
+            <h2>로그인</h2>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="mid">ID:</label>
