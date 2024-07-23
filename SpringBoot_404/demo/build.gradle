@@ -28,9 +28,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    //스프링 시큐리티
-//    implementation 'org.springframework.boot:spring-boot-starter-security:3.2.5'
+    //스프링 시큐리티_주석 되있던걸 주석해제함_성언
+    implementation 'org.springframework.boot:spring-boot-starter-security:3.2.5'
 
+    // JJWT 라이브러리 추가_성언
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
@@ -39,7 +43,8 @@ dependencies {
     implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.1.0'
     implementation 'org.modelmapper:modelmapper:3.1.0'
     // https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5
-//    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.2.RELEASE'
+    //스프링 시큐리티_주석 되있던걸 주석해제함_성언
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.2.RELEASE'
 
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
     annotationProcessor("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta")
