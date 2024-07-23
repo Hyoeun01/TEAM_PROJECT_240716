@@ -1,24 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
+import NoticeList from './components/notice/NoticeList';
+import RegisterForm from './components/notice/RegisterForm';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/notice/list" />} /> {/* 기본 경로를 /notice/list로 리디렉션 */}
+        <Route path="/notice/list" element={<NoticeList />} />
+        <Route path="/notice/register" element={<RegisterForm />} />
+      </Routes>
+    </Router>
   );
 }
 

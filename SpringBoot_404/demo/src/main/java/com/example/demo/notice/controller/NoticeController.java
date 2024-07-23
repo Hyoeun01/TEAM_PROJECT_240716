@@ -1,56 +1,56 @@
 package com.example.demo.notice.controller;
 
-
 import com.example.demo.notice.dto.NoticeDTO;
 import com.example.demo.notice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/notice")
-@RequiredArgsConstructor
+
+
+    @RestController
+    @RequestMapping("/notice")
+    @RequiredArgsConstructor
 public class NoticeController {
-    private final NoticeService noticeService;
 
-    @GetMapping("/list")
-    public String getAllNotices(Model model) {
-        List<NoticeDTO> notices = noticeService.getAllNotices();
-        model.addAttribute("notices", notices);
-        return "/notice/list"; // 공지사항 리스트 페이지
+        private final NoticeService noticeService;
+
+        @GetMapping("/list")
+        public ResponseEntity<List<NoticeDTO>> getAllNotices() {
+            List<NoticeDTO> notices = noticeService.getAllNotices();
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(notices);
+
+        }
+
+        @PostMapping("/register")
+        public ResponseEntity<String> register(@RequestBody NoticeDTO noticeDTO) {
+            noticeService.save(noticeDTO);
+            return ResponseEntity.ok("Notice registered successfully");
+        }
+
+        @GetMapping("/read/{bno}")
+        public ResponseEntity<NoticeDTO> read(@PathVariable("bno") Long bno) {
+            NoticeDTO dto = noticeService.readOne(bno);
+            return ResponseEntity.ok(dto);
+        }
+
+        @PostMapping("/modify")
+        public ResponseEntity<String> modify(@RequestBody NoticeDTO noticeDTO) {
+            noticeService.save(noticeDTO);
+            return ResponseEntity.ok("Notice updated successfully");
+        }
+
+        @PostMapping("/remove")
+        public ResponseEntity<String> remove(@RequestBody NoticeDTO noticeDTO) {
+            Long bno = noticeDTO.getBno();
+            noticeService.remove(bno);
+            return ResponseEntity.ok("Notice removed successfully");
+        }
     }
 
-    @GetMapping("/register")
-    public String registerNotice() {
-        return "/notice/register";
-    }
 
-    @PostMapping("/register")
-    public String register(@ModelAttribute NoticeDTO noticeDTO) {
-        noticeService.save(noticeDTO);
-        return "redirect:/notice/list";
-    }
-
-    @GetMapping("/read/{bno}")
-    public String read(@PathVariable("bno") Long bno, Model model) {
-        NoticeDTO dto = noticeService.readOne(bno);
-        model.addAttribute("dto", dto);
-        return "/notice/read";
-    }
-
-    @GetMapping("/modify/{bno}")
-    public String modify(@PathVariable("bno") Long bno, Model model) {
-        NoticeDTO dto = noticeService.readOne(bno);
-        model.addAttribute("dto", dto);
-        return "/notice/modify";
-    }
-
-    @PostMapping("/modify")
-    public String modify(@ModelAttribute NoticeDTO noticeDTO) {
-        noticeService.save(noticeDTO);
-        return "redirect:/notice/read/" + noticeDTO.getBno();
-    }
-}

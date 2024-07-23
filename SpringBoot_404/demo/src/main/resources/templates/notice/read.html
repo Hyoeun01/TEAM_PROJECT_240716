@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>register</title>
+    <title>read</title>
 </head>
 <body>
     <div>
-<!--        <input type="text"  name="bno" th:value="${dto.bno}" readonly>-->
+        <input type="hidden" name="bno" th:value="${dto.bno}"/> <!-- hidden 필드에 bno 값을 전달 -->
     </div>
     <div>
         <input type="text"  name="title" th:value="${dto.title}" readonly>
@@ -15,7 +15,7 @@
         <textarea readonly>[[${dto.content}]]</textarea>
     </div>
     <div>
-        <input type="text" placeholder="writer" name="writer" readonly>
+        <input type="text" placeholder="writer" name="writer" th:value="${dto.writer}" readonly>
     </div>
     <a th:href="|@{/notice/list}|">
     <input type="button" value="목록" >

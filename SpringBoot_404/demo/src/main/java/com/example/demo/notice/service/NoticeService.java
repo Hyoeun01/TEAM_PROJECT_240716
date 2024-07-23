@@ -40,6 +40,11 @@ public class NoticeService {
                 .collect(Collectors.toList());
     }
 
+    public void remove(Long bno) {
+//        replyRepository.deleteByBoard_Bno(bno);
+        noticeRepository.deleteById(bno);
+    }
+
 //    public NoticeDTO getNotice(Long bno) {
 //        return noticeRepository.stream()
 //                .filter(notice -> notice.getBno().equals(bno))

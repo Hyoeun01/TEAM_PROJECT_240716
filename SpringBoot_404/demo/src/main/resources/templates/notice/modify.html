@@ -20,7 +20,12 @@
         <input type="button" value="목록">
     </a>
     <input type="submit" value="수정">
-    <input type="button" value="삭제">
+</form>
+<form action="/notice/remove" method="post">
+    <input type="hidden" name="bno" th:value="${dto.bno}"/>
+    <input type="hidden" name="writer" th:value="${dto.writer}"/>
+    <input type="submit" value="삭제">
+
 </form>
 </body>
 </html>
