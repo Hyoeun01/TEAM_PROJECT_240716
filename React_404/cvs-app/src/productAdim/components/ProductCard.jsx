@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
         <div className="product-header">
           <img
             className="product-img"
-            src={`/img/product${product.product_img}`}
+            src={`http://localhost:8080/img/${product.product_img}`}
             alt={product.product_name}
           />
         </div>

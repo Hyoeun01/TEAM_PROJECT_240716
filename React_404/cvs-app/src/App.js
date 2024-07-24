@@ -8,6 +8,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import Product from "./productAdim/page/Product";
 import ProductView from "./productAdim/page/ProductView";
+import ProductAdd from "./productAdim/page/ProductAdd";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         <Route path="/update" element={<Update />} />
         <Route path="/productAdmin" element={<Product />} />
         <Route path="/productView/:id" element={<ProductView />} />
+        <Route path="/productAdd" element={<ProductAdd />} />
+
       </Routes>
     </Router>
   );
