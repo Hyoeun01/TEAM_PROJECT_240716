@@ -2,9 +2,17 @@ import React from "react";
 import "./ProductCard.css";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onSelect, isSelected, isSelectionMode }) => {
   return (
     <div className="product-card">
+      {isSelectionMode && (
+        <input
+          type="checkbox"
+          checked={isSelected}
+          onChange={() => onSelect(product.product_id)}
+          className="product-checkbox"
+        />
+      )}
       <Link className="product-link" to={`/productView/${product.product_id}`}>
         <div className="product-header">
           <img

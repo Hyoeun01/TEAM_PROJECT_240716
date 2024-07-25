@@ -7,6 +7,8 @@ import "./ProductList.css";
 const ProductList = () => {
   const [products, setProducts] = useState([]); // 모든 제품
   const [displayedProducts, setDisplayedProducts] = useState([]); // 현재 표시된 제품
+  const [selectedProducts, setSelectedProducts] = useState(new Set()); // 선택된 제품
+  const [isSelectionMode, setIsSelectionMode] = useState(false); // 선택 모드 상태
   const [error, setError] = useState(null);
   const [hasMore, setHasMore] = useState(true); // 더 많은 제품이 있는지 여부
   const [page, setPage] = useState(1); // 현재 페이지
@@ -37,16 +39,75 @@ const ProductList = () => {
     setHasMore(products.length > nextPage * pageSize); // 다음 페이지가 있는지 여부 설정
   };
 
+  const handleSelectProduct = (productId) => {
+    setSelectedProducts((prevSelected) => {
+      const newSelected = new Set(prevSelected);
+      if (newSelected.has(productId)) {
+        newSelected.delete(productId); // 이미 선택된 경우 선택 해제
+      } else {
+        newSelected.add(productId); // 선택 추가
+      }
+      return newSelected;
+    });
+  };
+
+  const handleDeleteSelected = async () => {
+    if (window.confirm("선택된 제품을 삭제하시겠습니까?")) {
+      try {
+        await Promise.all(
+          [...selectedProducts].map((productId) =>
+            axios.delete(`http://localhost:8080/product/${productId}`)
+          )
+        );
+        alert("선택된 제품이 삭제되었습니다.");
+
+        // 삭제 후 제품 목록 갱신
+        const updatedProducts = products.filter(
+          (product) => !selectedProducts.has(product.product_id)
+        );
+        setProducts(updatedProducts);
+        setDisplayedProducts(updatedProducts.slice(0, pageSize));
+        setSelectedProducts(new Set()); // 선택 상태 초기화
+        setIsSelectionMode(false); // 선택 모드 해제
+        setHasMore(updatedProducts.length > pageSize);
+      } catch (error) {
+        console.error("제품 삭제 중 오류가 발생했습니다:", error);
+        alert("제품 삭제 중 오류가 발생했습니다.");
+      }
+    }
+  };
+
   return (
     <div>
       <h1>물품 관리</h1>
-      <Link to="/productAdd">물품 등록하기</Link>
+      <div className="action-buttons">
+        <Link to="/productAdd" className="add-product-button">
+          물품 등록하기
+        </Link>
+        <button
+          className="btn btn-primary"
+          onClick={() => setIsSelectionMode((prevMode) => !prevMode)}
+        >
+          {isSelectionMode ? "선택 취소" : "선택"}
+        </button>
+        {isSelectionMode && (
+          <button className="btn btn-danger" onClick={handleDeleteSelected}>
+            삭제하기
+          </button>
+        )}
+      </div>
       <div className="product-list">
         {error ? (
           <p>데이터를 불러오는 중 오류가 발생했습니다: {error.message}</p>
         ) : (
           displayedProducts.map((product) => (
-            <ProductCard key={product.product_id} product={product} />
+            <ProductCard
+              key={product.product_id}
+              product={product}
+              onSelect={handleSelectProduct}
+              isSelected={selectedProducts.has(product.product_id)}
+              isSelectionMode={isSelectionMode}
+            />
           ))
         )}
       </div>
