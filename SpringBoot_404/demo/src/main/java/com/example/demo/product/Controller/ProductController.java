@@ -59,27 +59,27 @@ public class ProductController {
         return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.CREATED);
     }
 
-    // 파일 업로드
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-        try {
-            // 파일이 비어있지 않은지 확인
-            if (file.isEmpty()) {
-                return new ResponseEntity<>("파일이 비어있습니다.", HttpStatus.BAD_REQUEST);
-            }
-
-            // 파일 저장 경로 설정
-            String uploadPath = "C:\\upload\\" + file.getOriginalFilename();
-            Path destinationFile = Paths.get(uploadPath);
-            // 파일 저장
-            file.transferTo(destinationFile);
-
-            return new ResponseEntity<>("파일 업로드 성공", HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("파일 업로드 실패", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        }
+//    // 파일 업로드
+//    @PostMapping("/upload")
+//    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+//        try {
+//            // 파일이 비어있지 않은지 확인
+//            if (file.isEmpty()) {
+//                return new ResponseEntity<>("파일이 비어있습니다.", HttpStatus.BAD_REQUEST);
+//            }
+//
+//            // 파일 저장 경로 설정
+//            String uploadPath = "C:\\upload\\" + file.getOriginalFilename();
+//            Path destinationFile = Paths.get(uploadPath);
+//            // 파일 저장
+//            file.transferTo(destinationFile);
+//
+//            return new ResponseEntity<>("파일 업로드 성공", HttpStatus.OK);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>("파일 업로드 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//        }
 
     // 삭제하기
     @DeleteMapping("{productId}")

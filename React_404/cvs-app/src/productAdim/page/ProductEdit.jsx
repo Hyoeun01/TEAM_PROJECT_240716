@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./ProductEdit.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -34,9 +34,8 @@ function ProductEdit() {
         setError("제품 정보를 불러오는 중 오류가 발생했습니다.");
       });
   }, [id]);
-  const handleChangeImg = () => {
-    const file = imgRef.current.files[0];
-    console.log(file);
+
+  const handleChangeImg = (file) => {
     let fileRead = new FileReader();
     fileRead.readAsDataURL(file);
     fileRead.onloadend = () => {
@@ -44,6 +43,7 @@ function ProductEdit() {
     };
     setProductImg(file);
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -62,7 +62,7 @@ function ProductEdit() {
       .then((response) => {
         setSuccess("제품이 성공적으로 수정되었습니다!");
         setError(null);
-        navigate(`/product/${id}`);
+        navigate(`/productView/${id}`);
       })
       .catch((error) => {
         console.error("수정 실패:", error);
@@ -71,83 +71,97 @@ function ProductEdit() {
       });
   };
 
+  // 뒤로가기 버튼 클릭 핸들러
+  const handleBack = (event) => {
+    event.preventDefault(); // 기본 동작 방지 (폼 제출 방지)
+    navigate(-1); // 이전 페이지로 돌아가기
+  };
+
   return (
     <div>
       <h1>제품 수정 페이지</h1>
       {success && <div className="success-message">{success}</div>}
       {error && <div className="error-message">{error}</div>}
 
-      <form onSubmit={handleSubmit} className="product-edit-form">
-        {/* <div className="product-edit"> */}
-        <div className="product-edit-card">
-          <img
-            className="product-edit-img"
-            src={imgFile ? imgFile : `http://localhost:8080/img/${productImg}`} // 이미지 URL 설정
-            alt={productName || "상품 이미지"}
-          />
+      <form onSubmit={handleSubmit}>
+        <div className="product-edit">
+          <div className="product-edit-card">
+            <img
+              className="product-edit-img"
+              src={
+                imgFile ? imgFile : `http://localhost:8080/img/${productImg}`
+              } // 이미지 URL 설정
+              alt={productName || "상품 이미지"}
+            />
+          </div>
+          <div className="product-edit-contents">
+            <label className="product-edit-name">
+              제품 이름:
+              <input
+                type="text"
+                value={productName}
+                onChange={(e) => setProductName(e.target.value)}
+                required
+              />
+            </label>
+            <label className="product-edit-price">
+              가격:
+              <input
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                required
+              />
+            </label>
+            <label className="product-edit-content">
+              상품 설명:
+              <textarea
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                required
+              />
+            </label>
+            <label className="product-edit-category">
+              분류:
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                required
+              >
+                <option value="">분류를 선택하세요</option>
+                <option value="snack">과자</option>
+                <option value="nudle">라면</option>
+                <option value="ice">아이스크림</option>
+                <option value="bread">빵</option>
+                <option value="runchBox">도시락</option>
+                <option value="drink">음료수</option>
+              </select>
+            </label>
+            <label className="product-edit-quantity">
+              수량:
+              <input
+                type="number"
+                value={totalQuantity}
+                onChange={(e) => setTotalQuantity(e.target.value)}
+                required
+              />
+            </label>
+            <label className="product-edit-image">
+              이미지:
+              <input
+                type="file"
+                onChange={(e) => handleChangeImg(e.target.files[0])}
+                ref={imgRef}
+              />
+            </label>
+            <div className="form-buttons">
+              <button type="submit">수정하기</button>
+              <button type="button" className="btn_back" onClick={handleBack}>
+                뒤로가기
+              </button>
+            </div>
+          </div>
         </div>
-
-        <label>
-          제품 이름:
-          <input
-            type="text"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          가격:
-          <input
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          상품 설명:
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          분류:
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-          >
-            <option value="">분류를 선택하세요</option>
-            <option value="snack">과자</option>
-            <option value="nudle">라면</option>
-            <option value="ice">아이스크림</option>
-            <option value="bread">빵</option>
-            <option value="runchBox">도시락</option>
-            <option value="drink">음료수</option>
-          </select>
-        </label>
-        <label>
-          수량:
-          <input
-            type="number"
-            value={totalQuantity}
-            onChange={(e) => setTotalQuantity(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          이미지:
-          <input
-            type="file"
-            onChange={(e) => handleChangeImg(e.target.files[0])}
-            ref={imgRef}
-          />
-        </label>
-        <button type="submit">수정하기</button>
-        {/* </div> */}
       </form>
     </div>
   );

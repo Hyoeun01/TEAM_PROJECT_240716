@@ -24,19 +24,6 @@ function ProductView() {
       });
   }, [id]);
 
-  // const handleDelete = () => {
-  //   axios
-  //     .delete(`http://localhost:8080/product/${id}`) // 삭제 요청
-  //     .then(() => {
-  //       alert("상품이 삭제되었습니다."); // 알림 메시지
-  //       navigate("/productAdmin"); // 물품 페이지로 리다이렉트
-  //     })
-  //     .catch((error) => {
-  //       console.error("삭제 실패:", error);
-  //       setError(error);
-  //     });
-  // };
-
   const handleDelete = async () => {
     if (window.confirm(`${product.product_name} 을(를) 삭제 하시겠습니까?`)) {
       try {
@@ -60,6 +47,11 @@ function ProductView() {
     navigate(`/productEdit/${id}`);
   };
 
+  // 뒤로가기 버튼 클릭 핸들러
+  const handleBack = () => {
+    navigate(-1); // 이전 페이지로 돌아가기
+  };
+
   if (error) {
     return (
       <div>제품 정보를 불러오는 중 오류가 발생했습니다: {error.message}</div>
@@ -73,7 +65,6 @@ function ProductView() {
   return (
     <div>
       <h1>상품 상세 페이지</h1>
-      <p>상품 ID: {id}</p>
       <div className="product-view">
         <div className="product-view-card">
           <img
@@ -86,29 +77,32 @@ function ProductView() {
           <span className="product-view-name">{product.product_name}</span>
           <hr />
           <span className="product-view-price">
-            <b>가격</b> {product.price}원
+            <b>가격 : </b> {product.price}원
           </span>
           <span className="product-view-content">
-            <b>상품 설명</b> {product.content}
+            <b>상품 설명 : </b> {product.content}
           </span>
           <span className="product-view-category">
-            <b>분류</b> {product.category}
+            <b>분류 : </b> {product.category}
           </span>
           <span className="product-view-quantity">
-            <b>수량</b> : {product.total_quantity}
+            <b>수량 :</b> {product.total_quantity}
           </span>
-          <button className="btn_edit" onClick={handleEdit}>
-            수정
-          </button>
-          <div className="btn">
+          <div className="product-view-buttons">
+            <button className="btn_edit" onClick={handleEdit}>
+              수정
+            </button>
             <button className="btn_delete" onClick={handleDelete}>
               삭제
             </button>
-            <div className="dot"></div>
+            <button className="btn_back" onClick={handleBack}>
+              뒤로가기
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
 export default ProductView;
