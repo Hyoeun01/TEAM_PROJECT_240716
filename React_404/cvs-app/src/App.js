@@ -9,6 +9,7 @@ import "./App.css";
 import Product from "./productAdim/page/Product";
 import ProductView from "./productAdim/page/ProductView";
 import ProductAdd from "./productAdim/page/ProductAdd";
+import ProductEdit from "./productAdim/page/ProductEdit";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         <Route path="/productAdmin" element={<Product />} />
         <Route path="/productView/:id" element={<ProductView />} />
         <Route path="/productAdd" element={<ProductAdd />} />
-
+        <Route path="/productEdit/:id" element={<ProductEdit />} />
       </Routes>
     </Router>
   );

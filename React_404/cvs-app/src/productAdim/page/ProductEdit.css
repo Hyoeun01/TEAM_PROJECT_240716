@@ -1,0 +1,51 @@
+.product-edit-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 0 auto;
+}
+.product-edit-form label {
+  margin-bottom: 10px;
+}
+.product-edit {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px; /* 이미지와 내용 사이의 간격 */
+}
+
+.product-edit-card {
+  width: 400px;
+  height: 516px;
+  background-color: white;
+  margin-right: 24px;
+  margin-bottom: 20px;
+  border: 1px solid rgb(170, 170, 170);
+  border-radius: 12px;
+  overflow: hidden;
+  /* 각진 사진 모서리 둥글게 만들기 */
+}
+
+.product-edit-img {
+  width: 100%;
+  height: 517px;
+}
+.product-edit-contents {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+.product-edit-name {
+  font-size: 45px;
+}
+
+.product-edit-price {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.product-edit-category {
+  font-size: 15px;
+}
+.product-edit-quantity {
+  font-size: 15px;
+}

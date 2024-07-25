@@ -57,23 +57,6 @@ public class ProductController {
                 return new ResponseEntity<>("파일이 비어있습니다.", HttpStatus.BAD_REQUEST);
             }
         return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.CREATED);
-//        MultipartFile file = productDTO.getFile();
-//        if (file!=null && !file.isEmpty()) {
-//            try {
-//                // 파일 저장 경로 설정
-//                String uploadPath = "C:\\upload\\" + file.getOriginalFilename();
-//                Path destinationFile = Paths.get(uploadPath);
-//                // 파일 저장
-//                file.transferTo(destinationFile);
-//                productDTO.setProduct_img(file.getOriginalFilename());
-//                return new ResponseEntity<>(productService.saveProduct(productDTO), HttpStatus.CREATED);
-//            }catch(Exception e){
-//                e.printStackTrace();
-//                return new ResponseEntity<>("파일이 비어있습니다.", HttpStatus.BAD_REQUEST);
-//            }
-//        }else{
-//            return new ResponseEntity<>("파일이 비어있습니다.", HttpStatus.BAD_REQUEST);
-//        }
     }
 
     // 파일 업로드
@@ -105,9 +88,20 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/list")
-    public String getProduct(){
-            return "product/list";
+    // 수정하기
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> editProduct(@PathVariable("id") Long productId ,Product product, MultipartFile file) {
+        product.setProduct_img(file.getOriginalFilename());
+        try {
+            // 파일 저장 경로 설정
+            String uploadPath = "C:\\upload\\" + file.getOriginalFilename();
+            Path destinationFile = Paths.get(uploadPath);
+            // 파일 저장
+            file.transferTo(destinationFile);
+        }catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("파일이 비어있습니다.", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.CREATED);
     }
-
 }

@@ -56,6 +56,10 @@ function ProductView() {
     }
   };
 
+  const handleEdit = () => {
+    navigate(`/productEdit/${id}`);
+  };
+
   if (error) {
     return (
       <div>제품 정보를 불러오는 중 오류가 발생했습니다: {error.message}</div>
@@ -93,7 +97,15 @@ function ProductView() {
           <span className="product-view-quantity">
             <b>수량</b> : {product.total_quantity}
           </span>
-          <button onClick={handleDelete}>삭제</button>
+          <button className="btn_edit" onClick={handleEdit}>
+            수정
+          </button>
+          <div className="btn">
+            <button className="btn_delete" onClick={handleDelete}>
+              삭제
+            </button>
+            <div className="dot"></div>
+          </div>
         </div>
       </div>
     </div>
