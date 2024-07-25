@@ -5,6 +5,7 @@ import com.example.demo.product.service.cart.CartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -22,6 +23,11 @@ public class CartController {
 
         cartDTO.setUser_id(principal.getName());
         return cartService.register(cartDTO);
+    }
+
+    @GetMapping("/list")
+    public void list(CartDTO cartDTO, Model model) {
+
     }
 
 }

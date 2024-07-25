@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface PurchaseService {
     List<PurchaseDTO> readAll();
-    void remove(Long purchase_id);
+
 
 }

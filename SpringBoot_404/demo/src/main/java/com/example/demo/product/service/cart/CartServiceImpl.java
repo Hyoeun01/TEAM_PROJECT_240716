@@ -3,7 +3,7 @@ package com.example.demo.product.service.cart;
 import com.example.demo.product.domain.Cart;
 import com.example.demo.product.dto.CartDTO;
 import com.example.demo.product.repository.CartRepository;
-import com.example.demo.product.repository.ProductRepository;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class CartServiceImpl implements CartService{
 
     private final CartRepository cartRepository;
-    private final ProductRepository productRepository;
+
     private final ModelMapper modelMapper;
 
     @Override
