@@ -22,7 +22,12 @@ public class PurchaseListServiceImpl implements PurchaseListService{
 
     private final PurchaseListRepository purchaseListRepository;
     private final ModelMapper modelMapper;
-    private final ProductRepository productRepository;
+
+    @Override
+    public Long register(PurchaseListDTO purchaseListDTO) {
+        PurchaseList purchaseList = modelMapper.map(purchaseListDTO, PurchaseList.class);
+        return purchaseListRepository.save(purchaseList).getPurchase_list_id();
+    }
 
     @Override
     public List<PurchaseListDTO> getAll() {

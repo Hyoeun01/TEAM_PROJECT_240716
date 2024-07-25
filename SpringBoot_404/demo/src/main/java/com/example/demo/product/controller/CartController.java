@@ -20,14 +20,13 @@ public class CartController {
 
     @PostMapping("/register")
     public String register(@RequestBody CartDTO cartDTO, Principal principal) {
-
         cartDTO.setUser_id(principal.getName());
         return cartService.register(cartDTO);
     }
 
     @GetMapping("/list")
     public void list(CartDTO cartDTO, Model model) {
-
     }
+
 
 }
