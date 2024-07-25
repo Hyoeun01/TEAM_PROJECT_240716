@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import React from "react";
 import axios from "axios";
 import "./ProductView.css";
-// import { Modal } from "react-bootstrap";
 
 function ProductView() {
   const { id } = useParams();
