@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./ProductAdd.css";
+import { useNavigate } from "react-router-dom";
 
 function ProductAdd() {
   const [productName, setProductName] = useState("");
@@ -11,7 +12,7 @@ function ProductAdd() {
   const [productImg, setProductImg] = useState(null); // 이미지 필드 추가
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,7 +28,7 @@ function ProductAdd() {
     //   product_name: productName,
     //   price: parseInt(price, 10), // 문자열을 숫자로 변환
     //   content: content,
-    //   category: category,
+    //   category: category,np,
     //   total_quantity: parseInt(totalQuantity, 10), // 문자열을 숫자로 변환
     //   file: productImg, // 이미지 필드 추가
     // };
@@ -38,7 +39,7 @@ function ProductAdd() {
       .then((response) => {
         setSuccess("제품이 성공적으로 등록되었습니다!");
         setError(null);
-        // navigate("/product");
+        navigate("/productAdmin");
       })
       .catch((error) => {
         console.error("등록 실패:", error);

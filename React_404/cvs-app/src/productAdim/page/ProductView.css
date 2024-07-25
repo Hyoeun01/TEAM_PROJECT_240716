@@ -6,7 +6,7 @@
 
 .product-view-card {
   width: 400px;
-  height: 520px;
+  height: 516px;
   background-color: white;
   margin-right: 24px;
   margin-bottom: 20px;
@@ -26,7 +26,7 @@
   padding: 8px;
 }
 .product-view-name {
-  font-size: 15px;
+  font-size: 45px;
 }
 
 .product-view-price {
