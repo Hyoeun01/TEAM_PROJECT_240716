@@ -1,33 +1,29 @@
-import './App.css';
-import NoticeList from './components/notice/NoticeList';
-import RegisterForm from './components/notice/RegisterForm';
-import ModifyForm from './components/notice/ModifyForm';
-import ReadPage from './components/notice/ReadPage';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/member/login/Login';
 import Signup from './components/member/signup/Signup';
 import Update from './components/member/update/Update';
-
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
+import ReadPage from './components/notice/ReadPage';
+import NoticeList from './components/notice/NoticeList';
+import ModifyForm from './components/notice/ModifyForm';
 
-
-const App = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/notice/list" element={<NoticeList />} />
-        <Route path="/notice/register" element={<RegisterForm />} />
-        <Route path="/notice/modify/:bno" element={<ModifyForm />} /> {/* 수정 경로 추가 */}
-        <Route path="/notice/read/:bno" element={<ReadPage />} /> {/* 읽기 경로 추가 */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/update" element={<Update />} />
-          <Route path="/" element={<HomePage />} />
-      </Routes>
-    </Router>
-
+function App() {
+    return (
+        <Router>
+            <Navbar />
+            <Routes>  
+              
+            <Route path="/notice/list" element={<NoticeList />} />         
+                <Route path="/" element={<HomePage />} />     
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/update" element={<Update />} />
+                <Route path="/notice/read/:bno" element={<ReadPage />} /> {/* 공지사항 읽기 페이지 */}
+                <Route path="/notice/modify/:bno" element={<ModifyForm />} /> {/* 공지사항 읽기 페이지 */}
+            </Routes>
+        </Router>
   );
 }
 

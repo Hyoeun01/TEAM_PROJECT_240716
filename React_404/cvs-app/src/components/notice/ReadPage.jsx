@@ -33,7 +33,9 @@ const ReadPage = () => {
   if (!dto) return <p>No notice found.</p>;
 
   return (
+    
     <div>
+      <h1>Notice List</h1>
       <div>
         <input type="hidden" name="bno" value={dto.bno} />
       </div>

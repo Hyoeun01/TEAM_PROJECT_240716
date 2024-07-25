@@ -57,5 +57,9 @@ public class NoticeController {
         response.put("message", "Notice removed successfully");
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/register")
+    public void register(){
+
+    }
 }
 

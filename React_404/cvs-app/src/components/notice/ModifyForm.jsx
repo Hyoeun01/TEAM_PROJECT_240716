@@ -100,6 +100,7 @@ const ModifyForm = () => {
 
   return (
     <div>
+      <h1>Notice List</h1>
       <form onSubmit={handleSubmitModify}>
         <input type="hidden" name="bno" value={dto.bno} />
         <div>

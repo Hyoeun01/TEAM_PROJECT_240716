@@ -34,6 +34,7 @@ const RegisterForm = () => {
 
   return (
     <div>
+      <h1>Notice List</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <input type="text" placeholder="title" name="title" />
