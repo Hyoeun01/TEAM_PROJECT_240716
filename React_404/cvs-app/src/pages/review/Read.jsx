@@ -45,7 +45,8 @@ const Read = () => {
                     <h5 className='card-title'>제목: {review.review_title}</h5>
                     <h6 className='card-subtitle mb-2 text-muted'>작성자: {review.nickname}</h6>
                     <p className='card-text'>내용: {review.review_exp}</p>
-                    <button className='btn btn-primary' onClick={() => navigate('/review/list')}>목록으로</button>
+                    <button className='btn btn-primary' onClick={() => navigate('/review/modify/' + review.rno)}>수정하기</button>
+                    <button className='btn btn-secondary' onClick={() => navigate('/review/list')}>목록으로</button>
                     <button className='btn btn-danger' onClick={() => deleteModalRef.current.showDeleteModal()}>삭제</button>
                 </div>
             </div>

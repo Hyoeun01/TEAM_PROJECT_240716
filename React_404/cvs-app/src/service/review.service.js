@@ -14,7 +14,10 @@ class ReviewService {
         return axios.get(API_URL + "/list");
     }
     getReviewById(rno) {
-        return axios.get(API_URL + "/read" + "/" + rno)
+        return axios.get(API_URL + "/read" + "/" + rno);
+    }
+    modifyReview(rno, review) {
+        return axios.post(API_URL + "/modify" + "/" + rno, review);
     }
 }
 

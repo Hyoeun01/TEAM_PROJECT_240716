@@ -14,4 +14,6 @@ public interface ReviewService {
 
     Review findReviewById(Long rno);
 
+    Review modifyReview(Review review);
+
 }

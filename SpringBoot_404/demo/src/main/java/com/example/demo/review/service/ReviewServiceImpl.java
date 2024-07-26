@@ -24,6 +24,7 @@ public class ReviewServiceImpl implements ReviewService{
 
     @Override
     public void deleteReview(Long rno) {
+
         reviewRepository.deleteById(rno);
     }
 
@@ -37,6 +38,12 @@ public class ReviewServiceImpl implements ReviewService{
     public Review findReviewById(Long rno) {
 
         return reviewRepository.findById(rno).orElse(null);
+    }
+
+    @Override
+    public Review modifyReview(Review review) {
+
+        return reviewRepository.save(review);
     }
 
 }
