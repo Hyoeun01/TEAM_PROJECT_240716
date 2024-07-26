@@ -19,6 +19,8 @@ const List = () => {
         console.log(quantity);
     }
 
+
+
     return(
         <div className="mt-3">
             {errorMessage && <div className='alert alert-danger'>{errorMessage}</div>}
@@ -36,6 +38,9 @@ const List = () => {
                 </div>
                 ))}
             </div>
+        <button className="btn btn-primary">
+            <Link to={`/review/add`} style={{textDecoration:'none', color:'white'}}>작성</Link>
+        </button>
         </div>
     )
 }
