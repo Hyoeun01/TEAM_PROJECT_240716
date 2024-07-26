@@ -1,6 +1,6 @@
-package com.example.demo.product.service;
+package com.example.demo.productAdmin.service;
 
-import com.example.demo.product.domain.Product;
+import com.example.demo.productAdmin.domain.Product;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.demo.product.dto;
+package com.example.demo.productAdmin.dto;
 
 import lombok.Builder;
 import lombok.Getter;

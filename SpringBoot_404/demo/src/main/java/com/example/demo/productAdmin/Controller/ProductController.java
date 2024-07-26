@@ -1,17 +1,13 @@
-package com.example.demo.product.Controller;
+package com.example.demo.productAdmin.Controller;
 
-import com.example.demo.product.domain.Product;
-import com.example.demo.product.dto.ProductDTO;
-import com.example.demo.product.service.ProductService;
+import com.example.demo.productAdmin.domain.Product;
+import com.example.demo.productAdmin.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
