@@ -11,7 +11,7 @@ class ReviewService {
         return axios.post(API_URL + "/" + review.rno);
     }
     getAllReviews() {
-        return axios.get(API_URL);
+        return axios.get(API_URL + "/list");
     }
 }
 
