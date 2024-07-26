@@ -42,14 +42,16 @@ public class ProductController {
     // 작성하기
     @PostMapping
     public ResponseEntity<Object> addProduct(Product product, MultipartFile file) {
-        product.setProduct_img(file.getOriginalFilename());
         try {
             String uuid = UUID.randomUUID().toString();
+            String fileName = uuid + file.getOriginalFilename();
                 // 파일 저장 경로 설정
-                String uploadPath = "C:\\upload\\" + uuid + file.getOriginalFilename();
+                String uploadPath = "C:\\upload\\" + fileName;
                 Path destinationFile = Paths.get(uploadPath);
                 // 파일 저장
                 file.transferTo(destinationFile);
+                product.setUuid(uuid);
+                product.setProduct_img(fileName);
             }catch(Exception e){
                 e.printStackTrace();
                 return new ResponseEntity<>("파일이 비어있습니다.", HttpStatus.BAD_REQUEST);
