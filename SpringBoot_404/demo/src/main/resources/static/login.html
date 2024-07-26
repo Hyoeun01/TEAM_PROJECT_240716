@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Login</title>
+<!--    <link rel="stylesheet" href="@{/css/style.css}">-->
+</head>
+<body>
+<div class="container">
+    <h2>Login</h2>
+    <form action="/members/login" method="post">
+        <div>
+            <label for="mid">ID:</label>
+            <input type="text" id="mid" name="mid" required>
+        </div>
+        <div>
+            <label for="mpw">비밀번호:</label>
+            <input type="password" id="mpw" name="mpw" required>
+        </div>
+        <div>
+            <button type="submit">로그인</button>
+        </div>
+    </form>
+    <p>계정이 없으신가요? <a href="/signup">회원가입</a></p>
+</div>
+</body>
+</html>
