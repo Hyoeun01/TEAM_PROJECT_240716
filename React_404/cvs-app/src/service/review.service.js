@@ -7,8 +7,8 @@ class ReviewService {
     saveReview(review) {
         return axios.post(API_URL, review);
     }
-    deleteReview(review) {
-        return axios.post(API_URL + "/" + review.rno);
+    deleteReview(rno) {
+        return axios.delete(API_URL + "/" + rno);
     }
     getAllReviews() {
         return axios.get(API_URL + "/list");
