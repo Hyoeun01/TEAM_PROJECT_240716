@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 //@Controller
 @RestController
@@ -47,8 +48,9 @@ public class ProductController {
     public ResponseEntity<Object> addProduct(Product product, MultipartFile file) {
         product.setProduct_img(file.getOriginalFilename());
         try {
+            String uuid = UUID.randomUUID().toString();
                 // 파일 저장 경로 설정
-                String uploadPath = "C:\\upload\\" + file.getOriginalFilename();
+                String uploadPath = "C:\\upload\\" + uuid + file.getOriginalFilename();
                 Path destinationFile = Paths.get(uploadPath);
                 // 파일 저장
                 file.transferTo(destinationFile);

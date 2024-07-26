@@ -70,6 +70,7 @@ const ProductList = () => {
         setSelectedProducts(new Set()); // 선택 상태 초기화
         setIsSelectionMode(false); // 선택 모드 해제
         setHasMore(updatedProducts.length > pageSize);
+        window.location.reload();
       } catch (error) {
         console.error("제품 삭제 중 오류가 발생했습니다:", error);
         alert("제품 삭제 중 오류가 발생했습니다.");

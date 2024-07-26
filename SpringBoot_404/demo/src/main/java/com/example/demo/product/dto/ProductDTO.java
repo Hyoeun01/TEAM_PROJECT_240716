@@ -19,4 +19,5 @@ public class ProductDTO {
     private String category;
     private String content;
     private String product_img;
+    private String uuid;
 }

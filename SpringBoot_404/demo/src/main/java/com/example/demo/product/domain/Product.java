@@ -29,4 +29,6 @@ public class Product {
 
     @Column(length = 50, nullable = false)
     private String product_img;
+
+    private String uuid;
 }
