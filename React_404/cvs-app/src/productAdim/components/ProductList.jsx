@@ -15,6 +15,7 @@ const ProductList = () => {
   const [hasMore, setHasMore] = useState(true); // 더 많은 제품이 있는지 여부
   const [page, setPage] = useState(1); // 현재 페이지
   const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 카테고리
+  const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
 
   const pageSize = 20; // 한 페이지에 보여줄 제품 개수
 
@@ -43,22 +44,25 @@ const ProductList = () => {
   };
 
   const filteredProducts = () => {
-    // 선택된 카테고리에 따라 제품 필터링
-    if (selectedCategory) {
-      console.log(selectedCategory);
-      console.log(products);
-      return products.filter((products) => products.category === selectedCategory);
-    }
-    return products;
+    // 선택된 카테고리와 검색어에 따라 제품 필터링
+    return products.filter((product) => {
+      const matchesCategory = selectedCategory
+        ? product.category === selectedCategory
+        : true;
+      const matchesSearchTerm = product.product_name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      return matchesCategory && matchesSearchTerm;
+    });
   };
 
   useEffect(() => {
-    // 카테고리가 변경될 때마다 페이지 초기화 및 표시 제품 설정
+    // 카테고리 또는 검색어가 변경될 때마다 페이지 초기화 및 표시 제품 설정
     setPage(1);
     const filtered = filteredProducts().slice(0, pageSize);
     setDisplayedProducts(filtered);
     setHasMore(filteredProducts().length > pageSize);
-  }, [selectedCategory, products]);
+  }, [selectedCategory, searchTerm, products]);
 
   const handleSelectProduct = (productId) => {
     setSelectedProducts((prevSelected) => {
@@ -118,8 +122,16 @@ const ProductList = () => {
           </button>
         )}
       </div>
+      <div className="search-filter">
+        <input
+          type="text"
+          placeholder="제품 이름으로 검색"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
+      </div>
       <div className="category-filter">
-        
         <button
           className="btn btn-clear"
           onClick={() => setSelectedCategory("")}
@@ -129,13 +141,16 @@ const ProductList = () => {
         {categories.map((category) => (
           <button
             key={category}
-            className={`btn ${selectedCategory === category ? 'btn-selected' : ''}`}
+            className={`btn ${
+              selectedCategory === category ? "btn-selected" : ""
+            }`}
             onClick={() => setSelectedCategory(category)}
           >
             {category}
           </button>
         ))}
       </div>
+
       <div className="product-list">
         {error ? (
           <p>데이터를 불러오는 중 오류가 발생했습니다: {error.message}</p>

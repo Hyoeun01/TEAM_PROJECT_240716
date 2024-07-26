@@ -23,29 +23,54 @@
   border-radius: 4px;
   margin-right: 10px;
 }
-
 .add-product-button:hover {
   background-color: #0056b3;
 }
-
 .text-center {
   text-align: center;
 }
-
 .btn {
   display: inline-block;
   padding: 8px 16px;
   font-size: 16px;
   cursor: pointer;
+  border-radius: 4px;
+  margin: 4px;
+  border: 1px solid transparent;
+  transition: all 0.3s;
 }
-
 .btn-outline-pink {
   border: 1px solid pink;
   color: pink;
   background-color: transparent;
 }
-
 .btn-outline-pink:hover {
   background-color: pink;
   color: white;
+}
+.btn-clear {
+  background-color: lightgray;
+  color: black;
+}
+.btn-clear:hover {
+  background-color: gray;
+  color: white;
+}
+.btn-selected {
+  background-color: #007bff;
+  color: white;
+}
+.category-filter {
+  margin-bottom: 16px;
+}
+.search-filter {
+  margin-bottom: 16px;
+}
+.search-input {
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
