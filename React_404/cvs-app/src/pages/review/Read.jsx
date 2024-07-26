@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import reviewService from '../../service/review.service';
-import ReviewDelete from '../../commponents/ReviewDelete';
+import ReviewDelete from '../../components/ReviewDelete';
 
 const Read = () => {
     const { rno } = useParams();
