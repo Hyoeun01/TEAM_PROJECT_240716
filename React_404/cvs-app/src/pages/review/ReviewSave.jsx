@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Review from '../models/Review';
-import reviewService from './../service/review.service';
+import Review from '../../models/Review';
+import reviewService from '../../service/review.service';
 
 const ReviewSave = () => {
   const [review, setReview] = useState(new Review(0, '', '', '', 0, '', ''));

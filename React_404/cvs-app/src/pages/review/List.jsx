@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import reviewService from '../../service/review.service';
 import Review from '../../models/Review';
 
-const Home = () => {
+const List = () => {
     const [reviewList, setReviewList] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [infoMessage, setInfoMessage] = useState('');
@@ -37,4 +37,4 @@ const Home = () => {
         </div>
     )
 }
-export default Home;
+export default List;
