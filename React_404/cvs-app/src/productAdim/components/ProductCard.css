@@ -13,17 +13,18 @@
 }
 .product-card:hover {
   border: 1px solid transparent; /* 기존 테두리를 투명하게 */
-  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.2),
-    /* 그라데이션 효과 */ 0 0 0 8px rgba(0, 123, 255, 0.1); /* 더 큰 그라데이션 */
+  /* box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.2),
+    그라데이션 효과 0 0 0 8px rgba(0, 123, 255, 0.1); 더 큰 그라데이션 */
   background: linear-gradient(white, white),
     linear-gradient(to right, #00ff4c, #06499b); /* 배경을 겹쳐서 그라데이션 효과 */
   background-origin: border-box;
   background-clip: content-box, border-box;
-  /* box-shadow: 
-    0 0 10px rgba(0, 255, 170, 0.5), 
-    0 0 20px rgba(0, 123, 255, 0.4), 
-    0 0 30px rgba(0, 255, 85, 0.3),
-    0 0 40px rgba(0, 255, 13, 0.2); 그라데이션 효과 추가 */
+  box-shadow: 
+    0 0 10px rgba(0, 255, 213, 0.582), 
+    0 0 20px rgba(0, 225, 255, 0.884), 
+    0 0 30px rgba(187, 255, 0, 0.3),
+    0 0 40px rgba(255, 238, 0, 0.2); 
+    /* 그라데이션 효과 추가 */
 }
 
 .product-img {
@@ -52,7 +53,7 @@
 }
 
 .true {
-  border: 2px solid blue; /* 선택된 경우 테두리를 파란색으로 설정 */
+  border: 3px solid red; /* 선택된 경우 테두리를 파란색으로 설정 */
 }
 
 .ttt {
@@ -65,5 +66,5 @@
   zoom: 2;
   right: 5px;
   /* top: -1000px; */
-  accent-color: red;
+  accent-color: blue;
 }

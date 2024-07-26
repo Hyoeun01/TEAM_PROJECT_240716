@@ -4,6 +4,8 @@ import ProductCard from "./ProductCard";
 import { Link } from "react-router-dom";
 import "./ProductList.css";
 
+const categories = ["과자", "라면", "아이스크림", "빵", "도시락", "음료수"]; // 카테고리 목록
+
 const ProductList = () => {
   const [products, setProducts] = useState([]); // 모든 제품
   const [displayedProducts, setDisplayedProducts] = useState([]); // 현재 표시된 제품
@@ -12,6 +14,7 @@ const ProductList = () => {
   const [error, setError] = useState(null);
   const [hasMore, setHasMore] = useState(true); // 더 많은 제품이 있는지 여부
   const [page, setPage] = useState(1); // 현재 페이지
+  const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 카테고리
 
   const pageSize = 20; // 한 페이지에 보여줄 제품 개수
 
@@ -33,11 +36,29 @@ const ProductList = () => {
 
   const loadMoreProducts = () => {
     const nextPage = page + 1;
-    const nextProducts = products.slice(0, nextPage * pageSize);
+    const nextProducts = filteredProducts().slice(0, nextPage * pageSize);
     setDisplayedProducts(nextProducts);
     setPage(nextPage);
-    setHasMore(products.length > nextPage * pageSize); // 다음 페이지가 있는지 여부 설정
+    setHasMore(filteredProducts().length > nextPage * pageSize); // 다음 페이지가 있는지 여부 설정
   };
+
+  const filteredProducts = () => {
+    // 선택된 카테고리에 따라 제품 필터링
+    if (selectedCategory) {
+      console.log(selectedCategory);
+      console.log(products);
+      return products.filter((products) => products.category === selectedCategory);
+    }
+    return products;
+  };
+
+  useEffect(() => {
+    // 카테고리가 변경될 때마다 페이지 초기화 및 표시 제품 설정
+    setPage(1);
+    const filtered = filteredProducts().slice(0, pageSize);
+    setDisplayedProducts(filtered);
+    setHasMore(filteredProducts().length > pageSize);
+  }, [selectedCategory, products]);
 
   const handleSelectProduct = (productId) => {
     setSelectedProducts((prevSelected) => {
@@ -96,6 +117,24 @@ const ProductList = () => {
             삭제하기
           </button>
         )}
+      </div>
+      <div className="category-filter">
+        
+        <button
+          className="btn btn-clear"
+          onClick={() => setSelectedCategory("")}
+        >
+          전체 보기
+        </button>
+        {categories.map((category) => (
+          <button
+            key={category}
+            className={`btn ${selectedCategory === category ? 'btn-selected' : ''}`}
+            onClick={() => setSelectedCategory(category)}
+          >
+            {category}
+          </button>
+        ))}
       </div>
       <div className="product-list">
         {error ? (
