@@ -13,6 +13,9 @@ class ReviewService {
     getAllReviews() {
         return axios.get(API_URL + "/list");
     }
+    getReviewById(rno) {
+        return axios.get(API_URL + "/read" + "/" + rno)
+    }
 }
 
 const reviewService = new ReviewService();

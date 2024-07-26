@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ReviewSave from './pages/review/ReviewSave';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import List from './pages/review/List';
+import Read from './pages/review/Read';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path='/review/add' element={<ReviewSave />}></Route>
           <Route path='/review/list' element={<List />}></Route>
+          <Route path='/review/read/:rno' element={<Read />}></Route>
         </Routes>
       </div>
       </BrowserRouter>
