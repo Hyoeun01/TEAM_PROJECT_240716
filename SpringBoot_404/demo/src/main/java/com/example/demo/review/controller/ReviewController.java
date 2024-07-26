@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.example.demo.review.controller;
 
-import com.example.demo.domain.Review;
-import com.example.demo.service.ReviewService;
+import com.example.demo.review.domain.Review;
+import com.example.demo.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +39,5 @@ public class ReviewController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping()
 
 }

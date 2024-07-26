@@ -1,6 +1,6 @@
-package com.example.demo.service;
+package com.example.demo.review.service;
 
-import com.example.demo.domain.Review;
+import com.example.demo.review.domain.Review;
 
 import java.util.List;
 
