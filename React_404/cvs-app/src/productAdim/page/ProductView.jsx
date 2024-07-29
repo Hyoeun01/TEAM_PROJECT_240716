@@ -97,6 +97,9 @@ function ProductView() {
             <button className="btn_back" onClick={handleBack}>
               뒤로가기
             </button>
+            <button className="btn_review" onClick={() => navigate(`/review/add/${id}`)}>
+              리뷰 작성
+            </button>
           </div>
         </div>
       </div>

@@ -28,7 +28,7 @@ function App() {
         <Route path="/productAdd" element={<ProductAdd />} />
         <Route path="/productEdit/:id" element={<ProductEdit />} />
 
-        <Route path='/review/add' element={<ReviewSave />}></Route>
+        <Route path='/review/add/:p_id' element={<ReviewSave />}></Route>
         <Route path='/review/list' element={<List />}></Route>
         <Route path='/review/read/:rno' element={<Read />}></Route>
       </Routes>

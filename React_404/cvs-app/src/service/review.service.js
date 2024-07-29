@@ -4,8 +4,8 @@ import { BASE_API_URL } from "../common/constants";
 const API_URL=BASE_API_URL+"/review";
 
 class ReviewService {
-    saveReview(review) {
-        return axios.post(API_URL, review);
+    saveReview(review, p_id) {
+        return axios.post(API_URL + "/add" + "/" + p_id, review);
     }
     deleteReview(rno) {
         return axios.delete(API_URL + "/" + rno);

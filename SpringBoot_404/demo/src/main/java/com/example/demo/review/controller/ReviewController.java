@@ -14,10 +14,12 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @PostMapping
-    public ResponseEntity<Object> saveReview(@RequestBody Review review) {
+    @PostMapping("/add/{p_id}")
+    public ResponseEntity<Object> saveReview(@RequestBody Review review, @PathVariable Long p_id) {
+        System.out.println(p_id);
+        System.out.println(review);
 
-        return new ResponseEntity<>(reviewService.saveReview(review), HttpStatus.CREATED);
+        return new ResponseEntity<>(reviewService.saveReview(review, p_id), HttpStatus.CREATED);
     }
 
     @GetMapping("/list")

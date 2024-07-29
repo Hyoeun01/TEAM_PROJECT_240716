@@ -1,5 +1,6 @@
 package com.example.demo.review.service;
 
+import com.example.demo.productAdmin.dto.ProductDTO;
 import com.example.demo.review.repository.ReviewRepository;
 import com.example.demo.review.domain.Review;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,9 @@ public class ReviewServiceImpl implements ReviewService{
     private final ReviewRepository reviewRepository;
 
     @Override
-    public Review saveReview(Review review) {
+    public Review saveReview(Review review, Long p_id) {
+
+        review.setP_id(p_id);
         review.setReg_date(LocalDateTime.now());
         review.setMod_date(LocalDateTime.now());
 

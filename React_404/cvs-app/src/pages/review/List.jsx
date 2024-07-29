@@ -38,9 +38,9 @@ const List = () => {
                 </div>
                 ))}
             </div>
-        <button className="btn btn-primary">
+        {/* <button className="btn btn-primary">
             <Link to={`/review/add`} style={{textDecoration:'none', color:'white'}}>작성</Link>
-        </button>
+        </button> */}
         </div>
     )
 }
