@@ -190,19 +190,19 @@ public class MemberController {
         return ResponseEntity.ok().build();
     }
 //관리자 권한이면 공지사항 글쓰기 버튼 생성
-//    @GetMapping("/checkAdmin")
-//    @ResponseBody
-//    public ResponseEntity<Map<String, Boolean>> checkAdmin(HttpServletRequest request) {
-//        String token = SecurityUtils.extractAuthTokenFromRequest(request);
-//        boolean isAdmin = false;
-//        if (token != null && jwtTokenProvider.validateToken(token)) {
-//            String username = jwtTokenProvider.getAuthentication(request).getName();
-//            Member member = memberService.findByMid(username).orElseThrow(() -> new RuntimeException("User not found"));
-//            isAdmin = member.getRole() == Role.ADMIN;
-//        }
-//        Map<String, Boolean> response = new HashMap<>();
-//        response.put("isAdmin", isAdmin);
-//        return ResponseEntity.ok(response);
-//    }
+    @GetMapping("/checkAdmin")
+    @ResponseBody
+    public ResponseEntity<Map<String, Boolean>> checkAdmin(HttpServletRequest request) {
+        String token = SecurityUtils.extractAuthTokenFromRequest(request);
+        boolean isAdmin = false;
+        if (token != null && jwtTokenProvider.validateToken(token)) {
+            String username = jwtTokenProvider.getAuthentication(request).getName();
+            Member member = memberService.findByMid(username).orElseThrow(() -> new RuntimeException("User not found"));
+            isAdmin = member.getRole() == Role.ADMIN;
+        }
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("isAdmin", isAdmin);
+        return ResponseEntity.ok(response);
+    }
 
 }

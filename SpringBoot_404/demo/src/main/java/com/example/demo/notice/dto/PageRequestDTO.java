@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
+import org.springframework.data.domain.Pageable;
 
 
 import java.io.UnsupportedEncodingException;
@@ -108,4 +109,7 @@ public class PageRequestDTO {
     }
 
 
+    public Pageable getPageable(String bno) {
+        return null;
+    }
 }

@@ -2,9 +2,13 @@ package com.example.demo.notice.service;
 
 import com.example.demo.notice.domain.Notice;
 import com.example.demo.notice.dto.NoticeDTO;
+import com.example.demo.notice.dto.PageRequestDTO;
+import com.example.demo.notice.dto.PageResponseDTO;
 import com.example.demo.notice.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,14 +45,22 @@ public class NoticeService {
     }
 
     public void remove(Long bno) {
-//        replyRepository.deleteByBoard_Bno(bno);
+
         noticeRepository.deleteById(bno);
     }
 
-//    public NoticeDTO getNotice(Long bno) {
-//        return noticeRepository.stream()
-//                .filter(notice -> notice.getBno().equals(bno))
-//                .findFirst()
-//                .orElse(null);
-//    }
+    public PageResponseDTO<NoticeDTO> list(PageRequestDTO pageRequestDTO) {
+        String keyword = pageRequestDTO.getKeyword();
+        Pageable pageable = pageRequestDTO.getPageable("bno");
+        Page<Notice> result = noticeRepository.searchAll(keyword,pageable);
+        List<NoticeDTO> dtoList = result.getContent().stream()
+                .map(notice -> modelMapper.map(notice, NoticeDTO.class))
+                .collect(Collectors.toList());
+        return PageResponseDTO.<NoticeDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(dtoList)
+                .total((int)result.getTotalElements())
+                .build();
+    }
+
 }
