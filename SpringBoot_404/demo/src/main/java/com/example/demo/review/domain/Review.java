@@ -1,5 +1,6 @@
 package com.example.demo.review.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -26,9 +27,11 @@ public class Review {
     @Column(name = "p_id")
     private Long p_id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(name = "reg_date")
     private LocalDateTime reg_date;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(name = "mod_date")
     private LocalDateTime mod_date;
 

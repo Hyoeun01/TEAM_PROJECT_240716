@@ -14,9 +14,18 @@ const List = () => {
         });
     }, []);
 
-    const handleChange=(e)=>{
-        setQuantity(e.target.value);
-        console.log(quantity);
+    const formatDate = (dateString) => {
+        // 원래 형식을 'YYYY-MM-DD HH:MM:SS.ssssss'에서 'YYYY-MM-DDTHH:MM:SS.sssZ' 형식으로 변환
+        const formattedDateString = dateString.replace(' ', 'T').replace(/(\.\d+)?$/, ''); // 'T'로 변경하고, 밀리초 제거
+        const date = new Date(formattedDateString);
+
+        // 유효한 날짜인지 확인
+        if (isNaN(date.getTime())) {
+            return 'Invalid date';
+        }
+
+        // 날짜를 YYYY-MM-DD 형식으로 변환
+        return date.toISOString().split('T')[0];
     }
 
     return(
@@ -29,6 +38,7 @@ const List = () => {
                     <div className='card-body'>
                         <div className='card-title text-uppercase'>
                             <Link to={`/review/read/${item.rno}`} >{item.review_title}</Link>
+                            <p>{formatDate(item.reg_date)}(수정일: {formatDate(item.mod_date)})</p>
                         </div>
                         <div className='card-subtitle text-muted'>{item.nickname}</div>
                         <div className='card-subtitle text-muted' style={{

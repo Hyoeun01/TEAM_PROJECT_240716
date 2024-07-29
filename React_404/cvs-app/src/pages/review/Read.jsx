@@ -33,6 +33,17 @@ const Read = () => {
             });
     };
 
+    const formatDate = (dateString) => {
+        const formattedDateString = dateString.replace(' ', 'T').replace(/(\.\d+)?$/, ''); // 'T'로 변경하고, 밀리초 제거
+        const date = new Date(formattedDateString);
+
+        if (isNaN(date.getTime())) {
+            return 'Invalid date';
+        }
+
+        return date.toISOString().split('T')[0];
+    }
+
     if (!review) {
         return <div>로딩 중...</div>;
     }
@@ -43,6 +54,7 @@ const Read = () => {
             <div className='card mt-3'>
                 <div className='card-body'>
                     <h5 className='card-title'>제목: {review.review_title}</h5>
+                    <p>작성일: {formatDate(review.reg_date)} (마지막 수정일: {formatDate(review.mod_date)})</p>
                     <h6 className='card-subtitle mb-2 text-muted'>작성자: {review.nickname}</h6>
                     <p className='card-text'>내용: {review.review_exp}</p>
                     <button className='btn btn-primary' onClick={() => navigate('/review/modify/' + review.rno)}>수정하기</button>
