@@ -26,7 +26,7 @@ const ReviewDelete = forwardRef((props, ref) => {
                         취소
                     </button>
                     <button type="button" className="btn btn-danger" onClick={deleteReview}>
-                        삭제확인
+                        삭제
                     </button>
                 </div>
             </div>

@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import reviewService from '../../service/review.service';
-import ReviewDelete from '../../components/ReviewDelete';
 
-const Read = () => {
+const Modify = () => {
     const { rno } = useParams();
     const [review, setReview] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
@@ -21,7 +20,9 @@ const Read = () => {
             });
     }, [rno]);
 
-    useEffect(() => {
+    const handleSubmit = (e) => {
+        e.preventDefault(); // 폼 제출 기본 동작 막기
+
         reviewService.modifyReview(rno, review)
             .then(response => {
                 console.log('리뷰 수정 성공:', response.data);
@@ -31,7 +32,15 @@ const Read = () => {
                 setErrorMessage('리뷰 수정 중 에러 발생.');
                 console.error('리뷰 저장 실패:', error);
             });
-    }, [rno]);
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setReview(prevState => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
 
     if (!review) {
         return <div>로딩 중...</div>;
@@ -42,7 +51,7 @@ const Read = () => {
             {errorMessage && <div className='alert alert-danger'>{errorMessage}</div>}
             <div className='card mt-3'>
                 <div className='card-body'>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className='form-group row'>
                             <label htmlFor='review_title' className='col-sm-2 col-form-label'>제목: </label>
                             <div className='col-sm-10'>
@@ -86,22 +95,9 @@ const Read = () => {
                                 <div className='invalid-feedback'>유저 정보를 불러올 수 없습니다.</div>
                             </div>
                         </div>
-                        <div className='form-group row'>
-                            <label htmlFor='p_id' className='col-sm-2 col-form-label'>제품 ID: </label>
-                            <div className='col-sm-10'>
-                                <input
-                                    type='text'
-                                    name='p_id'
-                                    className='form-control'
-                                    value={review.p_id}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <div className='invalid-feedback'>제품 아이디를 불러올 수 없습니다.</div>
-                            </div>
-                        </div>
                         <button className='btn btn-primary' type='submit'>수정완료</button>
-                        <button className='btn btn-secondary' onClick={() => navigate('/review/list')}>목록으로</button>
+                        {/* <button className='btn btn-secondary' type='button' onClick={() => navigate('/review/list')}>목록으로</button> */}
+                        <button className='btn btn-secondary' type='button' onClick={() => navigate(`/review/read/${rno}`)}>뒤로가기</button>
                     </form>
                 </div>
             </div>
@@ -109,4 +105,4 @@ const Read = () => {
     );
 }
 
-export default Read;
+export default Modify;

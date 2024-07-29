@@ -19,8 +19,6 @@ const List = () => {
         console.log(quantity);
     }
 
-
-
     return(
         <div className="mt-3">
             {errorMessage && <div className='alert alert-danger'>{errorMessage}</div>}
@@ -32,9 +30,18 @@ const List = () => {
                         <div className='card-title text-uppercase'>
                             <Link to={`/review/read/${item.rno}`} >{item.review_title}</Link>
                         </div>
-                        <div className='card-subtitle text-muted'>{item.review_exp}</div>
-                          <div className='card-subtitle text-muted'>{item.nickname}</div>
+                        <div className='card-subtitle text-muted'>{item.nickname}</div>
+                        <div className='card-subtitle text-muted' style={{
+                            overflow:"hidden", 
+                            textOverflow:"ellipsis", 
+                            whiteSpace:"nowrap",
+                            height:"25px", 
+                            width:"99%"
+                        }}>
+                            {item.review_exp}
+                        </div>
                     </div>
+                    <Link to={`/productView/${item.p_id}`}>제품보기</Link>
                 </div>
                 ))}
             </div>

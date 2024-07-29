@@ -48,6 +48,9 @@ const Read = () => {
                     <button className='btn btn-primary' onClick={() => navigate('/review/modify/' + review.rno)}>수정하기</button>
                     <button className='btn btn-secondary' onClick={() => navigate('/review/list')}>목록으로</button>
                     <button className='btn btn-danger' onClick={() => deleteModalRef.current.showDeleteModal()}>삭제</button>
+                    <div>
+                        <button className='btn btn-primary' onClick={() => navigate(`/productView/${review.p_id}`)}>제품 상세보기</button>
+                    </div>
                 </div>
             </div>
             <ReviewDelete ref={deleteModalRef} onConfirmed={handleDelete} />
