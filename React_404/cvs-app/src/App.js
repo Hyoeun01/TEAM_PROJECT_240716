@@ -7,7 +7,7 @@ import Admin from './components/member/admin/Admin';
 import Navbar from './components/Navbar/Navbar';
 import HomePage from './pages/HomePage';
 import InquiryBoard from './components/InquiryBoard';
-import CustomNavbar from './components/Navbar';
+import CustomNavbar from './components/Navbar/Navbar';
 
 
 function App() {
