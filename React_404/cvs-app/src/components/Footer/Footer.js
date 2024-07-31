@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../logo.png';  // 로고 이미지 파일 경로
+import logo from '../../logo/1st_logo.png';  // 로고 이미지 파일 경로 수정
 
 const Footer = () => {
   return (
