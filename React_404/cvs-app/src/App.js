@@ -13,6 +13,8 @@ import ProductEdit from "./productAdim/page/ProductEdit";
 import { Role } from "./productAdim/model/Role";
 import AuthGuard from "./productAdim/guards/AuthGuard";
 import Unauthorized from "./productAdim/page/UnAuthorized";
+import ProductCart from "./productAdim/page/ProductCart";
+import ProductPayment from "./productAdim/page/ProductPayment";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
         <Route path="/productAdd" element={<ProductAdd />} />
         <Route path="/productEdit/:id" element={<ProductEdit />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="/productCart" element={<ProductCart />} />
+        <Route path="/productPayment" element={<ProductPayment />} />
         {/* <Route
               path="/productAdmin"
               element={
