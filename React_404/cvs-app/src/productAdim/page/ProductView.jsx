@@ -47,9 +47,9 @@ function ProductView() {
   };
 
   // 뒤로가기 버튼 클릭 핸들러
-  const handleBack = () => {
-    navigate(-1); // 이전 페이지로 돌아가기
-  };
+  // const handleBack = () => {
+  //   navigate(-1); // 이전 페이지로 돌아가기
+  // };
 
   if (error) {
     return (
@@ -60,6 +60,22 @@ function ProductView() {
   if (!product) {
     return <div>제품 정보를 불러오는 중입니다...</div>;
   }
+
+  // 카트 담을시 창 띄우기
+  const handleCartClick = async () => {
+    if (window.confirm("카트에 담으시겠습니까?")) {
+      try {
+        // 카트에 담기 API 요청 (여기서 실제 API 경로로 수정 필요)
+        await axios.post(`http://localhost:8080/cart`, { productId: id });
+        alert("카트에 담았습니다.");
+        
+        navigate("/productCart"); // 카트 페이지로 리다이렉트
+      } catch (error) {
+        console.error("카트에 담는 중 오류가 발생했습니다:", error);
+        alert("카트에 담는 중 오류가 발생했습니다.");
+      }
+    }
+  };
 
   return (
     <div>
@@ -94,12 +110,19 @@ function ProductView() {
             <button className="btn_delete" onClick={handleDelete}>
               삭제
             </button>
-            <button className="btn_back" onClick={handleBack}>
+            <button
+              className="btn_back"
+              onClick={() => navigate(`/productAdmin`)}
+            >
               뒤로가기
             </button>
           </div>
         </div>
       </div>
+
+      <button className="btn_back" onClick={handleCartClick}>
+        카트에 담기
+      </button>
     </div>
   );
 }

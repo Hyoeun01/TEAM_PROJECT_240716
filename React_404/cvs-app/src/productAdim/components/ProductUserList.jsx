@@ -6,7 +6,7 @@ import "./ProductList.css";
 
 const categories = ["과자", "라면", "아이스크림", "빵", "도시락", "음료수"]; // 카테고리 목록
 
-const ProductList = () => {
+const ProductUserList = () => {
   const [products, setProducts] = useState([]); // 모든 제품
   const [displayedProducts, setDisplayedProducts] = useState([]); // 현재 표시된 제품
   const [selectedProducts, setSelectedProducts] = useState(new Set()); // 선택된 제품
@@ -105,7 +105,7 @@ const ProductList = () => {
 
   return (
     <div>
-      <h1>물품 관리</h1>
+      <h1>물품 구매</h1>
       <div className="action-buttons">
         <Link to="/productAdd" className="add-product-button">
           물품 등록하기
@@ -177,4 +177,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default ProductUserList;

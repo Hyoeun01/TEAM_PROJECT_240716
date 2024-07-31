@@ -41,7 +41,8 @@ public class ProductController {
 
     // 작성하기
     @PostMapping
-    public ResponseEntity<Object> addProduct(Product product, MultipartFile file) {
+    public ResponseEntity<Object> addProduct(Product product, MultipartFile file, @RequestHeader("Authorization") String token) {
+        
         try {
             String uuid = UUID.randomUUID().toString();
             String fileName = uuid + file.getOriginalFilename();
