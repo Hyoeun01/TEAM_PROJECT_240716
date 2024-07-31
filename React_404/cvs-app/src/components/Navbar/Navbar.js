@@ -64,6 +64,7 @@ const Navbar = () => {
                 <Link to="/product/list">상품</Link>
                 <Link to="/address/list">매장안내</Link>
                 <Link to="/notice/list">공지사항</Link>
+                <Link to="/api/inquiries">문의사항</Link>
                 {isLoggedIn ? (
                     <>
                         {role === 'ADMIN' ? (

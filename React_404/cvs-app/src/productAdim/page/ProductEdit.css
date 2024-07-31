@@ -1,0 +1,58 @@
+.product-edit {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px; /* 이미지와 폼 사이의 간격 */
+}
+
+.product-edit-card {
+  width: 400px; /* 카드 너비 */
+  height: 516px; /* 카드 높이 */
+  background-color: white;
+  margin-right: 24px;
+  margin-bottom: 20px;
+  border: 1px solid rgb(170, 170, 170);
+  border-radius: 12px;
+  overflow: hidden; /* 각진 사진 모서리 둥글게 만들기 */
+}
+
+.product-edit-img {
+  width: 100%;
+  height: 100%; /* 이미지 높이 */
+}
+
+.product-edit-contents {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  width: 30%; /* 컨텐츠 너비 */
+}
+
+.product-edit-contents label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px; /* 각 요소 사이 간격 */
+  font-size: 15px;
+}
+
+.product-edit-contents input,
+.product-edit-contents textarea,
+.product-edit-contents select {
+  padding: 8px;
+  margin-top: 5px; /* 입력 요소와 라벨 사이 간격 */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.product-edit-contents textarea {
+  height: 50px; /* 원하는 높이로 설정 */
+}
+
+.product-edit-name,
+.product-edit-price,
+.product-edit-content,
+.product-edit-category,
+.product-edit-quantity,
+.product-edit-image {
+  font-size: 15px;
+}
