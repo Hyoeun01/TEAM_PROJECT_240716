@@ -1,0 +1,24 @@
+/* Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+}
+
+.logo {
+    height: 40px; /* 원하는 높이로 조절 */
+    width: auto; /* 높이에 비례하여 너비 자동 조절 */
+}
+
+.nav-links a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: black; /* 링크의 기본 색상 */
+    font-weight: 900;
+}
+
+.nav-links a:hover {
+    color: #93278F; /* 호버 시 글자 색상 변경 */
+}
