@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./ProductView.css";
 
-function ProductView() {
+function ProductView({ role }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1); // 수량 상태 추가
+  const [isAdmin, setIsAdmin] = useState(false); // 초기값 설정
 
   useEffect(() => {
     axios
@@ -68,6 +69,33 @@ function ProductView() {
     setQuantity(value);
   };
 
+  const fetchUserDetails = async () => {
+    try {
+      const response = await fetch("/api/user/details", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      return data; // 예시로 data 객체에 사용자 정보가 포함됨
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    fetchUserDetails().then((user) => {
+      console.log("User Details:", user);
+      if (user && user.role === "admin") {
+        setIsAdmin(true); // admin일 때만 true로 설정
+      } else {
+        setIsAdmin(false);
+      }
+    });
+  }, []);
+
   if (error) {
     return (
       <div>제품 정보를 불러오는 중 오류가 발생했습니다: {error.message}</div>
@@ -101,38 +129,48 @@ function ProductView() {
           <span className="product-view-category">
             <b>분류 : </b> {product.category}
           </span>
-          <span className="product-view-quantity">
-            <b>수량 :</b> {product.total_quantity}
-          </span>
+          {role === "ADMIN" && (
+            <span className="product-view-quantity">
+              <b>수량 :</b> {product.total_quantity}
+            </span>
+          )}
+
           <div className="product-view-buttons">
-            <button className="btn_edit" onClick={handleEdit}>
-              수정
-            </button>
-            <button className="btn_delete" onClick={handleDelete}>
-              삭제
-            </button>
-            <button
-              className="btn_back"
-              onClick={() => navigate(`/productAdmin`)}
-            >
-              뒤로가기
-            </button>
+            {role === "ADMIN" ? (
+              <>
+                <button className="btn_edit" onClick={handleEdit}>
+                  수정
+                </button>
+
+                <button className="btn_delete" onClick={handleDelete}>
+                  삭제
+                </button>
+
+                <button
+                  className="btn_back"
+                  onClick={() => navigate(`/productAdmin`)}
+                >
+                  뒤로가기
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="product-view-cart wrap">
+                  <input
+                    type="number"
+                    min="1"
+                    value={quantity}
+                    onChange={handleQuantityChange}
+                    className="quantity-input"
+                  />
+                  <button className="btn_back" onClick={handleCartClick}>
+                    카트에 담기
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
-      </div>
-
-      <div className="product-view-cart">
-        <input
-          type="number"
-          min="1"
-          value={quantity}
-          onChange={handleQuantityChange}
-          className="quantity-input"
-        />
-
-        <button className="btn_back" onClick={handleCartClick}>
-          카트에 담기
-        </button>
       </div>
     </div>
   );
