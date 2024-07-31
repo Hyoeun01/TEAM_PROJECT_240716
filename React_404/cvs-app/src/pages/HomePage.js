@@ -1,7 +1,9 @@
 import React from 'react';
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 import ProductCard from '../components/ProductCard';
-import Footer from '../components/Footer';
+import Footer from '../components/Footer/Footer';
+import banner from '../assets/images/banner.png'; 
+import './HomePage.css';
 
 const HomePage = () => {
   const products = [
@@ -12,13 +14,14 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
+       <img src={banner} alt="Banner" className="banner" />
       <Header />
       <div className="product-container">
         {products.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-      <button className="view-all-button">모두보기 >></button>
+      <button className="view-all-button">모두보기 </button>
       <Footer />
     </div>
   );

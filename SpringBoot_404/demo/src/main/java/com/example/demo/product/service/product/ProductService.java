@@ -19,7 +19,8 @@ public interface ProductService {
                 .price(product.getPrice())
                 .category(product.getCategory())
                 .content(product.getContent())
-                .quantity(product.getTotal_quantity())
+                .total_quantity(product.getTotal_quantity())
+//                .quantity(product.getTotal_quantity())
                 .product_img(product.getProduct_img())
                 .build();
 

@@ -13,7 +13,8 @@ public class ProductDTO {
     private Long product_id;
     private String product_name;
     private int price;
-    private int quantity;
+    private int total_quantity;
+//    private int quantity;
     private String category;
     private String content;
     private String product_img;

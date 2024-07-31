@@ -1,0 +1,16 @@
+/* Admin.css */
+.admin-page table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-page th, .admin-page td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center; /* 모든 th와 td를 가운데 정렬 */
+}
+
+.admin-page th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
