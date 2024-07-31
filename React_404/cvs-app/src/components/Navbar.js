@@ -47,6 +47,7 @@ const Navbar = () => {
             </Link>
             <div className="nav-links">
                 <Link to="/notice/list">공지사항</Link>
+                <Link to="/api/inquiries">문의사항</Link>
                 {isLoggedIn ? (
                     <>
                         <Link to="#" onClick={handleLogout}>로그아웃</Link>

@@ -6,17 +6,20 @@ import Update from './components/member/update/Update';
 
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
+import InquiryBoard from './components/InquiryBoard';
+import CustomNavbar from './components/Navbar';
 
 
 function App() {
     return (
         <Router>
-            <Navbar />
+            <CustomNavbar />
             <Routes>           
                 <Route path="/" element={<HomePage />} />     
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/update" element={<Update />} />
+                <Route path="/api/inquiries" element={<InquiryBoard />} />
             </Routes>
         </Router>
   );

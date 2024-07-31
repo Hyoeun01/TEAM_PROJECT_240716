@@ -18,7 +18,7 @@ const HomePage = () => {
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-      <button className="view-all-button">모두보기 >></button>
+      <button className="view-all-button">모두보기 ▶▶</button>
       <Footer />
     </div>
   );
