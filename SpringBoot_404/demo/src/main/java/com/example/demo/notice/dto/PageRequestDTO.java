@@ -1,115 +1,57 @@
 package com.example.demo.notice.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Positive;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.time.LocalDate;
-import java.util.Arrays;
 
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PageRequestDTO {
-
     @Builder.Default
-    @Min(value = 1)
-    @Positive
-    private int page = 1; // 현재 페이지 번호
-
+    private int page = 1;
     @Builder.Default
-    @Min(value = 8) // 최소값을 8
-    @Max(value = 100)
-    @Positive
-    private int size = 8; // 페이지당 데이터 수
-
-    //Notice
-    private Long nno;
-    private String noticeTitle;
-    private String noticeContent;
-
-    //FAQ
-    private Long fno;
-    private String faqTitle;
-    private String faqContent;
-
-    //1대1 문의
-    private Long otono;
-    private String one2oneTitle;
-    private String one2oneContent;
-    private String mid;
-
-    @Getter
-    private int offset;
-
-    private String[] types;
-    private String type;
+    private int size = 10;
+    private String type; //t,c,w,tc,tw,twc
     private String keyword;
-    private boolean finished;
-    private LocalDate from;
-    private LocalDate to;
 
-    // offset 계산 로직
-    public void calculateOffset() {
-        if (this.page < 1) {
-            this.page = 1; // page 값이 1보다 작으면 1로 설정
+    public String[] getTypes(){
+        if(type == null || type.isEmpty()){
+            return null;
         }
-        this.offset = (page - 1) * size;
+        return type.split("");
     }
-    // offset 관련된 코드들은 페이지네이션을 구현하는데 사용됨
-    // offset 값은 데이터베이스 쿼리에서 특정 위치에서부터 데이터를 가져오도록 하기 위함
-
-
-    // 페이지 건너뛰기 계산
-    public int getSkip() {
-        return (page - 1) * size;
+    public Pageable getPageable(String...props){
+        return PageRequest.of(this.page-1, this.size, Sort.by(props).descending());
     }
 
-    // URL 링크 생성
-    public String getLink() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("page=").append(this.page);
-        builder.append("&size=").append(this.size);
-        if (finished) {
-            builder.append("&finished=on");
-        }
-        if (types != null && types.length > 0) {
-            for (String type : types) {
-                builder.append("&types=").append(type);
+    private String link;
+    public String getLink(){
+        if(link == null){
+            StringBuilder builder = new StringBuilder();
+            builder.append("page="+this.page);
+            builder.append("&size="+this.size);
+            if(type != null && type.length()>0){
+                builder.append("&type="+type);
             }
-        }
-        if (keyword != null) {
-            try {
-                builder.append("&keyword=").append(URLEncoder.encode(keyword, "UTF-8"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+            if(keyword != null){
+                try{
+                    builder.append("&keyword="+ URLEncoder.encode(keyword,"UTF-8"));
+                }catch(UnsupportedEncodingException e){
+                    e.printStackTrace();
+                }
             }
+            link = builder.toString();
         }
-        if (from != null) {
-            builder.append("&from=").append(from.toString());
-        }
-        if (to != null) {
-            builder.append("&to=").append(to.toString());
-        }
-        return builder.toString();
-    }
-
-    // 타입 체크
-    public boolean checkType(String type) {
-        if (types == null || types.length == 0) {
-            return false;
-        }
-        return Arrays.stream(types).anyMatch(type::equals);
-    }
-
-
-    public Pageable getPageable(String bno) {
-        return null;
+        return link;
     }
 }
