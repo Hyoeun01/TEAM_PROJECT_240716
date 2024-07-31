@@ -17,6 +17,7 @@ import Unauthorized from "./productAdim/page/UnAuthorized";
 import ProductCart from "./productAdim/page/ProductCart";
 import ProductPayment from "./productAdim/page/ProductPayment";
 import ProductUserList from "./productAdim/components/ProductUserList";
+import ProductList from "./productAdim/components/ProductList";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -64,10 +65,10 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/update" element={<Update />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/product/list" element={<ProductUserList />} />
+        <Route path="/product/list" element={<ProductList role={role} />} />
         <Route path="/productAdmin" element={<Product />} />
         <Route path="/productView/:id" element={<ProductView role={role} />} />
-        <Route path="/productAdd" element={<ProductAdd />} />
+        <Route path="/productAdd" element={<ProductAdd role={role} />} />
         <Route path="/productEdit/:id" element={<ProductEdit />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/productCart" element={<ProductCart />} />

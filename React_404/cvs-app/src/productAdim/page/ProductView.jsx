@@ -9,7 +9,6 @@ function ProductView({ role }) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1); // 수량 상태 추가
-  const [isAdmin, setIsAdmin] = useState(false); // 초기값 설정
 
   useEffect(() => {
     axios
@@ -69,33 +68,6 @@ function ProductView({ role }) {
     setQuantity(value);
   };
 
-  const fetchUserDetails = async () => {
-    try {
-      const response = await fetch("/api/user/details", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      return data; // 예시로 data 객체에 사용자 정보가 포함됨
-    } catch (error) {
-      console.error("Error fetching user details:", error);
-      return null;
-    }
-  };
-
-  useEffect(() => {
-    fetchUserDetails().then((user) => {
-      console.log("User Details:", user);
-      if (user && user.role === "admin") {
-        setIsAdmin(true); // admin일 때만 true로 설정
-      } else {
-        setIsAdmin(false);
-      }
-    });
-  }, []);
-
   if (error) {
     return (
       <div>제품 정보를 불러오는 중 오류가 발생했습니다: {error.message}</div>
@@ -136,7 +108,7 @@ function ProductView({ role }) {
           )}
 
           <div className="product-view-buttons">
-            {role === "ADMIN" ? (
+            {role === "ADMIN" && (
               <>
                 <button className="btn_edit" onClick={handleEdit}>
                   수정
@@ -153,7 +125,8 @@ function ProductView({ role }) {
                   뒤로가기
                 </button>
               </>
-            ) : (
+            )}
+            {role === "USER" && (
               <>
                 <div className="product-view-cart wrap">
                   <input
