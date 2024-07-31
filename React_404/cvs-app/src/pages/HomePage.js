@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header/Header';
-import ProductCard from '../components/ProductCard';
+import ProductCard from '../productAdim/components/ProductCard';
 import Footer from '../components/Footer/Footer';
 import banner from '../assets/images/banner.png';
 import './HomePage.css';

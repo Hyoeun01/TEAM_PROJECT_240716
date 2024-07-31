@@ -11,8 +11,6 @@ import Product from "./productAdim/page/Product";
 import ProductView from "./productAdim/page/ProductView";
 import ProductAdd from "./productAdim/page/ProductAdd";
 import ProductEdit from "./productAdim/page/ProductEdit";
-import { Role } from "./productAdim/model/Role";
-import AuthGuard from "./productAdim/guards/AuthGuard";
 import Unauthorized from "./productAdim/page/UnAuthorized";
 import ProductCart from "./productAdim/page/ProductCart";
 import ProductPayment from "./productAdim/page/ProductPayment";
@@ -29,7 +27,7 @@ function App() {
         <Route path="/update" element={<Update />} />
         <Route path="/admin" element={<Admin />} />
           <Route path="/api/inquiries" element={<InquiryBoard />} />
-          <Route path="/productAdmin" element={<Product />} />
+          <Route path="/product/list" element={<Product />} />
         <Route path="/productView/:id" element={<ProductView />} />
         <Route path="/productAdd" element={<ProductAdd />} />
         <Route path="/productEdit/:id" element={<ProductEdit />} />
