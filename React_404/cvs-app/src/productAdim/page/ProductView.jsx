@@ -2,13 +2,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./ProductView.css";
-
+import { useAuth } from "../../context/AuthContext";
 function ProductView({ role }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1); // 수량 상태 추가
+  const { user } = useAuth();
 
   useEffect(() => {
     axios
@@ -57,7 +58,7 @@ function ProductView({ role }) {
 
         // 카트에 담기 성공 시 장바구니로 이동할지 묻는 확인 대화 상자
         if (window.confirm("카트로 가시겠습니까?")) {
-          navigate("/productCart"); // 카트 페이지로 리다이렉트
+          navigate("/cart"); // 카트 페이지로 리다이렉트
         } else {
           alert("카트 이동이 취소되었습니다.");
         }
@@ -115,7 +116,7 @@ function ProductView({ role }) {
           )}
 
           <div className="product-view-buttons">
-            {role === "ADMIN" && (
+            {user?.role === "ADMIN" && (
               <>
                 <button className="btn_edit" onClick={handleEdit}>
                   수정
@@ -127,13 +128,13 @@ function ProductView({ role }) {
 
                 <button
                   className="btn_back"
-                  onClick={() => navigate(`/productAdmin`)}
+                  onClick={() => navigate(`/product/list`)}
                 >
                   뒤로가기
                 </button>
               </>
             )}
-            {role === "USER" && (
+            {user?.role === "USER" && (
               <>
                 <div className="product-view-cart wrap">
                   <input
