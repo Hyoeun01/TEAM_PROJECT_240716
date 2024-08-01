@@ -117,7 +117,7 @@ const NoticeList = () => {
 
   return (
     <div className="notice-list-container">
-      <h1>공지사항</h1>
+      <h1 align>공지사항</h1>
       <div className="search-bar">
         <select name="sk" onChange={onChange}>
           <option value="">-선택-</option>
