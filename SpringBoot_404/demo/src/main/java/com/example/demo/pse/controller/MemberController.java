@@ -2,6 +2,7 @@ package com.example.demo.pse.controller;
 
 import com.example.demo.pse.domain.Member;
 import com.example.demo.pse.dto.MemberDTO;
+import com.example.demo.pse.repository.MemberRepository;
 import com.example.demo.pse.security.UserPrinciple;
 import com.example.demo.pse.security.jwt.JwtTokenProvider;
 import com.example.demo.pse.service.MemberService;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +33,9 @@ public class MemberController {
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -189,5 +194,16 @@ public class MemberController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/profile")
+    public MemberDTO getProfile(Principal principal) {
+        String memberId = principal.getName();
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("Member not found"));
+
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setMid(member.getMid());
+        memberDTO.setNickname(member.getNickname());
+        return memberDTO;
+    }
 
 }

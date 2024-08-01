@@ -17,15 +17,28 @@ public class InquiryService {
         return inquiryRepository.findAll();
     }
 
-    public Inquiry getInquiryById(Long id) {
-        return inquiryRepository.findById(id).orElse(null);
+    public Inquiry createInquiry(Inquiry inquiry) {
+        return inquiryRepository.save(inquiry);
     }
 
-    public Inquiry saveInquiry(Inquiry inquiry) {
+    public Inquiry getInquiryById(Long id) {
+        return inquiryRepository.findById(id).orElseThrow(() -> new RuntimeException("Inquiry not found"));
+    }
+
+    public Inquiry updateInquiry(Inquiry inquiry) {
         return inquiryRepository.save(inquiry);
     }
 
     public void deleteInquiry(Long id) {
         inquiryRepository.deleteById(id);
+    }
+
+    public Inquiry addReply(Long id, String reply) {
+        Inquiry inquiry = inquiryRepository.findById(id).orElse(null);
+        if (inquiry != null) {
+            inquiry.setReply(reply);
+            return inquiryRepository.save(inquiry);
+        }
+        return null;
     }
 }

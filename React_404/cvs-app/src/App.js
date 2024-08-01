@@ -6,7 +6,7 @@ import Update from './components/member/update/Update';
 import Admin from './components/member/admin/Admin';
 import Navbar from './components/Navbar/Navbar';
 import HomePage from './pages/HomePage';
-import InquiryBoard from './components/InquiryBoard';
+import InquiryBoard from './inquiry/InquiryBoard';
 import Product from "./productAdim/page/Product";
 import ProductView from "./productAdim/page/ProductView";
 import ProductAdd from "./productAdim/page/ProductAdd";
@@ -14,10 +14,12 @@ import ProductEdit from "./productAdim/page/ProductEdit";
 import Unauthorized from "./productAdim/page/UnAuthorized";
 import ProductCart from "./productAdim/page/ProductCart";
 import ProductPayment from "./productAdim/page/ProductPayment";
-
+import InquiryView from './inquiry/InquiryView';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <Navbar />
       <Routes>
@@ -26,8 +28,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/update" element={<Update />} />
         <Route path="/admin" element={<Admin />} />
-          <Route path="/api/inquiries" element={<InquiryBoard />} />
-          <Route path="/product/list" element={<Product />} />
+        <Route path="/api/inquiries" element={<InquiryBoard />} />
+        <Route path="/inquiries/:id" element={<InquiryView />} />
+        <Route path="/product/list" element={<Product />} />
         <Route path="/productView/:id" element={<ProductView />} />
         <Route path="/productAdd" element={<ProductAdd />} />
         <Route path="/productEdit/:id" element={<ProductEdit />} />
@@ -44,6 +47,7 @@ function App() {
             /> */}
       </Routes>
     </Router>
+    </AuthProvider>
   );
 }
 
