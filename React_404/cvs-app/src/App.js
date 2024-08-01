@@ -17,23 +17,23 @@ import ProductPayment from "./productAdim/page/ProductPayment";
 
 
 function App() {
-  return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/update" element={<Update />} />
-        <Route path="/admin" element={<Admin />} />
+    return (
+        <Router>
+            <Navbar />
+            <Routes>           
+                <Route path="/" element={<HomePage />} />     
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/update" element={<Update />} />
+                <Route path="/admin" element={<Admin />} />
           <Route path="/api/inquiries" element={<InquiryBoard />} />
           <Route path="/product/list" element={<Product />} />
-        <Route path="/productView/:id" element={<ProductView />} />
-        <Route path="/productAdd" element={<ProductAdd />} />
-        <Route path="/productEdit/:id" element={<ProductEdit />} />
-        <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="/productCart" element={<ProductCart />} />
-        <Route path="/productPayment" element={<ProductPayment />} />
+                <Route path="/productView/:id" element={<ProductView />} />
+                <Route path="/productAdd" element={<ProductAdd />} />
+                <Route path="/productEdit/:id" element={<ProductEdit />} />
+                <Route path="/unauthorized" element={<Unauthorized />} />
+                <Route path="/productCart" element={<ProductCart />} />
+                <Route path="/productPayment" element={<ProductPayment />} />
         {/* <Route
               path="/productAdmin"
               element={
@@ -42,8 +42,8 @@ function App() {
                 </AuthGuard>
               }
             /> */}
-      </Routes>
-    </Router>
+            </Routes>
+        </Router>
   );
 }
 
