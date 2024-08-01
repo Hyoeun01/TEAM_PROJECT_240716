@@ -95,9 +95,13 @@ const ProductPayment = () => {
             <input type="text" name="address" placeholder="우편번호" />
             <button>주소검색</button>
             <br />
-            <input type="text" name="address-detail" placeholder="기본주소" />
             <input
-              type="text"
+              type="address"
+              name="address-detail"
+              placeholder="기본주소"
+            />
+            <input
+              type="address2"
               name="address-extra"
               placeholder="나머지 주소(선택 입력 가능)"
             />
@@ -106,42 +110,57 @@ const ProductPayment = () => {
             <label>휴대전화*</label>
             <select name="phone-prefix">
               <option value="010">010</option>
+              <option value="010">011</option>
+              <option value="010">016</option>
+              <option value="010">017</option>
+              <option value="010">018</option>
+              <option value="010">019</option>
             </select>
-            <input type="text" name="phone-number" />
+            -
+            <input type="phone" name="phone-number" />-
+            <input type="phone2" name="phone-number2" />
           </div>
           <div>
             <label>이메일*</label>
-            <input type="text" name="email" placeholder="이메일" />
-            <input type="text" name="email-domain" placeholder="직접입력" />
-          </div>
-          <div>
-            <label>메시지 선택 (선택사항)</label>
-            <select name="message">
-              <option value="none">선택 안함</option>
-              <option value="birthday">생일축하</option>
+            <input type="email" name="email" placeholder="이메일" />@
+            <select name="email2">
+              <option value="none">직접입력 </option>
+              <option value="naver">naver.com</option>
+              <option value="google">google.com</option>
+              <option value="daum">daum.net</option>
+              <option value="nate">nate.com</option>
             </select>
+            <span>
+              <input type="text" name="none2" placeholder="직접입력"></input>
+            </span>
           </div>
           <div>
-            <label>비회원 주문조회 비밀번호</label>
-            <input
-              type="password"
-              name="order-password"
-              placeholder="비밀번호"
-            />
-            <input
-              type="password"
-              name="order-password-confirm"
-              placeholder="비밀번호 확인"
-            />
+            <select name="message">
+              <option value="none">-- 메세지 선택 (선택사항) --</option>
+              <option value="birthday">생일축하.</option>
+              <option value="birthday">집 앞에 나둬 주세요.</option>
+              <option value="birthday">배송 전 연락 바랍니다.</option>
+              <option value="birthday">벨 누르지 마세요.</option>
+            </select>
           </div>
         </form>
 
         <div className="order-summary">
           <h3>주문상품</h3>
           <div className="order-item">
-            <span>프리미엄 상추 브러쉬 1입 ----- (+5,500원)</span>
-            <span>수량: 1개</span>
-            <span>5,500원</span>
+            {products.length === 0 ? (
+              <p>장바구니가 비어있습니다.</p>
+            ) : (
+              <ul>
+                {products.map((product, index) => (
+                  <li key={index}>
+                    <p>상품명: {product.name}</p>
+                    <p>가격: {product.price} 원</p>
+                    <p>수량: {product.quantity}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           <div className="order-total">
             <div>배송비: 3,000원</div>
@@ -160,22 +179,9 @@ const ProductPayment = () => {
                 name="payment-method"
                 value="kakao-pay"
               />{" "}
-              카카오페이
-              <input type="radio" name="payment-method" value="payco" /> 페이코
-              <input type="radio" name="payment-method" value="tos" /> 토스
+              무통장입금
             </div>
-            <div>
-              <label>카드선택</label>
-              <select name="card-selection">
-                <option value="default">선택해 주세요</option>
-              </select>
-            </div>
-            <div>
-              <label>할부기간</label>
-              <select name="installment-period">
-                <option value="one-time">일시불</option>
-              </select>
-            </div>
+
             <div className="payment-agreement">
               <input type="checkbox" name="agree-all" /> 모든 약관 동의
               <div>
@@ -188,24 +194,8 @@ const ProductPayment = () => {
               </div>
             </div>
           </form>
-
-          <button className="payment-button">8,500원 결제하기</button>
         </div>
       </div>
-
-      {products.length === 0 ? (
-        <p>장바구니가 비어있습니다.</p>
-      ) : (
-        <ul>
-          {products.map((product, index) => (
-            <li key={index}>
-              <p>상품명: {product.name}</p>
-              <p>가격: {product.price} 원</p>
-              <p>수량: {product.quantity}</p>
-            </li>
-          ))}
-        </ul>
-      )}
 
       <div>
         <Payment />
