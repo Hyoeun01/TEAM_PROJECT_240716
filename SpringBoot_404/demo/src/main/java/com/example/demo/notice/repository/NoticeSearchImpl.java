@@ -19,7 +19,7 @@ public class NoticeSearchImpl extends QuerydslRepositorySupport implements Notic
         QNotice notice = QNotice.notice;
         JPQLQuery<Notice> query = from(notice);
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        if(keyword != null){
+        if(keyword != null && !keyword.isEmpty()){
             booleanBuilder.or(notice.title.contains(keyword));
             booleanBuilder.or(notice.content.contains(keyword));
             query.where(booleanBuilder);

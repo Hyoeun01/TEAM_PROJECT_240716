@@ -16,12 +16,15 @@ const NoticeList = () => {
     prev: false,
     next: false
   });
+  const [searchKeyword, setSearchKeyword] = useState(''); // 검색 키워드 상태 추가
 
   const navigate = useNavigate(); // useNavigate 사용
 
-  const fetchNotices = async (page = 1) => { // 페이지 번호를 인자로 받음
+  const fetchNotices = async (page = 1, keyword = '') => { // 페이지와 검색 키워드를 인자로 받음
     try {
-      const response = await axios.get(`http://localhost:8080/notice/list?page=${page}&size=10`); 
+      const response = await axios.get(`http://localhost:8080/notice/list`, {
+        params: { page, size: 10, keyword } // 쿼리 파라미터로 페이지와 검색 키워드 전달
+      });
       if (response.status !== 200) {
         throw new Error('Network response was not ok');
       }
@@ -85,17 +88,18 @@ const NoticeList = () => {
     fetchNotices();
   }, []);
 
-  const handlePageChange = (page) => { // 페이지 변경 함수 추가
+  const handlePageChange = (page) => { // 페이지 변경 함수
     setLoading(true);
-    fetchNotices(page); // 페이지 번호를 인자로 전달
+    fetchNotices(page, searchKeyword); // 페이지 번호와 검색 키워드 전달
   };
 
   const onChange = (e) => {
-    console.log(e.target.name, e.target.value);
+    setSearchKeyword(e.target.value); // 검색 키워드 상태 업데이트
   };
 
   const onSearch = () => {
-    console.log('Search clicked');
+    setLoading(true);
+    fetchNotices(1, searchKeyword); // 검색 키워드로 공지사항 다시 로드
   };
 
   if (loading) return <p>Loading...</p>;
