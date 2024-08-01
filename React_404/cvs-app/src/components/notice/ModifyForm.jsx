@@ -17,14 +17,7 @@ const ModifyForm = () => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        const contentType = response.headers.get('Content-Type');
-        if (contentType && contentType.includes('application/json')) {
-          return response.json();
-        } else {
-          return response.text().then(text => {
-            throw new Error(`Response was not JSON: ${text}`);
-          });
-        }
+        return response.json();
       })
       .then(data => {
         setDto(data);
@@ -85,18 +78,16 @@ const ModifyForm = () => {
     })
     .then(data => {
       console.log('수정된 공지사항:', data);
-      window.location.href = `/notice/read/${bno}`;
+      navigate(`/notice/read/${bno}`);
     })
     .catch(error => {
       console.error('Error:', error);
     });
   };
 
-  const handleSubmitRemove = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
+  const handleDelete = () => {
     const noticeToDelete = {
-      bno: formData.get('bno'),
+      bno: dto.bno,
       writer: dto.writer
     };
 
@@ -115,7 +106,7 @@ const ModifyForm = () => {
     })
     .then(data => {
       console.log('삭제된 공지사항:', data);
-      window.location.href = '/notice/list';
+      navigate('/notice/list');
     })
     .catch(error => {
       console.error('Error:', error);
@@ -142,11 +133,7 @@ const ModifyForm = () => {
         <div className="button-group">
           <button type="button" onClick={() => navigate('/notice/list')}>목록</button>
           <input type="submit" value="수정" />
-          <form onSubmit={handleSubmitRemove} className="remove-form">
-            <input type="hidden" name="bno" value={dto.bno} />
-            <input type="hidden" name="writer" value={dto.writer} />
-            <input type="submit" value="삭제" />
-          </form>
+          <button type="button" onClick={handleDelete}>삭제</button>
         </div>
       </form>
     </div>

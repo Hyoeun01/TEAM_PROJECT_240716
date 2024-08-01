@@ -25,7 +25,7 @@ const Read = () => {
     const handleDelete = () => {
         reviewService.deleteReview(rno)
             .then(() => {
-                navigate('/review/list');
+                navigate(`/productView/${review.product.product_id}`);
             })
             .catch(error => {
                 setErrorMessage('리뷰 삭제 도중 에러가 발생했습니다.');
