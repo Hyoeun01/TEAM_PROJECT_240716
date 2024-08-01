@@ -6,12 +6,13 @@ import "./ProductView.css";
 import reviewService from '../../service/review.service';
 import { Link } from "react-router-dom";
 
-function ProductView() {
+function ProductView({ role }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
   const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
+  const [quantity, setQuantity] = useState(1); // 수량 상태 추가
 
   useEffect(() => {
     axios
@@ -36,10 +37,11 @@ function ProductView() {
     if (window.confirm(`${product.product_name} 을(를) 삭제 하시겠습니까?`)) {
       try {
         await axios.delete(`http://localhost:8080/product/${id}`);
+        console.log(`${product.product_name} 삭제 완료`);
         alert(`${product.product_name} 이(가) 삭제되었습니다.`);
-        navigate("/productAdmin");
+        navigate("/productAdmin"); // 물품 페이지로 리다이렉트
       } catch (error) {
-        console.error("물품 정보 삭제 중 오류가 발생했습니다: ", error);
+        console.error("물품 정보 삭제 중 오류가 발생했습니다:", error);
         alert("물품 정보 삭제 중 오류가 발생했습니다.");
       }
     }
@@ -49,9 +51,40 @@ function ProductView() {
     navigate(`/productEdit/${id}`);
   };
 
-  // const handleBack = () => {
-  //   navigate(-1);
-  // };
+  // 카트에 담는 핸들
+  const handleCartClick = async () => {
+    // 카트에 담기 확인
+    if (window.confirm("카트에 담으시겠습니까?")) {
+      try {
+        // 카트에 담기 API 요청 (여기서 실제 API 경로로 수정 필요)
+        let formData = new FormData();
+        formData.append("product_id", id);
+        formData.append("quantity", quantity);
+        await axios.post(`http://localhost:8080/cart`, formData, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        // 카트에 담기 성공 시 장바구니로 이동할지 묻는 확인 대화 상자
+        if (window.confirm("카트로 가시겠습니까?")) {
+          navigate("/productCart"); // 카트 페이지로 리다이렉트
+        } else {
+          alert("카트 이동이 취소되었습니다.");
+        }
+      } catch (error) {
+        console.error("카트에 담는 중 오류가 발생했습니다:", error);
+        alert("카트에 담는 중 오류가 발생했습니다.");
+      }
+    }
+  };
+
+  // 구매 수량 정하기
+  const handleQuantityChange = (e) => {
+    // 수량을 입력받을 때 숫자만 허용
+    const value = Math.max(1, parseInt(e.target.value) || 1);
+    setQuantity(value);
+  };
 
   if (error) {
     return (
@@ -97,26 +130,54 @@ function ProductView() {
           <span className="product-view-category">
             <b>분류 : </b> {product.category}
           </span>
-          <span className="product-view-quantity">
-            <b>수량 :</b> {product.total_quantity}
-          </span>
+          {role === "ADMIN" && (
+            <span className="product-view-quantity">
+              <b>수량 :</b> {product.total_quantity}
+            </span>
+          )}
+
           <div className="product-view-buttons">
-            <button className="btn_edit" onClick={handleEdit}>
-              수정
-            </button>
-            <button className="btn_delete" onClick={handleDelete}>
-              삭제
-            </button>
-            <button className="btn_back" onClick={() => navigate(`/product/list`)}>
-              뒤로가기
-            </button>
-            <button className="btn_review" onClick={() => navigate(`/review/add/${id}`)}>
-              리뷰 작성
-            </button>
+            {role === "ADMIN" && (
+              <>
+                <button className="btn_edit" onClick={handleEdit}>
+                  수정
+                </button>
+
+                <button className="btn_delete" onClick={handleDelete}>
+                  삭제
+                </button>
+
+                <button
+                  className="btn_back"
+                  onClick={() => navigate(`/productAdmin`)}
+                >
+                  뒤로가기
+                </button>
+              </>
+            )}
+            {role === "USER" && (
+              <>
+                <div className="product-view-cart wrap">
+                  <input
+                      type="number"
+                      min="1"
+                      value={quantity}
+                      onChange={handleQuantityChange}
+                      className="quantity-input"
+                  />
+                  <button className="btn_back" onClick={handleCartClick}>
+                    카트에 담기
+                  </button>
+                  <button className="btn_review" onClick={() => navigate(`/review/add/${id}`)}>
+                    리뷰 작성
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
-      <hr />
+      <hr/>
       <h2>리뷰 목록</h2>
       {reviews.length > 0 ? (
         reviews.map((review) => (

@@ -1,0 +1,55 @@
+.read-page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.read-page-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.read-page-container input[type="text"],
+.read-page-container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.read-page-container textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: flex-end; /* 버튼들을 오른쪽으로 정렬 */
+    gap: 10px; /* 버튼 간의 간격 */
+}
+
+.right-button,
+.center-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.right-button:hover,
+.center-button:hover {
+    background-color: #0056b3;
+}
+
+.read-page-container p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}

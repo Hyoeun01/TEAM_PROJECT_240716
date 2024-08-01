@@ -1,0 +1,91 @@
+.notice-list-container {
+  padding: 20px;
+}
+
+/* 검색 바 스타일 */
+.search-bar {
+  margin-bottom: 20px;
+  text-align: right; /* 검색 바를 오른쪽으로 정렬 */
+}
+
+.search-bar select,
+.search-bar input[type="text"],
+.search-bar button {
+  margin-left: 10px; /* 각 요소 사이의 간격 */
+}
+
+/* 테이블 스타일 */
+.notice-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.notice-table th,
+.notice-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.notice-table th {
+  background-color: #f2f2f2;
+}
+
+/* 글쓰기 버튼 스타일 */
+.write-button {
+  margin-top: 20px;
+  float: right; /* 버튼을 오른쪽으로 정렬 */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+/* 글쓰기 버튼 호버 스타일 */
+.write-button:hover {
+  background-color: #0056b3;
+}
+
+/* 페이지네이션 컨테이너 스타일 */
+.pagination-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center; /* 페이지네이션을 가운데로 정렬 */
+}
+
+.pagination {
+  display: flex; /* 페이지네이션 버튼을 수평으로 나열 */
+  gap: 10px; /* 페이지네이션 버튼 간의 간격 */
+  list-style: none; /* 기본 리스트 스타일 제거 */
+  padding: 0; /* 기본 패딩 제거 */
+  margin: 0; /* 기본 마진 제거 */
+}
+
+.page-item {
+  display: inline; /* 페이지 아이템을 인라인으로 설정 */
+}
+
+.page-link {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  display: inline-block; /* 인라인 블록으로 버튼 크기 조정 */
+}
+
+.page-link:hover {
+  background-color: #0056b3;
+}
+
+.notice-list-container h1 {
+  text-align: center;
+}
