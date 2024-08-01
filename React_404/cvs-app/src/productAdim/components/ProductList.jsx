@@ -24,6 +24,7 @@ const ProductList = ({ role }) => {
     const fetchProducts = async () => {
       try {
         const result = await axios.get("http://localhost:8080/product");
+        const sortedProducts = result.data.sort((a, b) => b.product_id - a.product_id); // 역순으로 보기
         setProducts(result.data);
         setDisplayedProducts(result.data.slice(0, pageSize)); // 초기 표시 제품 설정
         setHasMore(result.data.length > pageSize); // 더보기 버튼을 보여줄지 여부 설정
@@ -109,7 +110,7 @@ const ProductList = ({ role }) => {
       {user?.role === "ADMIN" && (
         <>
           <div className="action-buttons">
-            <Link to="/productAdd" className="add-product-button">
+            <Link to="/productAdd" className="add-product-button2">
               물품 등록하기
             </Link>
             <button
@@ -154,7 +155,7 @@ const ProductList = ({ role }) => {
         ))}
       </div>
 
-      <div className="product-list">
+      <div className="product-list2">
         {error ? (
           <p>데이터를 불러오는 중 오류가 발생했습니다: {error.message}</p>
         ) : (

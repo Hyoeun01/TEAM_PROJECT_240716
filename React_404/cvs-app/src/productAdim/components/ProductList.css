@@ -1,4 +1,4 @@
-.product-list {
+.product-list2 {
   display: flex;
   flex-wrap: wrap;
   margin-top: 12px;
@@ -9,11 +9,11 @@
   /* 텍스트 속성을 변경하지 않도록함 */
   text-decoration: none;
 }
-.product-list .product-card {
+.product-list2 .product-card {
   flex: 0 0 calc(19% - 16px); /* 5개씩 보이도록 비율 조정, 간격을 고려하여 % 조정 */
   box-sizing: border-box;
 }
-.add-product-button {
+.add-product-button2 {
   display: inline-block;
   padding: 8px 16px;
   font-size: 16px;
@@ -23,7 +23,7 @@
   border-radius: 4px;
   margin-right: 10px;
 }
-.add-product-button:hover {
+.add-product-button2:hover {
   background-color: #0056b3;
 }
 .text-center {

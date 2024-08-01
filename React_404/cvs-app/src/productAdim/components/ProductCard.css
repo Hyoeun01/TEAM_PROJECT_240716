@@ -1,6 +1,6 @@
-.product-card {
+.product-card2 {
   width: 200px;
-  height: 350px;
+  height: 330px;
   background-color: white;
   margin-right: 24px;
   margin-bottom: 20px;
@@ -11,7 +11,7 @@
   /* transition: box-shadow 0.3s ease-in-out; 추가: 부드러운 전환 효과 */
   transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out; /* 부드러운 전환 효과 추가 */
 }
-.product-card:hover {
+.product-card2:hover {
   border: 1px solid transparent; /* 기존 테두리를 투명하게 */
   /* box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.2),
     그라데이션 효과 0 0 0 8px rgba(0, 123, 255, 0.1); 더 큰 그라데이션 */
@@ -19,12 +19,10 @@
     linear-gradient(to right, #00ff4c, #06499b); /* 배경을 겹쳐서 그라데이션 효과 */
   background-origin: border-box;
   background-clip: content-box, border-box;
-  box-shadow: 
-    0 0 10px rgba(0, 255, 213, 0.582), 
-    0 0 20px rgba(0, 225, 255, 0.884), 
-    0 0 30px rgba(187, 255, 0, 0.3),
-    0 0 40px rgba(255, 238, 0, 0.2); 
-    /* 그라데이션 효과 추가 */
+  box-shadow: 0 0 10px rgba(0, 255, 213, 0.582),
+    0 0 20px rgba(0, 225, 255, 0.884), 0 0 30px rgba(187, 255, 0, 0.3),
+    0 0 40px rgba(255, 238, 0, 0.2);
+  /* 그라데이션 효과 추가 */
 }
 
 .product-img {
