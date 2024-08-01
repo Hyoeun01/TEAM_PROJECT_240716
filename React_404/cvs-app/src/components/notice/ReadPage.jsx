@@ -10,7 +10,7 @@ const ReadPage = () => {
 
   useEffect(() => {
     if (bno) {
-      fetch(`http://localhost:8080/notice/read/${bno}`)
+      fetch(`http://localhost:3000/notice/read/${bno}`)
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');

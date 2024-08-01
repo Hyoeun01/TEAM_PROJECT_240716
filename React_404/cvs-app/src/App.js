@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage';
 import ReadPage from './components/notice/ReadPage';
 import NoticeList from './components/notice/NoticeList';
 import ModifyForm from './components/notice/ModifyForm';
+import RegisterForm from './components/notice/RegisterForm';
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/update" element={<Update />} />
                 <Route path="/notice/read/:bno" element={<ReadPage />} /> {/* 공지사항 읽기 페이지 */}
                 <Route path="/notice/modify/:bno" element={<ModifyForm />} /> {/* 공지사항 읽기 페이지 */}
+                <Route path="/notice/register" element={<RegisterForm />} />
             </Routes>
         </Router>
   );

@@ -27,6 +27,14 @@ public class NoticeController {
                 .body(notices);
     }
 
+    // '글쓰기' 페이지를 위한 GET 요청 추가
+    @GetMapping("/register") // 추가된 부분
+    public ResponseEntity<Map<String, String>> showRegisterForm() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "This is the register form.");
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody NoticeDTO noticeDTO) {
         noticeService.save(noticeDTO);
@@ -59,4 +67,3 @@ public class NoticeController {
     }
 
 }
-

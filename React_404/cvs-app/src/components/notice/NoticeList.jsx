@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // useNavigate import
 
 const NoticeList = () => {
   const [notices, setNotices] = useState([]);
@@ -15,6 +16,8 @@ const NoticeList = () => {
     prev: false,
     next: false
   });
+
+  const navigate = useNavigate(); // useNavigate 사용
 
   useEffect(() => {
     const checkUserStatus = async () => {
@@ -60,8 +63,17 @@ const NoticeList = () => {
           throw new Error('Network response was not ok');
         }
         const data = response.data;
-        setNotices(data);
-        setResponseDTO(data.responseDTO); // 서버에서 반환된 페이지네이션 데이터 설정
+
+        setNotices(data || []); // notices가 undefined일 경우 빈 배열로 초기화
+        setResponseDTO(data.responseDTO || {
+          page: 1,
+          size: 10,
+          total: 0,
+          start: 1,
+          end: 1,
+          prev: false,
+          next: false
+        }); // responseDTO가 undefined일 경우 초기화
       } catch (error) {
         setError(error);
       } finally {
@@ -102,22 +114,22 @@ const NoticeList = () => {
       <ul>
         {notices.length > 0 ? notices.map(notice => (
           <li key={notice.bno}>
-            <a href={`http://localhost:8080/notice/read/${notice.bno}`}>{notice.title}</a>
+            <a href={`http://localhost:3000/notice/read/${notice.bno}`}>{notice.title}</a>
           </li>
         )) : <p>No notices found.</p>}
       </ul>
       {isAdmin && (
-        <a href="http://localhost:8080/notice/register"><button>글쓰기</button></a>
+        <button onClick={() => navigate('/notice/register')}>글쓰기</button> 
       )}
       <div className="float-end">
         <ul className="pagination flex-wrap">
-          {responseDTO.prev &&
+          {responseDTO && responseDTO.prev &&
             <li className="page-item">
               <a className="page-link" data-num={responseDTO.start - 1}>Previous</a>
             </li>
           }
-          {pageDiv(responseDTO)}
-          {responseDTO.next &&
+          {responseDTO && pageDiv(responseDTO)}
+          {responseDTO && responseDTO.next &&
             <li className="page-item">
               <a className="page-link" data-num={responseDTO.end + 1}>Next</a>
             </li>
