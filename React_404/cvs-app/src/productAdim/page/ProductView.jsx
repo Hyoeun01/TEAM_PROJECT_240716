@@ -5,6 +5,7 @@ import axios from "axios";
 import "./ProductView.css";
 import reviewService from '../../service/review.service';
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 function ProductView({ role }) {
   const { id } = useParams();
@@ -13,6 +14,7 @@ function ProductView({ role }) {
   const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1); // 수량 상태 추가
+  const { user } = useAuth();
 
   useEffect(() => {
     axios
@@ -137,7 +139,7 @@ function ProductView({ role }) {
           )}
 
           <div className="product-view-buttons">
-            {role === "ADMIN" && (
+            {user?.role === "ADMIN" && (
               <>
                 <button className="btn_edit" onClick={handleEdit}>
                   수정
@@ -155,7 +157,7 @@ function ProductView({ role }) {
                 </button>
               </>
             )}
-            {role === "USER" && (
+            {user?.role === "USER" && (
               <>
                 <div className="product-view-cart wrap">
                   <input

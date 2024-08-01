@@ -37,31 +37,31 @@ function App() {
   const [role, setRole] = useState("");
   const [loginMethod, setLoginMethod] = useState("");
 
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        const response = await axios.get("/members/checkLogin", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        setIsLoggedIn(response.data.isLoggedIn);
-        setLoginMethod(localStorage.getItem("loginMethod"));
-        if (response.data.isLoggedIn) {
-          const userResponse = await axios.get("/members/me", {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
-          setRole(userResponse.data.role);
-        }
-      } catch (error) {
-        setIsLoggedIn(false);
-      }
-    };
+  // useEffect(() => {
+  //   const checkLoginStatus = async () => {
+  //     try {
+  //       const response = await axios.get("/members/checkLogin", {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       });
+  //       setIsLoggedIn(response.data.isLoggedIn);
+  //       setLoginMethod(localStorage.getItem("loginMethod"));
+  //       if (response.data.isLoggedIn) {
+  //         const userResponse = await axios.get("/members/me", {
+  //           headers: {
+  //             Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //           },
+  //         });
+  //         setRole(userResponse.data.role);
+  //       }
+  //     } catch (error) {
+  //       setIsLoggedIn(false);
+  //     }
+  //   };
 
-    checkLoginStatus();
-  }, []);
+  //   checkLoginStatus();
+  // }, []);
   return (
     <AuthProvider>
     <Router>
