@@ -68,15 +68,13 @@ const ReadPage = () => {
         <textarea value={dto.content} readOnly></textarea>
       </div>
       <div>
-        {/* 작성자를 텍스트로 표시 */}
+       
         <p><strong>Writer:</strong> {dto.writer}</p>
       </div>
-      <div className="button-group">
-        <button onClick={() => navigate('/notice/list')}>목록</button>
+      <div className="buttons-container">
+        <button className="center-button" onClick={() => navigate('/notice/list')}>목록</button> 
         {isAdmin && (
-          <a href={`/notice/modify/${dto.bno}`}>
-            <button>수정</button>
-          </a>
+          <button className="right-button" onClick={() => navigate(`/notice/modify/${dto.bno}`)}>수정</button> 
         )}
       </div>
     </div>

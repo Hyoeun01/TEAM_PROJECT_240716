@@ -26,14 +26,14 @@
     resize: vertical;
 }
 
-/* 버튼 그룹을 오른쪽으로 정렬하기 위한 클래스 */
-.button-group {
+.buttons-container {
     display: flex;
     justify-content: flex-end; /* 버튼들을 오른쪽으로 정렬 */
-    gap: 10px; /* 버튼 사이의 간격 */
+    gap: 10px; /* 버튼 간의 간격 */
 }
 
-.button-group button {
+.right-button,
+.center-button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -44,13 +44,11 @@
     transition: background-color 0.3s ease;
 }
 
-.button-group button:hover {
+.right-button:hover,
+.center-button:hover {
     background-color: #0056b3;
 }
 
-.button-group a {
-    text-decoration: none;
-}
 .read-page-container p {
     font-size: 16px;
     margin-bottom: 15px;
