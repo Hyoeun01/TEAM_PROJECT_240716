@@ -1,6 +1,7 @@
 package com.example.demo.pse.controller;
 
 import com.example.demo.pse.domain.Member;
+import com.example.demo.pse.domain.Role;
 import com.example.demo.pse.dto.MemberDTO;
 import com.example.demo.pse.security.UserPrinciple;
 import com.example.demo.pse.security.jwt.JwtTokenProvider;
@@ -188,6 +189,20 @@ public class MemberController {
         memberService.deleteMember(mid);
         return ResponseEntity.ok().build();
     }
-
+//관리자 권한이면 공지사항 글쓰기 버튼 생성
+    @GetMapping("/checkAdmin")
+    @ResponseBody
+    public ResponseEntity<Map<String, Boolean>> checkAdmin(HttpServletRequest request) {
+        String token = SecurityUtils.extractAuthTokenFromRequest(request);
+        boolean isAdmin = false;
+        if (token != null && jwtTokenProvider.validateToken(token)) {
+            String username = jwtTokenProvider.getAuthentication(request).getName();
+            Member member = memberService.findByMid(username).orElseThrow(() -> new RuntimeException("User not found"));
+            isAdmin = member.getRole() == Role.ADMIN;
+        }
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("isAdmin", isAdmin);
+        return ResponseEntity.ok(response);
+    }
 
 }

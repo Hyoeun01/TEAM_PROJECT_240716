@@ -20,6 +20,10 @@ import ProductUserList from "./productAdim/components/ProductUserList";
 import ProductList from "./productAdim/components/ProductList";
 import Payment from "./productAdim/components/Payment";
 import CartList from "./cart/page/CartList";
+import ReadPage from './components/notice/ReadPage';
+import NoticeList from './components/notice/NoticeList';
+import ModifyForm from './components/notice/ModifyForm';
+import RegisterForm from './components/notice/RegisterForm';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -80,6 +84,10 @@ function App() {
         <Route path="/productPayment" element={<ProductPayment />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/cart" element={<CartList />} />
+        <Route path="/notice/list" element={<NoticeList />} />
+        <Route path="/notice/read/:bno" element={<ReadPage />} /> {/* 공지사항 읽기 페이지 */}
+        <Route path="/notice/modify/:bno" element={<ModifyForm />} /> {/* 공지사항 읽기 페이지 */}
+        <Route path="/notice/register" element={<RegisterForm />} />
         {/* <Route
               path="/productAdmin"
               element={
