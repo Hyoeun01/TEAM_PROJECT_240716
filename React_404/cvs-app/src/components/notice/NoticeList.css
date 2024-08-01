@@ -1,0 +1,32 @@
+.notice-list-container {
+  padding: 20px;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.notice-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.notice-table th,
+.notice-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.notice-table th {
+  background-color: #f2f2f2;
+}
+
+.write-button {
+  margin-top: 20px;
+}
+
+.pagination-container {
+  margin-top: 20px;
+  text-align: center;
+}

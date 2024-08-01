@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import './ReadPage.css'; // CSS 파일 import
 
 const ReadPage = () => {
   const { bno } = useParams();
@@ -7,9 +8,11 @@ const ReadPage = () => {
   const [dto, setDto] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     if (bno) {
+      // 공지사항 데이터 가져오기
       fetch(`http://localhost:8080/notice/read/${bno}`)
         .then(response => {
           if (!response.ok) {
@@ -25,6 +28,26 @@ const ReadPage = () => {
           setError(error);
           setLoading(false);
         });
+
+      // 사용자 권한 확인하기
+      fetch('http://localhost:8080/members/checkAdmin', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}` // 토큰을 헤더에 포함
+        }
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(roleData => {
+          console.log('Role data:', roleData); // 디버깅용 로그
+          setIsAdmin(roleData.isAdmin); // roleData에서 isAdmin 값을 직접 사용
+        })
+        .catch(error => {
+          console.error('Error fetching user role:', error);
+        });
     }
   }, [bno]);
 
@@ -33,9 +56,8 @@ const ReadPage = () => {
   if (!dto) return <p>No notice found.</p>;
 
   return (
-    
-    <div>
-      <h1>Notice List</h1>
+    <div className="read-page-container">
+      <h1>Notice Details</h1>
       <div>
         <input type="hidden" name="bno" value={dto.bno} />
       </div>
@@ -46,11 +68,16 @@ const ReadPage = () => {
         <textarea value={dto.content} readOnly></textarea>
       </div>
       <div>
-        <input type="text" placeholder="writer" name="writer" value={dto.writer} readOnly />
+        {/* 작성자를 텍스트로 표시 */}
+        <p><strong>Writer:</strong> {dto.writer}</p>
       </div>
-      <div>
+      <div className="button-group">
         <button onClick={() => navigate('/notice/list')}>목록</button>
-        <a href={`/notice/modify/${dto.bno}`}><button>수정</button></a>
+        {isAdmin && (
+          <a href={`/notice/modify/${dto.bno}`}>
+            <button>수정</button>
+          </a>
+        )}
       </div>
     </div>
   );

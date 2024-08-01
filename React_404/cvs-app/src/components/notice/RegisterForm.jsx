@@ -1,4 +1,5 @@
 import React from 'react';
+import './RegisterForm.css'; // CSS 파일 import
 
 const RegisterForm = () => {
   const handleSubmit = (event) => {
@@ -10,7 +11,7 @@ const RegisterForm = () => {
       writer: formData.get('writer')
     };
 
-    fetch('http://localhost:8080/notice/register', { // 절대 경로로 변경
+    fetch('http://localhost:8080/notice/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -33,19 +34,19 @@ const RegisterForm = () => {
   };
 
   return (
-    <div>
-      <h1>Notice List</h1>
+    <div className="register-form-container">
+      <h1>Register Notice</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <input type="text" placeholder="title" name="title" />
+          <input type="text" placeholder="Title" name="title" />
         </div>
         <div>
-          <textarea placeholder="content" name="content"></textarea>
+          <textarea placeholder="Content" name="content"></textarea>
         </div>
         <div>
-          <input type="text" placeholder="writer" name="writer" readOnly />
+          <input type="text" placeholder="Writer" name="writer" readOnly />
         </div>
-        <div>
+        <div className="button-group">
           <button type="button" onClick={() => window.location.href='/notice/list'}>목록</button>
           <input type="submit" value="등록" />
         </div>

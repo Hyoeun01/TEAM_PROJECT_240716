@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Entity
 @Builder
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 @Getter
 @ToString
 @Table(name = "notice")
@@ -16,17 +16,21 @@ public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bno;
+
     private String title;
-    private LocalDate regDate;
+
+    // reg_date 필드에 기본값을 설정하려면 @PrePersist 메서드를 사용합니다.
+    @Column(name = "reg_date", columnDefinition = "DATE")
+    private LocalDate reg_date;
+
     private String writer;
     private String content;
 
-    public Notice(Long bno, String title, LocalDate regDate, String writer, String content) {
-        this.bno =  bno; // id를 bno로 설정
-        this.title = title;
-        this.regDate = regDate;
-        this.writer = writer;
-        this.content = content;
+    // 엔티티가 저장되기 전에 호출됩니다.
+    @PrePersist
+    public void prePersist() {
+        if (reg_date == null) {
+            reg_date = LocalDate.now();
+        }
     }
-
 }

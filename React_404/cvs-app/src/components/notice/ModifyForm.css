@@ -1,0 +1,57 @@
+.modify-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modify-form-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modify-form-container input[type="text"],
+.modify-form-container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.modify-form-container textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.modify-form-container .button-group {
+    display: flex;
+    justify-content: flex-end; /* 버튼들을 오른쪽으로 정렬 */
+    gap: 10px; /* 버튼 사이의 간격 */
+}
+
+.modify-form-container button,
+.modify-form-container input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px; /* 패딩을 통일하여 크기 조정 */
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    display: inline-block; /* 인라인 블록으로 버튼 크기 조정 */
+}
+
+.modify-form-container button:hover,
+.modify-form-container input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* 삭제 버튼을 오른쪽으로 배치하기 위한 클래스 */
+.remove-form {
+    margin-left: 10px; /* 삭제 버튼과 수정 버튼 사이 간격 */
+}

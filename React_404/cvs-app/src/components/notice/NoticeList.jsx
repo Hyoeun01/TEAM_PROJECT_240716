@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // useNavigate import
+import { useNavigate } from 'react-router-dom';
+import './NoticeList.css'; // CSS 파일 import
 
 const NoticeList = () => {
   const [notices, setNotices] = useState([]);
@@ -16,21 +17,21 @@ const NoticeList = () => {
     prev: false,
     next: false
   });
-  const [searchKeyword, setSearchKeyword] = useState(''); // 검색 키워드 상태 추가
+  const [searchKeyword, setSearchKeyword] = useState('');
 
-  const navigate = useNavigate(); // useNavigate 사용
+  const navigate = useNavigate();
 
-  const fetchNotices = async (page = 1, keyword = '') => { // 페이지와 검색 키워드를 인자로 받음
+  const fetchNotices = async (page = 1, keyword = '') => {
     try {
       const response = await axios.get(`http://localhost:8080/notice/list`, {
-        params: { page, size: 10, keyword } // 쿼리 파라미터로 페이지와 검색 키워드 전달
+        params: { page, size: 10, keyword }
       });
       if (response.status !== 200) {
         throw new Error('Network response was not ok');
       }
       const data = response.data;
 
-      setNotices(data.dtoList || []); // notices가 undefined일 경우 빈 배열로 초기화
+      setNotices(data.dtoList || []);
       setResponseDTO({
         page: data.page,
         size: data.size,
@@ -61,8 +62,6 @@ const NoticeList = () => {
           }
         });
 
-        console.log('Login response:', loginResponse.data);
-
         if (loginResponse.data.isLoggedIn) {
           try {
             const userResponse = await axios.get('http://localhost:8080/members/checkAdmin', {
@@ -70,7 +69,6 @@ const NoticeList = () => {
                 'Authorization': `Bearer ${token}`
               }
             });
-            console.log('Admin check response:', userResponse.data);
             setIsAdmin(userResponse.data.isAdmin);
           } catch (adminError) {
             console.error('Error checking admin status:', adminError);
@@ -88,18 +86,18 @@ const NoticeList = () => {
     fetchNotices();
   }, []);
 
-  const handlePageChange = (page) => { // 페이지 변경 함수
+  const handlePageChange = (page) => {
     setLoading(true);
-    fetchNotices(page, searchKeyword); // 페이지 번호와 검색 키워드 전달
+    fetchNotices(page, searchKeyword);
   };
 
   const onChange = (e) => {
-    setSearchKeyword(e.target.value); // 검색 키워드 상태 업데이트
+    setSearchKeyword(e.target.value);
   };
 
   const onSearch = () => {
     setLoading(true);
-    fetchNotices(1, searchKeyword); // 검색 키워드로 공지사항 다시 로드
+    fetchNotices(1, searchKeyword);
   };
 
   if (loading) return <p>Loading...</p>;
@@ -109,8 +107,8 @@ const NoticeList = () => {
     let arr = [];
     for (let i = responseDTO.start; i <= responseDTO.end; i++) {
       arr.push(
-        <li key={i} className={responseDTO.page === i ? 'page-item active' : 'page-item'}>
-          <button onClick={() => handlePageChange(i)}>{i}</button> 
+        <li key={i} className={`page-item ${responseDTO.page === i ? 'active' : ''}`}>
+          <button className="page-link" onClick={() => handlePageChange(i)}>{i}</button>
         </li>
       );
     }
@@ -118,34 +116,9 @@ const NoticeList = () => {
   };
 
   return (
-    <div>
+    <div className="notice-list-container">
       <h1>Notice List</h1>
-      <ul>
-        {notices.length > 0 ? notices.map(notice => (
-          <li key={notice.bno}>
-            <a href={`http://localhost:3000/notice/read/${notice.bno}`}>{notice.title}</a>
-          </li>
-        )) : <p>No notices found.</p>}
-      </ul>
-      {isAdmin && (
-        <button onClick={() => navigate('/notice/register')}>글쓰기</button> 
-      )}
-      <div className="float-end">
-        <ul className="pagination flex-wrap">
-          {responseDTO.prev &&
-            <li className="page-item">
-              <button onClick={() => handlePageChange(responseDTO.start - 1)}>Previous</button> 
-            </li>
-          }
-          {pageDiv()}
-          {responseDTO.next &&
-            <li className="page-item">
-              <button onClick={() => handlePageChange(responseDTO.end + 1)}>Next</button> 
-            </li>
-          }
-        </ul>
-      </div>
-      <div>
+      <div className="search-bar">
         <select name="sk" onChange={onChange}>
           <option value="">-선택-</option>
           <option value="title">제목</option>
@@ -154,6 +127,50 @@ const NoticeList = () => {
         <input type="text" name="sv" onChange={onChange} />
         <button onClick={onSearch}>검색</button>
       </div>
+      <table className="notice-table">
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성일</th>
+          </tr>
+        </thead>
+        <tbody>
+          {notices.length > 0 ? notices.map(notice => (
+            <tr key={notice.bno}>
+              <td>{notice.bno}</td>
+              <td><a href={`http://localhost:3000/notice/read/${notice.bno}`}>{notice.title}</a></td>
+              <td>{notice.reg_date}</td>
+            </tr>
+          )) : (
+            <tr>
+              <td colSpan="3">No notices found.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      {isAdmin && (
+        <button className="write-button" onClick={() => navigate('/notice/register')}>글쓰기</button>
+      )}
+      <nav aria-label="Page navigation example" className="pagination-container">
+        <ul className="pagination flex-wrap">
+          {responseDTO.prev &&
+            <li className="page-item">
+              <button className="page-link" onClick={() => handlePageChange(responseDTO.start - 1)} aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </button>
+            </li>
+          }
+          {pageDiv()}
+          {responseDTO.next &&
+            <li className="page-item">
+              <button className="page-link" onClick={() => handlePageChange(responseDTO.end + 1)} aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </button>
+            </li>
+          }
+        </ul>
+      </nav>
     </div>
   );
 };

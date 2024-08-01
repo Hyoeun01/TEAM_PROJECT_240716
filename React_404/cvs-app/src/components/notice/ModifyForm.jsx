@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import './ModifyForm.css'; // CSS 파일 import
 
 const ModifyForm = () => {
   const { bno } = useParams();
@@ -8,7 +9,7 @@ const ModifyForm = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/notice/read/${bno}`) // 절대 경로로 변경
+    fetch(`http://localhost:8080/notice/read/${bno}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -43,7 +44,7 @@ const ModifyForm = () => {
       writer: formData.get('writer')
     };
 
-    fetch('http://localhost:8080/notice/modify', { // 절대 경로로 변경
+    fetch('http://localhost:8080/notice/modify', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -73,7 +74,7 @@ const ModifyForm = () => {
       writer: formData.get('writer')
     };
 
-    fetch('http://localhost:8080/notice/remove', { // 절대 경로로 변경
+    fetch('http://localhost:8080/notice/remove', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -99,29 +100,28 @@ const ModifyForm = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div>
-      <h1>Notice List</h1>
+    <div className="modify-form-container">
+      <h1>Modify Notice</h1>
       <form onSubmit={handleSubmitModify}>
         <input type="hidden" name="bno" value={dto.bno} />
         <div>
-          <input type="text" placeholder="title" name="title" defaultValue={dto.title} />
+          <input type="text" placeholder="Title" name="title" defaultValue={dto.title} />
         </div>
         <div>
-          <textarea placeholder="content" name="content" defaultValue={dto.content}></textarea>
+          <textarea placeholder="Content" name="content" defaultValue={dto.content}></textarea>
         </div>
         <div>
-          <input type="text" placeholder="writer" name="writer" defaultValue={dto.writer} readOnly />
+          <input type="text" placeholder="Writer" name="writer" defaultValue={dto.writer} readOnly />
         </div>
-        <div>
+        <div className="button-group">
           <button type="button" onClick={() => window.location.href='/notice/list'}>목록</button>
           <input type="submit" value="수정" />
+          <form onSubmit={handleSubmitRemove} className="remove-form">
+            <input type="hidden" name="bno" value={dto.bno} />
+            <input type="hidden" name="writer" value={dto.writer} />
+            <input type="submit" value="삭제" />
+          </form>
         </div>
-      </form>
-
-      <form onSubmit={handleSubmitRemove}>
-        <input type="hidden" name="bno" value={dto.bno} />
-        <input type="hidden" name="writer" value={dto.writer} />
-        <input type="submit" value="삭제" />
       </form>
     </div>
   );

@@ -16,6 +16,6 @@ public class NoticeDTO {
     private String title;
     private String content;
     private String writer;
-    private LocalDate regDate;
+    private LocalDate reg_date;
 
 }
