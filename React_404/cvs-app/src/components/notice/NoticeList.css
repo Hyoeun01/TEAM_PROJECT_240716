@@ -5,6 +5,13 @@
 /* 검색 바 스타일 */
 .search-bar {
   margin-bottom: 20px;
+  text-align: right; /* 검색 바를 오른쪽으로 정렬 */
+}
+
+.search-bar select,
+.search-bar input[type="text"],
+.search-bar button {
+  margin-left: 10px; /* 각 요소 사이의 간격 */
 }
 
 /* 테이블 스타일 */
@@ -78,6 +85,7 @@
 .page-link:hover {
   background-color: #0056b3;
 }
+
 .notice-list-container h1 {
   text-align: center;
 }

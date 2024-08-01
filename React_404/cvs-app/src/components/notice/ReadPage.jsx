@@ -57,7 +57,7 @@ const ReadPage = () => {
 
   return (
     <div className="read-page-container">
-      <h1>Notice Details</h1>
+      <h1>상세내용</h1>
       <div>
         <input type="hidden" name="bno" value={dto.bno} />
       </div>

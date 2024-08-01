@@ -1,5 +1,3 @@
-// RegisterForm.jsx
-
 import React, { useEffect, useState } from 'react';
 import './RegisterForm.css';
 
@@ -63,7 +61,7 @@ const RegisterForm = () => {
 
   return (
     <div className="register-form-container">
-      <h1>Register Notice</h1>
+      <h1>공지사항 등록</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <input type="text" placeholder="Title" name="title" />
@@ -72,7 +70,7 @@ const RegisterForm = () => {
           <textarea placeholder="Content" name="content"></textarea>
         </div>
         <div>
-          <input type="text" placeholder="Writer" name="writer" value={nickname} readOnly /> {/* 수정된 부분 */}
+          <p><strong>Writer:</strong> {nickname}</p>
         </div>
         <div className="button-group">
           <button type="button" onClick={() => window.location.href='/notice/list'}>목록</button>
