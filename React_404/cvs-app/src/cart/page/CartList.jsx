@@ -71,7 +71,9 @@ const CartList = () =>{
             <div class="summary-item"><span class="text">총 할인</span><span class="price">0</span></div>
             <div class="summary-item"><span class="text">배송비</span><span class="price">2500원</span></div>
             <div class="summary-item"><span class="text fs-3 fw-bold">총합</span><span class="price fs-3 fw-bold">{totalPrice+2500}원</span></div>
-            <button type="button" class="btn btn-primary btn-lg btn-block">구매하기</button>
+            <Link to="/productPayment" className="add-product-button">
+              구매하기
+            </Link>
           </div>
         </div>
       </div>

@@ -31,18 +31,18 @@ function ProductAdd({ isLoggedIn, role }) {
   // 폼 제출 핸들러
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     // 유효성 검사
     if (!productName || !price || !content || !category || !totalQuantity) {
       setError("모든 필드를 채워야 합니다.");
       return;
     }
-  
+
     if (isNaN(price) || isNaN(totalQuantity)) {
       setError("가격과 수량은 숫자여야 합니다.");
       return;
     }
-  
+
     // 등록 확인
     if (window.confirm("제품을 등록하시겠습니까?")) {
       const formData = new FormData();
@@ -54,17 +54,21 @@ function ProductAdd({ isLoggedIn, role }) {
       if (productImg instanceof File) {
         formData.append("file", productImg);
       }
-  
+
       try {
         // 서버 요청
-        const response = await axios.post("http://localhost:8080/product", formData, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
+        const response = await axios.post(
+          "http://localhost:8080/product",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           }
-        });
+        );
         setSuccess("제품이 성공적으로 등록되었습니다!");
         setError(null);
-        navigate("/productAdmin");
+        navigate("/product/list");
       } catch (error) {
         console.error("등록 실패:", error);
         setError("제품 등록 중 오류가 발생했습니다.");
@@ -78,7 +82,6 @@ function ProductAdd({ isLoggedIn, role }) {
     event.preventDefault();
     navigate(-1);
   };
-
 
   return (
     <div>

@@ -71,7 +71,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/update" element={<Update />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/product/list" element={<ProductList role={role} />} />
+        <Route path="/product/list" element={<Product role={role} />} />
         <Route path="/productAdmin" element={<Product />} />
         <Route path="/productView/:id" element={<ProductView role={role} />} />
         <Route

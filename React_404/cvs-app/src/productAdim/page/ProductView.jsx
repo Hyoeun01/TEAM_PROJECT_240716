@@ -28,7 +28,7 @@ function ProductView({ role }) {
         await axios.delete(`http://localhost:8080/product/${id}`);
         console.log(`${product.product_name} 삭제 완료`);
         alert(`${product.product_name} 이(가) 삭제되었습니다.`);
-        navigate("/productAdmin"); // 물품 페이지로 리다이렉트
+        navigate("/product/list"); // 물품 페이지로 리다이렉트
       } catch (error) {
         console.error("물품 정보 삭제 중 오류가 발생했습니다:", error);
         alert("물품 정보 삭제 중 오류가 발생했습니다.");
@@ -57,7 +57,7 @@ function ProductView({ role }) {
 
         // 카트에 담기 성공 시 장바구니로 이동할지 묻는 확인 대화 상자
         if (window.confirm("카트로 가시겠습니까?")) {
-          navigate("/productCart"); // 카트 페이지로 리다이렉트
+          navigate("/cart"); // 카트 페이지로 리다이렉트
         } else {
           alert("카트 이동이 취소되었습니다.");
         }
@@ -127,7 +127,7 @@ function ProductView({ role }) {
 
                 <button
                   className="btn_back"
-                  onClick={() => navigate(`/productAdmin`)}
+                  onClick={() => navigate(`/product/list`)}
                 >
                   뒤로가기
                 </button>
