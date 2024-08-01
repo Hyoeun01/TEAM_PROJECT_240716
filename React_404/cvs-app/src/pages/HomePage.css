@@ -1,0 +1,7 @@
+/* HomePage.css */
+.banner {
+    width: 100%;
+    height: auto; /* 이미지 비율을 유지하면서 너비에 맞추어 높이를 조정 */
+    display: block; /* 이미지 아래에 여백이 없도록 설정 */
+  }
+  

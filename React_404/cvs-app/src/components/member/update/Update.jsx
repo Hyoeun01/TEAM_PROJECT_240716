@@ -14,6 +14,7 @@ const Update = () => {
 
     const [showModal, setShowModal] = useState(false);
     const [deletePassword, setDeletePassword] = useState('');
+    const loginMethod = localStorage.getItem('loginMethod');
 
     useEffect(() => {
         const fetchMemberData = async () => {
@@ -94,33 +95,37 @@ const Update = () => {
                     <label htmlFor="mid">ID:</label>
                     <input type="text" id="mid" name="mid" value={member.mid} readOnly />
                 </div>
-                <div>
-                    <label htmlFor="mpw">비밀번호:</label>
-                    <input type="password" id="mpw" name="mpw" value={member.mpw} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label htmlFor="confirmMpw">비밀번호 확인:</label>
-                    <input type="password" id="confirmMpw" name="confirmMpw" value={member.confirmMpw} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input type="email" id="email" name="email" value={member.email} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label htmlFor="nickname">닉네임:</label>
-                    <input type="text" id="nickname" name="nickname" value={member.nickname} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label htmlFor="phone">전화번호:</label>
-                    <input type="text" id="phone" name="phone" value={member.phone} onChange={handleChange} />
-                </div>
+                {loginMethod !== 'kakao' && (
+                    <>
+                        <div>
+                            <label htmlFor="mpw">비밀번호:</label>
+                            <input type="password" id="mpw" name="mpw" value={member.mpw} onChange={handleChange} required />
+                        </div>
+                        <div>
+                            <label htmlFor="confirmMpw">비밀번호 확인:</label>
+                            <input type="password" id="confirmMpw" name="confirmMpw" value={member.confirmMpw} onChange={handleChange} required />
+                        </div>
+                        <div>
+                            <label htmlFor="email">Email:</label>
+                            <input type="email" id="email" name="email" value={member.email} onChange={handleChange} required />
+                        </div>
+                        <div>
+                            <label htmlFor="nickname">닉네임:</label>
+                            <input type="text" id="nickname" name="nickname" value={member.nickname} onChange={handleChange} required />
+                        </div>
+                        <div>
+                            <label htmlFor="phone">전화번호:</label>
+                            <input type="text" id="phone" name="phone" value={member.phone} onChange={handleChange} />
+                        </div>
+                    </>
+                )}
                 <div>
                     <label htmlFor="point">포인트:</label>
                     <input type="number" id="point" name="point" value={member.point} readOnly />
                 </div>
                 <div>
                     <button type="submit">수정완료</button>
-                    <button type="button" onClick={() => setShowModal(true)}>회원탈퇴</button>
+                    {loginMethod !== 'kakao' && <button type="button" onClick={() => setShowModal(true)}>회원탈퇴</button>}
                 </div>
             </form>
 

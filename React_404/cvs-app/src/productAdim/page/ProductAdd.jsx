@@ -31,7 +31,7 @@ function ProductAdd() {
   // 폼 제출 핸들러
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+
     // 사용자 확인 요청
     if (window.confirm("제품을 등록하시겠습니까?")) {
       const formData = new FormData();
@@ -78,7 +78,7 @@ function ProductAdd() {
               src={
                 imgFile ? imgFile : "http://localhost:8080/img/placeholder.png"
               } // 이미지 URL 설정
-              alt={productName || "상품 이미지"}
+              alt={"상품 이미지"}
             />
           </div>
           <div className="product-edit-contents">
@@ -116,12 +116,12 @@ function ProductAdd() {
                 required
               >
                 <option value="">분류를 선택하세요</option>
-                <option value="snack">과자</option>
-                <option value="nudle">라면</option>
-                <option value="ice">아이스크림</option>
-                <option value="bread">빵</option>
-                <option value="runchBox">도시락</option>
-                <option value="drink">음료수</option>
+                <option value="과자">과자</option>
+                <option value="라면">라면</option>
+                <option value="아이스크림">아이스크림</option>
+                <option value="빵">빵</option>
+                <option value="도시락">도시락</option>
+                <option value="음료수">음료수</option>
               </select>
             </label>
             <label className="product-edit-quantity">
