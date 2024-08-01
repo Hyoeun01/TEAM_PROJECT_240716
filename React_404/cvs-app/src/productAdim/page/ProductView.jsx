@@ -70,7 +70,7 @@ function ProductView({ role }) {
 
         // 카트에 담기 성공 시 장바구니로 이동할지 묻는 확인 대화 상자
         if (window.confirm("카트로 가시겠습니까?")) {
-          navigate("/productCart"); // 카트 페이지로 리다이렉트
+          navigate("/cart"); // 카트 페이지로 리다이렉트
         } else {
           alert("카트 이동이 취소되었습니다.");
         }
@@ -151,7 +151,7 @@ function ProductView({ role }) {
 
                 <button
                   className="btn_back"
-                  onClick={() => navigate(`/productAdmin`)}
+                  onClick={() => navigate(`/product/list`)}
                 >
                   뒤로가기
                 </button>
@@ -161,11 +161,11 @@ function ProductView({ role }) {
               <>
                 <div className="product-view-cart wrap">
                   <input
-                      type="number"
-                      min="1"
-                      value={quantity}
-                      onChange={handleQuantityChange}
-                      className="quantity-input"
+                    type="number"
+                    min="1"
+                    value={quantity}
+                    onChange={handleQuantityChange}
+                    className="quantity-input"
                   />
                   <button className="btn_back" onClick={handleCartClick}>
                     카트에 담기

@@ -3,7 +3,7 @@ import axios from "axios";
 import ProductCard from "./ProductCard";
 import { Link } from "react-router-dom";
 import "./ProductList.css";
-
+import { useAuth } from "../../context/AuthContext";
 const categories = ["과자", "라면", "아이스크림", "빵", "도시락", "음료수"]; // 카테고리 목록
 
 const ProductList = ({ role }) => {
@@ -16,7 +16,7 @@ const ProductList = ({ role }) => {
   const [page, setPage] = useState(1); // 현재 페이지
   const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 카테고리
   const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
-
+  const { user } = useAuth();
   const pageSize = 20; // 한 페이지에 보여줄 제품 개수
 
   useEffect(() => {
@@ -106,7 +106,7 @@ const ProductList = ({ role }) => {
   return (
     <div>
       <h1>물품 관리</h1>
-      {role === "ADMIN" && (
+      {user?.role === "ADMIN" && (
         <>
           <div className="action-buttons">
             <Link to="/productAdd" className="add-product-button">
@@ -145,9 +145,8 @@ const ProductList = ({ role }) => {
         {categories.map((category) => (
           <button
             key={category}
-            className={`btn ${
-              selectedCategory === category ? "btn-selected" : ""
-            }`}
+            className={`btn ${selectedCategory === category ? "btn-selected" : ""
+              }`}
             onClick={() => setSelectedCategory(category)}
           >
             {category}

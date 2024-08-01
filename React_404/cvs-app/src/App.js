@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/member/login/Login';
 import Signup from './components/member/signup/Signup';
@@ -12,14 +12,11 @@ import Product from "./productAdim/page/Product";
 import ProductView from "./productAdim/page/ProductView";
 import ProductAdd from "./productAdim/page/ProductAdd";
 import ProductEdit from "./productAdim/page/ProductEdit";
-import { Role } from "./productAdim/model/Role";
-import AuthGuard from "./productAdim/guards/AuthGuard";
 import Unauthorized from "./productAdim/page/UnAuthorized";
 import ProductCart from "./productAdim/page/ProductCart";
 import ProductPayment from "./productAdim/page/ProductPayment";
 import InquiryView from './inquiry/InquiryView';
 import { AuthProvider } from './context/AuthContext';
-import ProductUserList from "./productAdim/components/ProductUserList";
 import ProductList from "./productAdim/components/ProductList";
 import Payment from "./productAdim/components/Payment";
 import CartList from "./cart/page/CartList";
@@ -37,31 +34,31 @@ function App() {
   const [role, setRole] = useState("");
   const [loginMethod, setLoginMethod] = useState("");
 
-  // useEffect(() => {
-  //   const checkLoginStatus = async () => {
-  //     try {
-  //       const response = await axios.get("/members/checkLogin", {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //         },
-  //       });
-  //       setIsLoggedIn(response.data.isLoggedIn);
-  //       setLoginMethod(localStorage.getItem("loginMethod"));
-  //       if (response.data.isLoggedIn) {
-  //         const userResponse = await axios.get("/members/me", {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //           },
-  //         });
-  //         setRole(userResponse.data.role);
-  //       }
-  //     } catch (error) {
-  //       setIsLoggedIn(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await axios.get("/members/checkLogin", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        setIsLoggedIn(response.data.isLoggedIn);
+        setLoginMethod(localStorage.getItem("loginMethod"));
+        if (response.data.isLoggedIn) {
+          const userResponse = await axios.get("/members/me", {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          setRole(userResponse.data.role);
+        }
+      } catch (error) {
+        setIsLoggedIn(false);
+      }
+    };
 
-  //   checkLoginStatus();
-  // }, []);
+    checkLoginStatus();
+  }, []);
   return (
     <AuthProvider>
     <Router>
