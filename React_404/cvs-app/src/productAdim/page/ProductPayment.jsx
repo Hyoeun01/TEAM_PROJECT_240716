@@ -12,6 +12,7 @@ const ProductPayment = () => {
   const [products, setProducts] = useState([]); // 장바구니에 담은 제품 목록 상태 추가
   const [error, setError] = useState(null);
   const navigate = useNavigate(); // useNavigate 사용
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
 
   // useEffect(() => {
   //   const fetchUserInfo = async () => {
@@ -68,6 +69,10 @@ const ProductPayment = () => {
   const handlePayment = (event) => {
     event.preventDefault();
     navigate("/payment");
+  };
+
+  const handlePaymentMethodChange = (event) => {
+    setSelectedPaymentMethod(event.target.value);
   };
 
   // if (error) {
@@ -172,14 +177,24 @@ const ProductPayment = () => {
 
           <form>
             <div>
-              <input type="radio" name="payment-method" value="credit-card" />{" "}
+              <input
+                type="radio"
+                name="payment-method"
+                value="credit-card"
+                checked={selectedPaymentMethod === "credit-card"}
+                onChange={handlePaymentMethodChange}
+              />
               신용카드
               <input
                 type="radio"
                 name="payment-method"
-                value="kakao-pay"
+                value="non-pay"
+                onChange={handlePaymentMethodChange}
               />{" "}
               무통장입금
+              {selectedPaymentMethod === "non-pay" && (
+                <div>부산은행 112-2068-9989-03 서상준</div>
+              )}
             </div>
 
             <div className="payment-agreement">
