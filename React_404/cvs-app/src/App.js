@@ -19,6 +19,7 @@ import ProductPayment from "./productAdim/page/ProductPayment";
 import ProductUserList from "./productAdim/components/ProductUserList";
 import ProductList from "./productAdim/components/ProductList";
 import Payment from "./productAdim/components/Payment";
+import CartList from "./cart/page/CartList";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -78,6 +79,7 @@ function App() {
         <Route path="/productCart" element={<ProductCart />} />
         <Route path="/productPayment" element={<ProductPayment />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/cart" element={<CartList />} />
         {/* <Route
               path="/productAdmin"
               element={

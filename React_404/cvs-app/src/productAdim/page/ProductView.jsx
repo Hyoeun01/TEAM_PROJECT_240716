@@ -46,11 +46,18 @@ function ProductView({ role }) {
     if (window.confirm("카트에 담으시겠습니까?")) {
       try {
         // 카트에 담기 API 요청 (여기서 실제 API 경로로 수정 필요)
-        await axios.post(`http://localhost:8080/product`, { productId: id });
+        let formData = new FormData();
+        formData.append("product_id", id);
+        formData.append("quantity", quantity);
+        await axios.post(`http://localhost:8080/cart`, formData, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
         // 카트에 담기 성공 시 장바구니로 이동할지 묻는 확인 대화 상자
         if (window.confirm("카트로 가시겠습니까?")) {
-          navigate("/productCart"); // 카트 페이지로 리다이렉트
+          navigate("/cart"); // 카트 페이지로 리다이렉트
         } else {
           alert("카트 이동이 취소되었습니다.");
         }
