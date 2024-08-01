@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import "./ProductAdd.css"; // CSS 파일 이름 수정 필요 시 수정
 import { useNavigate } from "react-router-dom";
 
-function ProductAdd() {
+function ProductAdd({ isLoggedIn, role }) {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [content, setContent] = useState("");
@@ -29,10 +29,21 @@ function ProductAdd() {
   };
 
   // 폼 제출 핸들러
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // 사용자 확인 요청
+  
+    // 유효성 검사
+    if (!productName || !price || !content || !category || !totalQuantity) {
+      setError("모든 필드를 채워야 합니다.");
+      return;
+    }
+  
+    if (isNaN(price) || isNaN(totalQuantity)) {
+      setError("가격과 수량은 숫자여야 합니다.");
+      return;
+    }
+  
+    // 등록 확인
     if (window.confirm("제품을 등록하시겠습니까?")) {
       const formData = new FormData();
       formData.append("product_name", productName);
@@ -43,19 +54,22 @@ function ProductAdd() {
       if (productImg instanceof File) {
         formData.append("file", productImg);
       }
-
-      axios
-        .post("http://localhost:8080/product", formData)
-        .then((response) => {
-          setSuccess("제품이 성공적으로 등록되었습니다!");
-          setError(null);
-          navigate("/productAdmin");
-        })
-        .catch((error) => {
-          console.error("등록 실패:", error);
-          setError("제품 등록 중 오류가 발생했습니다.");
-          setSuccess(null);
+  
+      try {
+        // 서버 요청
+        const response = await axios.post("http://localhost:8080/product", formData, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
         });
+        setSuccess("제품이 성공적으로 등록되었습니다!");
+        setError(null);
+        navigate("/productAdmin");
+      } catch (error) {
+        console.error("등록 실패:", error);
+        setError("제품 등록 중 오류가 발생했습니다.");
+        setSuccess(null);
+      }
     }
   };
 
@@ -64,6 +78,7 @@ function ProductAdd() {
     event.preventDefault();
     navigate(-1);
   };
+
 
   return (
     <div>

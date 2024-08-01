@@ -110,5 +110,4 @@ public class InquiryController {
         return ResponseEntity.notFound().build();
     }
 
-
 }

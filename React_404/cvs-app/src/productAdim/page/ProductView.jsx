@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./ProductView.css";
 
-function ProductView() {
+function ProductView({ role }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
@@ -46,7 +46,14 @@ function ProductView() {
     if (window.confirm("카트에 담으시겠습니까?")) {
       try {
         // 카트에 담기 API 요청 (여기서 실제 API 경로로 수정 필요)
-        await axios.post(`http://localhost:8080/product`, { productId: id });
+        let formData = new FormData();
+        formData.append("product_id", id);
+        formData.append("quantity", quantity);
+        await axios.post(`http://localhost:8080/cart`, formData, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
         // 카트에 담기 성공 시 장바구니로 이동할지 묻는 확인 대화 상자
         if (window.confirm("카트로 가시겠습니까?")) {
@@ -101,38 +108,49 @@ function ProductView() {
           <span className="product-view-category">
             <b>분류 : </b> {product.category}
           </span>
-          <span className="product-view-quantity">
-            <b>수량 :</b> {product.total_quantity}
-          </span>
+          {role === "ADMIN" && (
+            <span className="product-view-quantity">
+              <b>수량 :</b> {product.total_quantity}
+            </span>
+          )}
+
           <div className="product-view-buttons">
-            <button className="btn_edit" onClick={handleEdit}>
-              수정
-            </button>
-            <button className="btn_delete" onClick={handleDelete}>
-              삭제
-            </button>
-            <button
-              className="btn_back"
-              onClick={() => navigate(`/productAdmin`)}
-            >
-              뒤로가기
-            </button>
+            {role === "ADMIN" && (
+              <>
+                <button className="btn_edit" onClick={handleEdit}>
+                  수정
+                </button>
+
+                <button className="btn_delete" onClick={handleDelete}>
+                  삭제
+                </button>
+
+                <button
+                  className="btn_back"
+                  onClick={() => navigate(`/productAdmin`)}
+                >
+                  뒤로가기
+                </button>
+              </>
+            )}
+            {role === "USER" && (
+              <>
+                <div className="product-view-cart wrap">
+                  <input
+                    type="number"
+                    min="1"
+                    value={quantity}
+                    onChange={handleQuantityChange}
+                    className="quantity-input"
+                  />
+                  <button className="btn_back" onClick={handleCartClick}>
+                    카트에 담기
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
-      </div>
-
-      <div className="product-view-cart">
-        <input
-          type="number"
-          min="1"
-          value={quantity}
-          onChange={handleQuantityChange}
-          className="quantity-input"
-        />
-
-        <button className="btn_back" onClick={handleCartClick}>
-          카트에 담기
-        </button>
       </div>
     </div>
   );
