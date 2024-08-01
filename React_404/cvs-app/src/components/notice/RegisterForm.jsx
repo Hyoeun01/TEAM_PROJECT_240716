@@ -10,7 +10,7 @@ const RegisterForm = () => {
       writer: formData.get('writer')
     };
 
-    fetch('http://localhost:3000/notice/register', { // 절대 경로로 변경
+    fetch('http://localhost:8080/notice/register', { // 절대 경로로 변경
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -8,7 +8,7 @@ const ModifyForm = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/notice/read/${bno}`) // 절대 경로로 변경
+    fetch(`http://localhost:8080/notice/read/${bno}`) // 절대 경로로 변경
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -43,7 +43,7 @@ const ModifyForm = () => {
       writer: formData.get('writer')
     };
 
-    fetch('http://localhost:3000/notice/modify', { // 절대 경로로 변경
+    fetch('http://localhost:8080/notice/modify', { // 절대 경로로 변경
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ const ModifyForm = () => {
       writer: formData.get('writer')
     };
 
-    fetch('http://localhost:3000/notice/remove', { // 절대 경로로 변경
+    fetch('http://localhost:8080/notice/remove', { // 절대 경로로 변경
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

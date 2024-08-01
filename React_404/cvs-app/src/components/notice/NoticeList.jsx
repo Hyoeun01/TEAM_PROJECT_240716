@@ -19,6 +19,31 @@ const NoticeList = () => {
 
   const navigate = useNavigate(); // useNavigate 사용
 
+  const fetchNotices = async (page = 1) => { // 페이지 번호를 인자로 받음
+    try {
+      const response = await axios.get(`http://localhost:8080/notice/list?page=${page}&size=10`); 
+      if (response.status !== 200) {
+        throw new Error('Network response was not ok');
+      }
+      const data = response.data;
+
+      setNotices(data.dtoList || []); // notices가 undefined일 경우 빈 배열로 초기화
+      setResponseDTO({
+        page: data.page,
+        size: data.size,
+        total: data.total,
+        start: data.start,
+        end: data.end,
+        prev: data.prev,
+        next: data.next
+      });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const checkUserStatus = async () => {
       try {
@@ -56,34 +81,14 @@ const NoticeList = () => {
       }
     };
 
-    const fetchNotices = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/notice/list');
-        if (response.status !== 200) {
-          throw new Error('Network response was not ok');
-        }
-        const data = response.data;
-
-        setNotices(data || []); // notices가 undefined일 경우 빈 배열로 초기화
-        setResponseDTO(data.responseDTO || {
-          page: 1,
-          size: 10,
-          total: 0,
-          start: 1,
-          end: 1,
-          prev: false,
-          next: false
-        }); // responseDTO가 undefined일 경우 초기화
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     checkUserStatus();
     fetchNotices();
   }, []);
+
+  const handlePageChange = (page) => { // 페이지 변경 함수 추가
+    setLoading(true);
+    fetchNotices(page); // 페이지 번호를 인자로 전달
+  };
 
   const onChange = (e) => {
     console.log(e.target.name, e.target.value);
@@ -96,12 +101,12 @@ const NoticeList = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  const pageDiv = (responseDTO) => {
+  const pageDiv = () => {
     let arr = [];
     for (let i = responseDTO.start; i <= responseDTO.end; i++) {
       arr.push(
         <li key={i} className={responseDTO.page === i ? 'page-item active' : 'page-item'}>
-          <a className="page-link" data-num={i}>{i}</a>
+          <button onClick={() => handlePageChange(i)}>{i}</button> 
         </li>
       );
     }
@@ -123,15 +128,15 @@ const NoticeList = () => {
       )}
       <div className="float-end">
         <ul className="pagination flex-wrap">
-          {responseDTO && responseDTO.prev &&
+          {responseDTO.prev &&
             <li className="page-item">
-              <a className="page-link" data-num={responseDTO.start - 1}>Previous</a>
+              <button onClick={() => handlePageChange(responseDTO.start - 1)}>Previous</button> 
             </li>
           }
-          {responseDTO && pageDiv(responseDTO)}
-          {responseDTO && responseDTO.next &&
+          {pageDiv()}
+          {responseDTO.next &&
             <li className="page-item">
-              <a className="page-link" data-num={responseDTO.end + 1}>Next</a>
+              <button onClick={() => handlePageChange(responseDTO.end + 1)}>Next</button> 
             </li>
           }
         </ul>
