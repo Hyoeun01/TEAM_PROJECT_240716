@@ -19,7 +19,6 @@ import ProductPayment from "./productAdim/page/ProductPayment";
 import ProductUserList from "./productAdim/components/ProductUserList";
 import ReviewSave from './pages/review/ReviewSave';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import List from './pages/review/List';
 import Read from './pages/review/Read';
 import Modify from "./pages/review/Modify";
 
@@ -76,7 +75,6 @@ function App() {
         <Route path="/productEdit/:id" element={<ProductEdit />} />
 
         <Route path='/review/add/:p_id' element={<ReviewSave />}></Route>
-        <Route path='/review/list' element={<List />}></Route>
         <Route path='/review/read/:rno' element={<Read />}></Route>
         <Route path='/review/modify/:rno' element={<Modify />}></Route>
         

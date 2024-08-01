@@ -55,14 +55,11 @@ const Read = () => {
                 <div className='card-body'>
                     <h5 className='card-title'>제목: {review.review_title}</h5>
                     <p>작성일: {formatDate(review.reg_date)} (마지막 수정일: {formatDate(review.mod_date)})</p>
-                    <h6 className='card-subtitle mb-2 text-muted'>작성자: {review.nickname}</h6>
+                    <h6 className='card-subtitle mb-2 text-muted'>작성자: {review.member.nickname}</h6>
                     <p className='card-text'>내용: {review.review_exp}</p>
                     <button className='btn btn-primary' onClick={() => navigate('/review/modify/' + review.rno)}>수정하기</button>
-                    <button className='btn btn-secondary' onClick={() => navigate('/review/list')}>목록으로</button>
+                    <button className='btn btn-secondary' onClick={() => navigate(`/productView/${review.product.product_id}`)}>뒤로가기</button>
                     <button className='btn btn-danger' onClick={() => deleteModalRef.current.showDeleteModal()}>삭제</button>
-                    <div>
-                        <button className='btn btn-primary' onClick={() => navigate(`/productView/${review.p_id}`)}>제품 상세보기</button>
-                    </div>
                 </div>
             </div>
             <ReviewDelete ref={deleteModalRef} onConfirmed={handleDelete} />

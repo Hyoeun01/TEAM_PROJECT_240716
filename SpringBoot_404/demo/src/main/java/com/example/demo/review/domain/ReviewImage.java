@@ -1,9 +1,6 @@
 package com.example.demo.review.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -15,13 +12,14 @@ public class ReviewImage {
     @Column(name = "uuid")
     private String uuid;
 
-    @Column(name = "image_name")
+    @Column(name = "image_name", nullable = false)
     private String image_name;
 
-    @Column(name = "ord")
+    @Column(name = "ord", nullable = false)
     private int ord;
 
-    @Column(name = "rno")
-    private int rno;
+    @ManyToOne
+    @JoinColumn(name = "rno", referencedColumnName = "rno", nullable = false)
+    private Review review;
 
 }

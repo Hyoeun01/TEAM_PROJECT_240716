@@ -1,6 +1,7 @@
 package com.example.demo.review.controller;
 
 import com.example.demo.review.domain.Review;
+import com.example.demo.review.dto.ReviewDTO;
 import com.example.demo.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,12 +15,12 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @PostMapping("/add/{p_id}")
-    public ResponseEntity<Object> saveReview(@RequestBody Review review, @PathVariable Long p_id) {
+    @PostMapping("/add/{p_id}/{mid}")
+    public ResponseEntity<Object> saveReview(@RequestBody ReviewDTO reviewDTO, @PathVariable Long p_id, @PathVariable String mid) {
         System.out.println(p_id);
-        System.out.println(review);
+        System.out.println(reviewDTO);
 
-        return new ResponseEntity<>(reviewService.saveReview(review, p_id), HttpStatus.CREATED);
+        return new ResponseEntity<>(reviewService.saveReview(reviewDTO, p_id, mid), HttpStatus.CREATED);
     }
 
     @GetMapping("/list")

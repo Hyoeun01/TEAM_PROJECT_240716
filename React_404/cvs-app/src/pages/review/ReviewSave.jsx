@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import reviewService from '../../service/review.service';
 import Review from '../../models/Review';
+import { useSelector } from 'react-redux';
 
 const ReviewSave = () => {
   const [review, setReview] = useState(new Review(0, '', '', '', 0, '', ''));
@@ -9,26 +10,53 @@ const ReviewSave = () => {
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
   const { p_id } = useParams(); // URL에서 productId를 가져옴
+  const [nickname, setNickname] = useState('');
+  const [mid, setMid] = useState('');
 
   useEffect(() => {
-    console.log("p_id from URL:", p_id);
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:8080/members/me', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setNickname(data.nickname); // 닉네임을 상태에 저장
+          setMid(data.mid);
+        } else {
+          throw new Error('Failed to fetch user data');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  useEffect(() => {
     if (p_id) {
       setReview(prevState => ({
         ...prevState,
         p_id: parseInt(p_id, 10), // 리뷰에 제품 ID를 설정
+        mid: mid
       }));
     }
-  }, [p_id]);
+  }, [p_id, mid]);
 
   const saveReview = (e) => {
     e.preventDefault();
     setSubmitted(true);
 
-    if (!review.review_title || !review.review_exp || !review.nickname || !review.p_id) {
+    if (!review.review_title || !review.review_exp || !review.p_id) {
       return;
     }
 
-    reviewService.saveReview(review, review.p_id)
+    reviewService.saveReview(review, review.p_id, mid)
       .then(response => {
         console.log('리뷰 저장 성공:', response.data);
         navigate(`/productView/${p_id}`); // 저장 후 제품 상세 페이지로 이동
@@ -80,15 +108,15 @@ const ReviewSave = () => {
           </div>
         </div>
         <div className='form-group row'>
-          <label htmlFor='nickname' className='col-sm-2 col-form-label'>작성자: </label>
+          <label htmlFor='mid' className='col-sm-2 col-form-label'>작성자: </label>
           <div className='col-sm-10'>
             <input
               type='text'
-              name='nickname'
+              name='mid'
               className='form-control'
-              value={review.nickname}
-              onChange={handleChange}
+              value={nickname}
               required
+              readOnly
             />
             <div className='invalid-feedback'>유저 정보를 불러올 수 없습니다.</div>
           </div>

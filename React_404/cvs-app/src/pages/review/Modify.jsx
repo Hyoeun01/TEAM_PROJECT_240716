@@ -88,9 +88,9 @@ const Modify = () => {
                                     type='text'
                                     name='nickname'
                                     className='form-control'
-                                    value={review.nickname}
-                                    onChange={handleChange}
+                                    value={review.member.nickname}
                                     required
+                                    readOnly
                                 />
                                 <div className='invalid-feedback'>유저 정보를 불러올 수 없습니다.</div>
                             </div>

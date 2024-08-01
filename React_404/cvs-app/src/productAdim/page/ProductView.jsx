@@ -3,13 +3,15 @@ import { useEffect, useState } from "react";
 import React from "react";
 import axios from "axios";
 import "./ProductView.css";
+import reviewService from '../../service/review.service';
+import { Link } from "react-router-dom";
 
 function ProductView() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
-  // const [modalIsOpen, setModalIsOpen] = useState(false); // 모달 상태 추가
 
   useEffect(() => {
     axios
@@ -23,18 +25,19 @@ function ProductView() {
       });
   }, [id]);
 
+  useEffect(()=>{
+    reviewService.getAllReviews().then((response)=>{
+      const filteredReviews = response.data.filter((review) => review.product.product_id === parseInt(id));
+      setReviews(filteredReviews);
+    });
+}, []);
+
   const handleDelete = async () => {
     if (window.confirm(`${product.product_name} 을(를) 삭제 하시겠습니까?`)) {
       try {
         await axios.delete(`http://localhost:8080/product/${id}`);
-
-        console.log(`${product.product_name} 학생 정보 삭제 완료`);
-
         alert(`${product.product_name} 이(가) 삭제되었습니다.`);
-
-        // 페이지를 새로고침하여 최신 상태 반영
-        // window.location.reload();
-        navigate("/productAdmin"); // 물품 페이지로 리다이렉트
+        navigate("/productAdmin");
       } catch (error) {
         console.error("물품 정보 삭제 중 오류가 발생했습니다: ", error);
         alert("물품 정보 삭제 중 오류가 발생했습니다.");
@@ -46,10 +49,9 @@ function ProductView() {
     navigate(`/productEdit/${id}`);
   };
 
-  // 뒤로가기 버튼 클릭 핸들러
-  const handleBack = () => {
-    navigate(-1); // 이전 페이지로 돌아가기
-  };
+  // const handleBack = () => {
+  //   navigate(-1);
+  // };
 
   if (error) {
     return (
@@ -60,6 +62,17 @@ function ProductView() {
   if (!product) {
     return <div>제품 정보를 불러오는 중입니다...</div>;
   }
+
+  const formatDate = (dateString) => {
+    const formattedDateString = dateString.replace(' ', 'T').replace(/(\.\d+)?$/, '');
+    const date = new Date(formattedDateString);
+
+    if (isNaN(date.getTime())) {
+      return 'Invalid date';
+    }
+
+    return date.toISOString().split('T')[0];
+  };
 
   return (
     <div>
@@ -94,7 +107,7 @@ function ProductView() {
             <button className="btn_delete" onClick={handleDelete}>
               삭제
             </button>
-            <button className="btn_back" onClick={handleBack}>
+            <button className="btn_back" onClick={() => navigate(`/product/list`)}>
               뒤로가기
             </button>
             <button className="btn_review" onClick={() => navigate(`/review/add/${id}`)}>
@@ -103,6 +116,31 @@ function ProductView() {
           </div>
         </div>
       </div>
+      <hr />
+      <h2>리뷰 목록</h2>
+      {reviews.length > 0 ? (
+        reviews.map((review) => (
+          <div key={review.id} className="card home-card">
+            <div className="card-body">
+              <div className="card-title text-uppercase">
+                <Link to={`/review/read/${review.rno}`}>{review.review_title}</Link>
+                <p>{review.member.nickname} ｜ {formatDate(review.reg_date)} (수정일: {formatDate(review.mod_date)})</p>
+              </div>
+              <div className="card-subtitle text-muted" style={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                height: "25px",
+                width: "99%"
+              }}>
+                {review.review_exp}
+              </div>
+            </div>
+          </div>
+        ))
+      ) : (
+        <p>리뷰가 없습니다.</p>
+      )}
     </div>
   );
 }
