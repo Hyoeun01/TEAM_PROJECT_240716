@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import logo from '../../../logo/1st_logo.png'; // 로고 이미지 추가
 import kakaoIcon from '../../../assets/images/kakao_icon.png'; // 카카오 아이콘 추가
 import googleIcon from '../../../assets/images/google_icon.png'; // 구글 아이콘 추가
-import banner from '../../../assets/images/login_banner.JPG'; // 배너 이미지 추가
+import banner from '../../../assets/images/login_banner.jpg'; // 배너 이미지 추가
 import './Login.css'; // Bootstrap CSS 포함
 
 const Login = () => {
@@ -145,7 +145,7 @@ const Login = () => {
                                 </div>
                                 <div className="col-lg-6 d-flex align-items-center gradient-custom-2" style={{ backgroundImage: `url(${banner})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                                     <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                                   
+
                                     </div>
                                 </div>
                             </div>

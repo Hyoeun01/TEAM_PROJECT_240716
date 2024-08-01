@@ -1,59 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import logo from '../../logo/1st_logo.png'; 
-import './Navbar.css'; 
+import logo from '../../logo/1st_logo.png';
+import { useAuth } from '../../context/AuthContext';
+import './Navbar.css';
 
 const Navbar = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [role, setRole] = useState('');
-    const [loginMethod, setLoginMethod] = useState('');
-
-    useEffect(() => {
-        const checkLoginStatus = async () => {
-            try {
-                const response = await axios.get('/members/checkLogin', {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    }
-                });
-                setIsLoggedIn(response.data.isLoggedIn);
-                setLoginMethod(localStorage.getItem('loginMethod'));
-                if (response.data.isLoggedIn) {
-                    const userResponse = await axios.get('/members/me', {
-                        headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('token')}`
-                        }
-                    });
-                    setRole(userResponse.data.role);
-                }
-            } catch (error) {
-                setIsLoggedIn(false);
-            }
-        };
-
-        checkLoginStatus();
-    }, []);
-
-    const handleLogout = async () => {
-        try {
-            const response = await axios.post('/members/logout', {}, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            });
-            if (response.status === 200) {
-                localStorage.removeItem('token');
-                localStorage.removeItem('loginMethod');
-                setIsLoggedIn(false);
-                setRole('');
-                setLoginMethod('');
-                window.location.href = '/';
-            }
-        } catch (error) {
-            console.error('로그아웃 중 오류 발생:', error);
-        }
-    };
+    const { isLoggedIn, user, handleLogout } = useAuth();
 
     return (
         <nav className="navbar">
@@ -67,7 +19,7 @@ const Navbar = () => {
                 <Link to="/api/inquiries">문의사항</Link>
                 {isLoggedIn ? (
                     <>
-                        {role === 'ADMIN' ? (
+                        {user?.role === 'ADMIN' ? (
                             <Link to="/admin">ADMIN</Link>
                         ) : (
                             <Link to="/update">MyPage</Link>

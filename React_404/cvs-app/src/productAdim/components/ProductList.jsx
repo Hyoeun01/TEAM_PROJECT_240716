@@ -3,10 +3,10 @@ import axios from "axios";
 import ProductCard from "./ProductCard";
 import { Link } from "react-router-dom";
 import "./ProductList.css";
-
+import { useAuth } from "../../context/AuthContext";
 const categories = ["과자", "라면", "아이스크림", "빵", "도시락", "음료수"]; // 카테고리 목록
 
-const ProductList = () => {
+const ProductList = ({ role }) => {
   const [products, setProducts] = useState([]); // 모든 제품
   const [displayedProducts, setDisplayedProducts] = useState([]); // 현재 표시된 제품
   const [selectedProducts, setSelectedProducts] = useState(new Set()); // 선택된 제품
@@ -16,7 +16,7 @@ const ProductList = () => {
   const [page, setPage] = useState(1); // 현재 페이지
   const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 카테고리
   const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
-
+  const { user } = useAuth();
   const pageSize = 20; // 한 페이지에 보여줄 제품 개수
 
   useEffect(() => {
@@ -106,22 +106,26 @@ const ProductList = () => {
   return (
     <div>
       <h1>물품 관리</h1>
-      <div className="action-buttons">
-        <Link to="/productAdd" className="add-product-button">
-          물품 등록하기
-        </Link>
-        <button
-          className="btn btn-primary"
-          onClick={() => setIsSelectionMode((prevMode) => !prevMode)}
-        >
-          {isSelectionMode ? "선택 취소" : "선택삭제"}
-        </button>
-        {isSelectionMode && (
-          <button className="btn btn-danger" onClick={handleDeleteSelected}>
-            삭제하기
-          </button>
-        )}
-      </div>
+      {user?.role === "ADMIN" && (
+        <>
+          <div className="action-buttons">
+            <Link to="/productAdd" className="add-product-button">
+              물품 등록하기
+            </Link>
+            <button
+              className="btn btn-primary"
+              onClick={() => setIsSelectionMode((prevMode) => !prevMode)}
+            >
+              {isSelectionMode ? "선택 취소" : "선택삭제"}
+            </button>
+            {isSelectionMode && (
+              <button className="btn btn-danger" onClick={handleDeleteSelected}>
+                삭제하기
+              </button>
+            )}
+          </div>
+        </>
+      )}
       <div className="search-filter">
         <input
           type="text"
@@ -141,9 +145,8 @@ const ProductList = () => {
         {categories.map((category) => (
           <button
             key={category}
-            className={`btn ${
-              selectedCategory === category ? "btn-selected" : ""
-            }`}
+            className={`btn ${selectedCategory === category ? "btn-selected" : ""
+              }`}
             onClick={() => setSelectedCategory(category)}
           >
             {category}

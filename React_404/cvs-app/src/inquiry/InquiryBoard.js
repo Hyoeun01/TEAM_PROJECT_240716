@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Container, Button, Card, Row, Col, Modal, Form } from 'react-bootstrap';
+import { Container, Button, ListGroup, Modal, Form } from 'react-bootstrap';
 
 const InquiryBoard = () => {
     const [inquiries, setInquiries] = useState([]);
     const [show, setShow] = useState(false);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [nickname, setNickname] = useState('');
 
     useEffect(() => {
         fetchInquiries();
+        fetchNickname();
     }, []);
 
     const fetchInquiries = async () => {
@@ -17,11 +20,28 @@ const InquiryBoard = () => {
         setInquiries(response.data);
     };
 
+    const fetchNickname = async () => {
+        try {
+            const response = await axios.get('/members/profile', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            setNickname(response.data.nickname);
+        } catch (error) {
+            console.error('Error fetching nickname:', error);
+        }
+    };
+
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
     const createInquiry = async () => {
-        const response = await axios.post('/api/inquiries', { title, content });
+        const response = await axios.post('/api/inquiries', { title, content }, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
         setInquiries([...inquiries, response.data]);
         setTitle('');
         setContent('');
@@ -34,21 +54,13 @@ const InquiryBoard = () => {
             <Button variant="primary" className="mb-4" onClick={handleShow}>
                 문의하기
             </Button>
-            <Row>
+            <ListGroup>
                 {inquiries.map((inquiry) => (
-                    <Col key={inquiry.id} md={4} className="mb-4">
-                        <Card>
-                            <Card.Body>
-                                <Card.Title>{inquiry.title}</Card.Title>
-                                <Card.Text>{inquiry.content}</Card.Text>
-                                <Card.Footer className="text-muted">
-                                    {new Date(inquiry.createdAt).toLocaleString()}
-                                </Card.Footer>
-                            </Card.Body>
-                        </Card>
-                    </Col>
+                    <ListGroup.Item key={inquiry.id}>
+                        <Link to={`/inquiries/${inquiry.id}`}>{inquiry.title}</Link>
+                    </ListGroup.Item>
                 ))}
-            </Row>
+            </ListGroup>
             
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
