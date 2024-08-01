@@ -2,10 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>편의점 물품관리 페이지</title>
+    <link href="/css/product/list.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
+<h1>물품 관리</h1>
 
-테스트하기
+<div id="product-list">
+    <div class="product-card">
+        <div>
+            <img class="product-img" src="/img/product/bread/bread_greek.png">
+        </div>
+        <div class="product-contents">
+            <span class="product-name">연세 그릭요거트빵</span>
+            <span class="product-price">4,500원</span>
+        </div>
+    </div>
+</div>
+
 </body>
+<script>
+    axios.get("http://localhost:8080/product")
+        .then(function (result) {
+            console.log("통신 결과 :", result);
+            const products = result.data;
+
+            // 서버에서 받은 전체 데이터 로그
+            console.log("서버 응답 데이터:", result.data);
+
+            // products 데이터가 존재하는지 확인
+            if (products) {
+
+                let productsHtml = "";
+                for (let i = 0; i < products.length; i++) {
+                    let product = products[i];
+                    productsHtml +=
+                        '<div class="product-card">' +
+                        "<div>" +
+                        '<img class="product-img" src="/img/product' + product.product_img + '" />' +
+                        "</div>" +
+                        '<div class="product-contents">' +
+                        '<span class="product-name">' + product.product_name + "</span>" +
+                        '<span class="product-price">' + product.price + "</span>" +
+                        '<span class="product-category">' + product.category + "</span>" +
+                        '<span class="product-quantity">' + "수량 : " + product.total_quantity + "</span>" +
+                        "</div>" +
+                        '</div>';
+                }
+
+                document.querySelector("#product-list").innerHTML = productsHtml;
+            } else {
+                console.error("products 데이터가 존재하지 않습니다:", result.data);
+            }
+        })
+        .catch(function (error) {
+            console.error("통신 실패:", error);
+            // if (error.response) {
+            //     // 서버가 응답했지만 상태 코드가 2xx 범위에 있지 않음
+            //     console.error("서버 응답 오류:", error.response.data);
+            //     console.error("응답 상태 코드:", error.response.status);
+            //     console.error("응답 헤더:", error.response.headers);
+            // } else if (error.request) {
+            //     // 요청이 만들어졌으나 응답을 받지 못함
+            //     console.error("요청 데이터:", error.request);
+            // } else {
+            //     // 요청을 설정하는 중에 오류가 발생함
+            //     console.error("오류 메시지:", error.message);
+            // }
+            // console.error("설정 정보:", error.config);
+        });
+
+</script>
 </html>

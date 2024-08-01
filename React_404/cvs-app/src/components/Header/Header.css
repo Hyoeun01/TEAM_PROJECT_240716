@@ -1,0 +1,59 @@
+.carousel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* 컨테이너에 상대적 위치 설정 */
+}
+
+.half-carousel {
+    width: 25%; 
+    overflow: hidden; /* 넘치는 부분 숨기기 */
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.7); /* 반투명 흰색 원 */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+}
+
+.carousel-control-prev {
+    left: calc(50% - 330px); /* 중앙 캐러셀 왼쪽에 위치 */
+}
+
+.carousel-control-next {
+    right: calc(50% - 330px); /* 중앙 캐러셀 오른쪽에 위치 */
+}
+
+.carousel-control-prev-icon {
+    background-image: url('../../assets/images/prev.png'); /* prev.png 이미지 경로 */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.carousel-control-next-icon {
+    background-image: url('../../assets/images/next.png'); /* next.png 이미지 경로 */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.carousel {
+    max-width: 600px; /* 원하는 최대 너비로 조정 */
+    margin: auto; /* 중앙 정렬 */
+}
+
+.carousel-indicators button {
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정색 원 */
+}
+
+.carousel-indicators .active {
+    background-color: rgba(0, 0, 0, 1); /* 불투명 검정색 원 */
+}

@@ -12,8 +12,11 @@ import lombok.NoArgsConstructor;
 public class CartDTO {
 
     private Long cart_id;
-    private String user_id;
+    private String mid;
     private Long product_id;
+    private String product_name;
+    private String product_img;
+    private int price;
     private int quantity;
 
 }

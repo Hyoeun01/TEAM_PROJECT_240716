@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PurchaseList {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long purchase_list_id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long purchase_list_id;
 
-    @Column
-    private Long purchase_id;
+  @Column
+  private Long purchase_id;
 
-    @Column(length = 20, nullable = false)
-    private String user_id;
+  @Column(length = 20, nullable = false)
+  private String user_id;
 
-    @Column
-    private String list;
+  @Column
+  private String list;
 }

@@ -1,5 +1,7 @@
 package com.example.demo.product.domain;
 
+import com.example.demo.productAdmin.domain.Product;
+import com.example.demo.pse.domain.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,16 +18,18 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cart_id;
 
-    @Column(length = 20, nullable = false)
-    private String user_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="mid")
+    private Member member;
 
-    @Column
-    private Long product_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="product_id")
+    private Product product;
 
     @Column
     private int quantity;
 
     public void changeQuantity(int quantity) {
-        this.quantity += quantity;
+        this.quantity = quantity;
     }
 }
