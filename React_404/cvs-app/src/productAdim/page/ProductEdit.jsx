@@ -129,12 +129,12 @@ function ProductEdit() {
                 required
               >
                 <option value="">분류를 선택하세요</option>
-                <option value="snack">과자</option>
-                <option value="nudle">라면</option>
-                <option value="ice">아이스크림</option>
-                <option value="bread">빵</option>
-                <option value="runchBox">도시락</option>
-                <option value="drink">음료수</option>
+                <option value="과자">과자</option>
+                <option value="라면">라면</option>
+                <option value="아이스크림">아이스크림</option>
+                <option value="빵">빵</option>
+                <option value="도시락">도시락</option>
+                <option value="음료수">음료수</option>
               </select>
             </label>
             <label className="product-edit-quantity">

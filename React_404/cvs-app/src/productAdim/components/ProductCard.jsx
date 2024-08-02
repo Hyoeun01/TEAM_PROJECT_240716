@@ -60,11 +60,11 @@ const ProductCard = ({ product, onSelect, isSelected, isSelectionMode }) => {
               alt={product.product_name}
             />
           </div>
-          <div className="product-contents">
-            <span className="product-name">{product.product_name}</span>
-            <span className="product-price">{product.price}원</span>
-            <span className="product-category">{product.category}</span>
-            <span className="product-quantity">
+          <div className="product-contents2">
+            <span className="product-name2">{product.product_name}</span>
+            <span className="product-price2">{product.price}원</span>
+            <span className="product-category2">{product.category}</span>
+            <span className="product-quantity2">
               수량 : {product.total_quantity}
             </span>
           </div>
