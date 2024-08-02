@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Button, ListGroup, Modal, Form } from 'react-bootstrap';
+import { motion } from 'framer-motion';
+import styled from 'styled-components';
+import './InquiryBoard.css';
 
 const InquiryBoard = () => {
     const [inquiries, setInquiries] = useState([]);
@@ -9,6 +12,7 @@ const InquiryBoard = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [nickname, setNickname] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchInquiries();
@@ -48,21 +52,49 @@ const InquiryBoard = () => {
         handleClose();
     };
 
+    const handleItemClick = (id) => {
+        navigate(`/inquiries/${id}`);
+    };
+
     return (
-        <Container className="mt-5">
-            <h1>문의사항 게시판</h1>
-            <Button variant="primary" className="mb-4" onClick={handleShow}>
-                문의하기
-            </Button>
-            <ListGroup>
-                {inquiries.map((inquiry) => (
-                    <ListGroup.Item key={inquiry.id}>
-                        <Link to={`/inquiries/${inquiry.id}`}>{inquiry.title}</Link>
-                    </ListGroup.Item>
-                ))}
-            </ListGroup>
+        <StyledContainer>
+            <motion.h1 
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inquiry-board-header"
+            >
+                문의사항
+            </motion.h1>
+            <ButtonContainer>
+                <StyledButton 
+                    className="mb-4 inquiry-board-button"
+                    onClick={handleShow}
+                >
+                    문의하기
+                </StyledButton>
+            </ButtonContainer>
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+            >
+                <ListGroup>
+                    {inquiries.map((inquiry) => (
+                        <motion.div
+                            key={inquiry.id}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <StyledListGroupItem onClick={() => handleItemClick(inquiry.id)}>
+                                <StyledLink>{inquiry.title}</StyledLink>
+                            </StyledListGroupItem>
+                        </motion.div>
+                    ))}
+                </ListGroup>
+            </motion.div>
             
-            <Modal show={show} onHide={handleClose}>
+            <StyledModal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>문의 작성</Modal.Title>
                 </Modal.Header>
@@ -70,21 +102,23 @@ const InquiryBoard = () => {
                     <Form>
                         <Form.Group controlId="formTitle">
                             <Form.Label>제목</Form.Label>
-                            <Form.Control 
+                            <StyledFormControl 
                                 type="text" 
                                 placeholder="제목을 입력하세요" 
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
+                                className="inquiry-board-form-control"
                             />
                         </Form.Group>
                         <Form.Group controlId="formContent" className="mt-3">
-                            <Form.Label>내용</Form.Label>
-                            <Form.Control 
+                            <Form.Label>내용</Form.Label><br/>
+                            <StyledFormControl 
                                 as="textarea" 
-                                rows={3} 
+                                rows={5} 
                                 placeholder="내용을 입력하세요"
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
+                                className="inquiry-board-form-control"
                             />
                         </Form.Group>
                     </Form>
@@ -93,13 +127,82 @@ const InquiryBoard = () => {
                     <Button variant="secondary" onClick={handleClose}>
                         취소
                     </Button>
-                    <Button variant="primary" onClick={createInquiry}>
+                    <StyledButton onClick={createInquiry}>
                         작성
-                    </Button>
+                    </StyledButton>
                 </Modal.Footer>
-            </Modal>
-        </Container>
+            </StyledModal>
+        </StyledContainer>
     );
 };
 
 export default InquiryBoard;
+
+const StyledContainer = styled(Container)`
+    .inquiry-board-header {
+        color: #93278F;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+`;
+
+const ButtonContainer = styled.div`
+    text-align: right;
+    margin-bottom: 20px;
+`;
+
+const StyledButton = styled(Button)`
+    background-color: #93278F;
+    border: none;
+    &:hover {
+        background-color: #8CC63F;
+    }
+`;
+
+const StyledListGroupItem = styled(ListGroup.Item)`
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        background-color: #F0F0F0;
+    }
+`;
+
+const StyledLink = styled.span`
+    color: #93278F;
+    text-decoration: none;
+`;
+
+const StyledFormControl = styled(Form.Control)`
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #93278F;
+    width: 100%;
+    &:focus {
+        border-color: #8CC63F;
+        box-shadow: 0 0 0 0.2rem rgba(140, 198, 63, 0.25);
+    }
+`;
+
+const StyledModal = styled(Modal)`
+    .modal-dialog {
+        max-width: 800px;
+    }
+    .modal-content {
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .modal-header, .modal-footer {
+        border: none;
+        justify-content: center;
+    }
+    .modal-body {
+        padding: 20px;
+    }
+`;
