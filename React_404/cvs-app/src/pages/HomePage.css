@@ -4,4 +4,23 @@
     height: auto; /* 이미지 비율을 유지하면서 너비에 맞추어 높이를 조정 */
     display: block; /* 이미지 아래에 여백이 없도록 설정 */
   }
+  .view-all-button {
+    display: inline-block; /* 버튼을 인라인 블록으로 설정 */
+    padding: 10px 20px; /* 버튼의 패딩 조정 */
+    font-size: 16px; /* 버튼 글자 크기 조정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    color: #fff; /* 글자 색상 */
+    background-color: #007bff; /* 버튼 배경색 */
+    border: none; /* 버튼 테두리 제거 */
+    border-radius: 4px; /* 버튼 모서리 둥글게 */
+    text-decoration: none; /* 링크 텍스트 밑줄 제거 */
+    cursor: pointer; /* 커서 포인터로 변경 */
+    margin: 20px 0; /* 버튼 상하 여백 추가 */
+  }
   
+  /* 중앙 정렬을 위한 컨테이너 스타일 */
+  .button-container {
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    margin: 20px 0; /* 상하 여백 추가 */
+  }

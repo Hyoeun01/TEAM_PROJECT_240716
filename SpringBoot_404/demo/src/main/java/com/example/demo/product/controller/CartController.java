@@ -49,5 +49,11 @@ public class CartController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> check(@PathVariable Long id) {
+        cartService.changeCheck(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }

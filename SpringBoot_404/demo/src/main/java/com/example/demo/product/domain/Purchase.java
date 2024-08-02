@@ -36,6 +36,8 @@ public class Purchase {
   private String message;
   @Column
   private String totalPrice;
+  @Column
+  private String payment;
   @CreationTimestamp
   private LocalDateTime regDate;
   @UpdateTimestamp
@@ -46,15 +48,16 @@ public class Purchase {
   private Member member;
 
   @OneToMany
-  @JoinColumn(name="purchaseDetailId")
+  @JoinColumn(name="purchase_detail_id")
   private List<PurchaseDetail> purchaseDetailList;
 
   public void changePurchase(PurchaseDTO dto){
-    this.email = dto.getEmail();
+    this.name = dto.getName();
     this.address = dto.getAddress();
     this.phone = dto.getPhone();
+    this.email = dto.getEmail();
     this.message = dto.getMessage();
-    this.name = dto.getName();
+    this.payment = dto.getPayment();
   }
 
   public void changeStatus(PurchaseDTO dto){

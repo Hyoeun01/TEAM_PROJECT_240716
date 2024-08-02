@@ -45,13 +45,14 @@ public class CartServiceImpl implements CartService{
         Cart cart = new Cart();
         if(cResult.isPresent()) {
             cart = cResult.orElseThrow();
-            cart.changeQuantity(cartDTO.getQuantity());
+            cart.changeCart(cartDTO);
         }else{
             cart = Cart.builder()
                 .cart_id(cartDTO.getCart_id())
                 .member(member)
                 .product(product)
                 .quantity(cartDTO.getQuantity())
+                .purchaseCheck(true)
                 .build();
         }
         return cartRepository.save(cart).getCart_id().toString();
@@ -69,6 +70,7 @@ public class CartServiceImpl implements CartService{
                 .price(cart.getProduct().getPrice())
                 .mid(cart.getMember().getMid())
                 .quantity(cart.getQuantity())
+                .purchaseCheck(cart.isPurchaseCheck())
                 .build()
             )
         ).toList();
@@ -79,7 +81,7 @@ public class CartServiceImpl implements CartService{
     public void modify(CartDTO cartDTO) {
         Optional<Cart> result = cartRepository.findById(cartDTO.getCart_id());
         Cart cart = result.orElseThrow();
-        cart.changeQuantity(cartDTO.getQuantity());
+        cart.changeCart(cartDTO);
         cartRepository.save(cart);
     }
 
@@ -88,7 +90,12 @@ public class CartServiceImpl implements CartService{
         cartRepository.deleteById(cart_id);
     }
 
-
-
+    @Override
+    public void changeCheck(Long cart_id) {
+        Optional<Cart> result = cartRepository.findById(cart_id);
+        Cart cart = result.orElseThrow();
+        cart.changePcheck();
+        cartRepository.save(cart);
+    }
 }
 

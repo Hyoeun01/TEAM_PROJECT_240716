@@ -1,26 +1,173 @@
-.navbar {
+.inquiry-board-container {
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
+}
+
+.inquiry-board-header {
+    color: #93278F;
+    font-size: 2rem;
+}
+
+.inquiry-board-button {
+    background-color: #8CC63F;
+    border: none;
+}
+
+.inquiry-board-button:hover {
+    background-color: #7cbf2e;
+}
+
+.list-group-container {
+    margin-bottom: 20px;
+}
+
+.inquiry-board-list-group-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     padding: 10px;
-    background-color: #333;
-    color: white;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: #93278F;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
-.logo {
-    width: 100px;
+.inquiry-board-list-group-item:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.02);
+    /* 줄어든 커지기 효과 */
 }
 
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links a {
-    color: white;
+.inquiry-title-link {
     text-decoration: none;
+    color: #93278F;
+    font-weight: bold;
 }
 
-.nav-links a:hover {
+.inquiry-title-link:hover {
     text-decoration: underline;
+}
+
+.inquiry-board-form-control {
+    border-radius: 5px;
+    border: 1px solid #93278F;
+    padding: 10px;
+}
+
+.inquiry-board-form-control:focus {
+    border-color: #8CC63F;
+    box-shadow: 0 0 0 0.2rem rgba(140, 198, 63, 0.25);
+}
+
+.inquiry-board-modal .modal-content {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inquiry-board-modal .modal-footer {
+    border-top: 1px solid #ddd;
+}
+
+.inquiry-board-modal .modal-header {
+    border-bottom: 1px solid #ddd;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination-container .page-item {
+    margin: 0 3px;
+    /* 페이지 아이템 간의 간격 설정 */
+}
+
+.pagination-container .page-link {
+    color: #ffffff;
+    /* 기본 텍스트 색상: 보라색 */
+    text-decoration: none;
+    /* 링크의 기본 밑줄 제거 */
+    padding: 8px 12px;
+    /* 버튼의 내부 여백 설정 */
+    display: inline-block;
+    /* 버튼을 인라인 블록으로 설정 */
+    border-radius: 4px;
+    /* 버튼의 모서리를 둥글게 설정 */
+    font-size: 16px;
+    /* 폰트 크기 설정 */
+    transition: background-color 0.3s, color 0.3s;
+    /* 배경색과 텍스트 색상의 부드러운 전환 효과 */
+}
+
+.pagination-container .page-link:hover {
+    background-color: #f0f0f0;
+    /* 마우스 오버 시 배경색 설정 */
+    color: #93278F;
+    /* 마우스 오버 시 텍스트 색상 설정 */
+}
+
+.pagination-container .page-item.active .page-link {
+    color: #fff;
+    /* 활성화된 페이지 링크 텍스트 색상: 흰색 */
+    background-color: #93278F;
+    /* 활성화된 페이지 링크 배경색: 보라색 */
+    font-weight: bold;
+    /* 활성화된 페이지 링크의 텍스트를 굵게 설정 */
+}
+
+.pagination-container .page-item.disabled .page-link {
+    color: #6c757d;
+    /* 비활성화된 링크의 텍스트 색상: 회색 */
+    pointer-events: none;
+    /* 클릭을 비활성화하여 사용자 상호작용을 방지합니다. */
+    background-color: transparent;
+    /* 비활성화된 링크의 배경색을 투명으로 설정합니다. */
+    border: none;
+    /* 비활성화된 링크의 테두리를 제거합니다. */
+}
+
+/* 모달창의 취소 버튼 */
+.modal-footer .btn-secondary {
+    background-color: #93278F;
+    /* 기본 배경색: 회색 */
+    border: 1px solid #93278fa5;
+    /* 버튼 테두리 색상 */
+    color: #fff;
+    /* 텍스트 색상: 흰색 */
+}
+
+/* 모달창의 취소 버튼 호버 시 */
+.modal-footer .btn-secondary:hover {
+    background-color: #5a6268;
+    /* 호버 시 배경색: 어두운 회색 */
+    border: 1px solid #5a6268;
+    /* 호버 시 테두리 색상 */
+}
+
+/* 모달창의 작성 버튼 */
+.modal-footer .btn-primary {
+    background-color: #8CC63F;
+    /* 기본 배경색: 초록색 */
+    border: 1px solid #8CC63F;
+    /* 버튼 테두리 색상 */
+    color: #fff;
+    /* 텍스트 색상: 흰색 */
+}
+
+/* 모달창의 작성 버튼 호버 시 */
+.modal-footer .btn-primary:hover {
+    background-color: #7ab82e;
+    /* 호버 시 배경색: 어두운 초록색 */
+    border: 1px solid #7ab82e;
+    /* 호버 시 테두리 색상 */
 }

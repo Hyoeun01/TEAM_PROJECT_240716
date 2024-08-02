@@ -3,9 +3,10 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./CartItem.css";
 
-const CartItem = ({ cart, cartsDelete, quantitysChange }) => {
+const CartItem = ({ cart, cartsDelete, quantitysChange, checkedChange }) => {
   const naviagte = useNavigate();
   const [quantity, setQuantity] = useState(cart.quantity);
+  const [check, setCheck] = useState(cart.purchaseCheck);
   // const [cart,setCart] = useState();
   const [error, setError] = useState(null);
 
@@ -36,6 +37,10 @@ const CartItem = ({ cart, cartsDelete, quantitysChange }) => {
         setError(error);
       });
   };
+  const handleCheck = (cart_id) =>{
+    setCheck(!check);
+    checkedChange(cart_id);
+  }
   return (
     <div class="content">
       <div class="row">
@@ -45,7 +50,7 @@ const CartItem = ({ cart, cartsDelete, quantitysChange }) => {
               <div class="row">
                 <div class="col-md-1 product-check">
                   <div class="product-check">
-                    <input type="checkbox" value={cart.cart_id} />
+                    <input type="checkbox" onChange={(e) => handleCheck(cart.cart_id,e)} checked={check}/>
                   </div>
                 </div>
                 <div class="col-md-2">

@@ -1,5 +1,6 @@
 package com.example.demo.notice.dto;
 
+import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,5 +18,5 @@ public class NoticeDTO {
     private String content;
     private String writer;
     private LocalDate reg_date;
-
+    private int views;
 }

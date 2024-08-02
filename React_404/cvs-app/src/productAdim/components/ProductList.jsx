@@ -17,13 +17,16 @@ const ProductList = ({ role }) => {
   const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 카테고리
   const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
   const { user } = useAuth();
-  const pageSize = 20; // 한 페이지에 보여줄 제품 개수
+  const pageSize = 24; // 한 페이지에 보여줄 제품 개수
 
   useEffect(() => {
     // 제품 데이터를 가져오는 함수
     const fetchProducts = async () => {
       try {
         const result = await axios.get("http://localhost:8080/product");
+        const sortedProducts = result.data.sort(
+          (a, b) => b.product_id - a.product_id
+        ); // 역순으로 보기
         setProducts(result.data);
         setDisplayedProducts(result.data.slice(0, pageSize)); // 초기 표시 제품 설정
         setHasMore(result.data.length > pageSize); // 더보기 버튼을 보여줄지 여부 설정
@@ -105,15 +108,15 @@ const ProductList = ({ role }) => {
 
   return (
     <div>
-      <h1>물품 관리</h1>
+      <h1>제품</h1>
       {user?.role === "ADMIN" && (
         <>
           <div className="action-buttons">
-            <Link to="/productAdd" className="add-product-button">
+            <Link to="/productAdd" className="add-product-button2">
               물품 등록하기
             </Link>
             <button
-              className="btn btn-primary"
+              className="btn btn-warning"
               onClick={() => setIsSelectionMode((prevMode) => !prevMode)}
             >
               {isSelectionMode ? "선택 취소" : "선택삭제"}
@@ -145,8 +148,9 @@ const ProductList = ({ role }) => {
         {categories.map((category) => (
           <button
             key={category}
-            className={`btn ${selectedCategory === category ? "btn-selected" : ""
-              }`}
+            className={`btn ${
+              selectedCategory === category ? "btn-selected" : ""
+            }`}
             onClick={() => setSelectedCategory(category)}
           >
             {category}
@@ -154,7 +158,7 @@ const ProductList = ({ role }) => {
         ))}
       </div>
 
-      <div className="product-list">
+      <div className="product-list2">
         {error ? (
           <p>데이터를 불러오는 중 오류가 발생했습니다: {error.message}</p>
         ) : (

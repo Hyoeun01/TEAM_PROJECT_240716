@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const Payment = ({ userInfo, totalPrice, cartLength }) => {
+const Payment2 = ({ userInfo, totalPrice, cartLength }) => {
   useEffect(() => {
     const jquery = document.createElement("script");
     jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
@@ -61,4 +61,4 @@ const Payment = ({ userInfo, totalPrice, cartLength }) => {
   );
 };
 
-export default Payment;
+export default Payment2;

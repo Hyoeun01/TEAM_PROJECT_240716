@@ -15,12 +15,11 @@ const CartList = () =>{
       headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
-  })
-    .then((result) => {
+    }).then((result) => {
       setCarts(result.data);
       getTotalPrice(result.data);
-    })
-    .catch((error) => {
+      console.log(result.data);
+    }).catch((error) => {
       console.error("통신 실패:", error);
       setError(error);
     });
@@ -29,21 +28,37 @@ const CartList = () =>{
   const getTotalPrice = (data) => {
     let total = 0;
     data.map(cart => {
-      total += cart.price*cart.quantity
+      if(cart.purchaseCheck === true){
+        total += cart.price*cart.quantity
+      }
     })
     setTotalPrice(total);
   }
 
   const cartsDelete = (cart_id) => {
     setCarts(carts.filter((cart)=>cart.cart_id !== cart_id))
+    getTotalPrice(carts);
   }
   const quantitysChange = (cart_id, quantity) =>{
-    let data = carts.map(cart=>{
-      console.log("전",cart.quantity);
+    carts.map(cart=>{
       if(cart.cart_id === cart_id){
         cart.quantity = quantity;
       }
-      console.log("후",cart.quantity);
+    })
+    setCarts(carts);
+    getTotalPrice(carts);
+  }
+  const checkedChange = (cart_id) => {
+    axios
+        .put(`http://localhost:8080/cart/${cart_id}`,{
+          headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          }});
+    carts.map(cart=>{
+      if(cart.cart_id === cart_id){
+        cart.purchaseCheck = !cart.purchaseCheck;
+        console.log(cart_id,cart.purchaseCheck);
+      }
     })
     setCarts(carts);
     getTotalPrice(carts);
@@ -60,7 +75,7 @@ const CartList = () =>{
         <div className="cartItem col-md-8">
         {
           carts.map((cart)=>(
-            <CartItem cart={cart} cartsDelete={cartsDelete} quantitysChange={quantitysChange}/>
+            <CartItem key={cart.cart_id} cart={cart} cartsDelete={cartsDelete} quantitysChange={quantitysChange} checkedChange={checkedChange}/>
           ))
         }
         </div>

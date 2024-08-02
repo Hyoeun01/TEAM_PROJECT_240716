@@ -23,8 +23,8 @@ public class PurchaseDTO {
     private String email;
     private String message;
     private String totalPrice;
-    private String mid;
-    private Long[] cartArray;
+    private String payment;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
+    private String mid;
 }
