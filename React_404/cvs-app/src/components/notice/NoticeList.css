@@ -23,20 +23,22 @@
   border-radius: 4px;
   font-size: 16px;
 }
-
+/* 검색 버튼 스타일 */
 .search-bar button {
-  background-color: #007bff;
-  color: white;
+  background-color: #6f42c1; /* 보라색 배경 */
+  color: white; /* 흰색 글자색 */
   border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
   cursor: pointer;
+  font-size: 16px;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .search-bar button:hover {
-  background-color: #0056b3;
+  background-color: #5a32a3; /* hover 시 조금 더 진한 보라색 */
   transform: translateY(-2px);
 }
-
 /* 테이블 스타일 */
 .notice-table {
   width: 100%;
@@ -51,9 +53,23 @@
 .notice-table td {
   border: 1px solid #ddd;
   padding: 15px 20px;
-  text-align: left;
+  text-align: center;
+}
+/* 각 열의 가로 길이 조정 */
+.notice-table th:nth-child(1),
+.notice-table td:nth-child(1) { 
+  width: 10%; /* 번호 열 가로 길이 */
 }
 
+.notice-table th:nth-child(3),
+.notice-table td:nth-child(3) { 
+  width: 15%; /* 작성일 열 가로 길이 */
+}
+
+.notice-table th:nth-child(4),
+.notice-table td:nth-child(4) { 
+  width: 15%; /* 조회수 열 가로 길이 */
+}
 .notice-table th {
   background-color: #f8f8f8;
   color: #333;
@@ -68,13 +84,22 @@
 .notice-table td:hover {
   background-color: #f1f1f1;
 }
+/* 공지사항 제목 스타일 */
+.notice-table td a {
+  color: #6f42c1; /* 보라색 */
+  text-decoration: none; /* 밑줄 제거 */
+}
+
+.notice-table td a:hover {
+  text-decoration: underline; /* 마우스 오버 시 밑줄 표시 (선택사항) */
+}
 
 /* 글쓰기 버튼 스타일 */
 .write-button {
   margin-top: 20px;
   float: right;
-  background-color: #007bff;
-  color: white;
+  background-color: #28a745; /* 연두색 배경 */
+  color: white; /* 흰색 글자색 */
   border: none;
   border-radius: 4px;
   padding: 10px 20px;
@@ -85,7 +110,7 @@
 }
 
 .write-button:hover {
-  background-color: #0056b3;
+  background-color: #218838; /* hover 시 조금 더 진한 연두색 */
   transform: translateY(-2px);
 }
 
@@ -109,8 +134,8 @@
 }
 
 .page-link {
-  background-color: #007bff;
-  color: white;
+  background-color: #6f42c1; /* 보라색 배경색 */
+  color: white; /* 흰색 글자색 */
   border: none;
   border-radius: 4px;
   padding: 10px 15px;
@@ -123,10 +148,9 @@
 }
 
 .page-link:hover {
-  background-color: #0056b3;
+  background-color: #5a2d91; /* hover 시 조금 더 진한 보라색 */
   transform: translateY(-2px);
 }
-
 .notice-list-container h1 {
   text-align: center;
   font-size: 28px;
@@ -134,4 +158,11 @@
   margin-bottom: 30px;
   border-bottom: 2px solid #f4f4f4;
   padding-bottom: 10px;
+  border-bottom: 3px solid  #5a2d91; /* 제목 하단에 강조선 추가 */
+}
+
+.page-item.active .page-link {
+  background-color: #b47bd4; /* 활성화된 페이지 연한 보라색 배경 */
+  color: white; /* 흰색 글자색 */
+  pointer-events: none; /* 활성화된 페이지 버튼 클릭 방지 */
 }

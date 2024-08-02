@@ -17,6 +17,7 @@
     position: relative;
     padding-bottom: 10px;
     border-bottom: 3px solid #007bff; /* 강조된 하단 테두리 */
+    border-bottom: 3px solid  #5a2d91; /* 제목 하단에 강조선 추가 */
 }
 
 .modify-form-container input[type="text"],

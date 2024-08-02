@@ -14,6 +14,7 @@
     color: #333;
     font-size: 26px;
     font-weight: bold;
+    border-bottom: 3px solid  #5a2d91; /* 제목 하단에 강조선 추가 */
 }
 
 .register-form-container input[type="text"],
@@ -38,34 +39,34 @@
     gap: 15px;
 }
 
+/* 버튼 스타일 */
 .button-group button,
 .button-group input[type="submit"] {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 25px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    text-align: center;
-    display: inline-block;
+  background-color: #28a745; /* 연두색 */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 25px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+  display: inline-block;
 }
 
 .button-group button:hover,
 .button-group input[type="submit"]:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
+  background-color: #218838; /* 더 진한 연두색 */
+  transform: translateY(-2px);
 }
-
 .button-group button:active,
 .button-group input[type="submit"]:active {
-    background-color: #004494;
+  background-color: #1e7e34; /* 버튼을 눌렀을 때 색상 */
 }
 
 .register-form-container input[type="text"]:focus,
 .register-form-container textarea:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
 }

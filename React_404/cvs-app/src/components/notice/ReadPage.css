@@ -14,7 +14,7 @@
     color: #333;
     font-size: 26px; /* 제목 크기 확대 */
     font-weight: 700; /* 제목 두껍게 */
-    border-bottom: 3px solid #007bff; /* 제목 하단에 강조선 추가 */
+    border-bottom: 3px solid  #5a2d91; /* 제목 하단에 강조선 추가 */
     padding-bottom: 10px; /* 제목과 하단 강조선 간의 간격 조절 */
 }
 
@@ -48,38 +48,40 @@
     gap: 20px; /* 버튼 간의 간격을 더 넓게 */
 }
 
+
+/* 버튼 스타일 */
 .right-button,
 .center-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px; /* 둥근 버튼 모서리 */
-    padding: 14px 28px; /* 버튼 패딩을 넓게 */
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600; /* 버튼 텍스트 두껍게 */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    text-align: center;
-    display: inline-block;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 버튼에 그림자 추가 */
+  background-color: #28a745; /* 연두색 */
+  color: white;
+  border: none;
+  border-radius: 8px; /* 둥근 버튼 모서리 */
+  padding: 14px 28px; /* 버튼 패딩을 넓게 */
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600; /* 버튼 텍스트 두껍게 */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  text-align: center;
+  display: inline-block;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 버튼에 그림자 추가 */
 }
 
 .right-button:hover,
 .center-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px); /* 버튼을 약간 위로 올리는 효과 */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* 호버 시 그림자 강조 */
+  background-color: #218838; /* 더 진한 연두색 */
+  transform: translateY(-2px); /* 버튼을 약간 위로 올리는 효과 */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* 호버 시 그림자 강조 */
 }
 
 .right-button:active,
 .center-button:active {
-    background-color: #004494;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 클릭 시 그림자 감소 */
+  background-color: #1e7e34; /* 클릭 시 더 진한 연두색 */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 클릭 시 그림자 감소 */
 }
 
 .read-page-container p {
-    font-size: 16px;
-    margin-bottom: 20px;
-    color: #555;
-    line-height: 1.5; /* 본문 텍스트 간격 증가 */
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #555;
+  line-height: 1.5; /* 본문 텍스트 간격 증가 */
 }
