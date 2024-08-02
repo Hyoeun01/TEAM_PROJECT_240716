@@ -6,15 +6,14 @@ import com.example.demo.inquiriy.repository.InquiryRepository;
 import com.example.demo.inquiriy.service.InquiryService;
 import com.example.demo.pse.domain.Member;
 import com.example.demo.pse.repository.MemberRepository;
-import com.example.demo.pse.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,15 +30,13 @@ public class InquiryController {
     private MemberRepository memberRepository;
 
     @GetMapping
-    public List<InquiryDTO> getInquiries() {
-        return inquiryRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public Page<InquiryDTO> getInquiries(@RequestParam int page, @RequestParam(defaultValue = "10") int size) {
+        return inquiryService.getAllInquiries(page, size).map(this::convertToDTO);
     }
 
     @GetMapping("/{id}")
     public InquiryDTO getInquiry(@PathVariable Long id) {
-        return inquiryRepository.findById(id)
+        return inquiryService.getInquiryById(id)
                 .map(this::convertToDTO)
                 .orElseThrow(() -> new RuntimeException("Inquiry not found"));
     }
@@ -56,14 +53,14 @@ public class InquiryController {
         inquiry.setCreatedAt(LocalDateTime.now());
         inquiry.setNickname(member.getNickname());
 
-        Inquiry savedInquiry = inquiryRepository.save(inquiry);
+        Inquiry savedInquiry = inquiryService.createInquiry(inquiry);
         return convertToDTO(savedInquiry);
     }
 
     @PutMapping("/{id}")
     public InquiryDTO updateInquiry(@PathVariable Long id, @RequestBody InquiryDTO inquiryDTO, Principal principal) {
         String memberId = principal.getName();
-        Inquiry inquiry = inquiryRepository.findById(id)
+        Inquiry inquiry = inquiryService.getInquiryById(id)
                 .orElseThrow(() -> new RuntimeException("Inquiry not found"));
 
         if (!inquiry.getNickname().equals(memberId)) {
@@ -73,21 +70,21 @@ public class InquiryController {
         inquiry.setTitle(inquiryDTO.getTitle());
         inquiry.setContent(inquiryDTO.getContent());
 
-        Inquiry updatedInquiry = inquiryRepository.save(inquiry);
+        Inquiry updatedInquiry = inquiryService.updateInquiry(inquiry);
         return convertToDTO(updatedInquiry);
     }
 
     @DeleteMapping("/{id}")
     public void deleteInquiry(@PathVariable Long id, Principal principal) {
         String memberId = principal.getName();
-        Inquiry inquiry = inquiryRepository.findById(id)
+        Inquiry inquiry = inquiryService.getInquiryById(id)
                 .orElseThrow(() -> new RuntimeException("Inquiry not found"));
 
         if (!inquiry.getNickname().equals(memberId)) {
             throw new RuntimeException("You are not authorized to delete this inquiry");
         }
 
-        inquiryRepository.delete(inquiry);
+        inquiryService.deleteInquiry(id);
     }
 
     private InquiryDTO convertToDTO(Inquiry inquiry) {

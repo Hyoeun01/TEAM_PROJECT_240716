@@ -30,6 +30,7 @@ import ReviewSave from './pages/review/ReviewSave';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Read from './pages/review/Read';
 import Modify from "./pages/review/Modify";
+import InquiryList from "./inquiry/InquiryList";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -81,6 +82,7 @@ function App() {
         <Route path="/product/list" element={<Product role={role} />} />
         <Route path="/api/inquiries" element={<InquiryBoard />} />
         <Route path="/inquiries/:id" element={<InquiryView />} />
+        <Route path="/inquiries" element={<InquiryList />} /> {/* 추가된 라우트 */}
         <Route path="/product/list" element={<Product />} />
         <Route path="/productView/:id" element={<ProductView />} />
         <Route path="/productAdd" element={<ProductAdd />} />

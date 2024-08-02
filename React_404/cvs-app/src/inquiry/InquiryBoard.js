@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Container, Button, ListGroup, Modal, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Container, Button, ListGroup, Modal, Form, Pagination } from 'react-bootstrap';
 import { motion } from 'framer-motion';
-import styled from 'styled-components';
 import './InquiryBoard.css';
 
 const InquiryBoard = () => {
     const [inquiries, setInquiries] = useState([]);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
     const [show, setShow] = useState(false);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -15,13 +17,20 @@ const InquiryBoard = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchInquiries();
+        fetchInquiries(currentPage);
         fetchNickname();
-    }, []);
+    }, [currentPage]);
 
-    const fetchInquiries = async () => {
-        const response = await axios.get('/api/inquiries');
-        setInquiries(response.data);
+    const fetchInquiries = async (page) => {
+        try {
+            const response = await axios.get('/api/inquiries', {
+                params: { page, size: 10 }  // 한 페이지당 10개씩 가져오기
+            });
+            setInquiries(response.data.content);
+            setTotalPages(response.data.totalPages);
+        } catch (error) {
+            console.error('Error fetching inquiries:', error);
+        }
     };
 
     const fetchNickname = async () => {
@@ -52,30 +61,23 @@ const InquiryBoard = () => {
         handleClose();
     };
 
-    const handleItemClick = (id) => {
-        navigate(`/inquiries/${id}`);
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
     };
 
     return (
-        <StyledContainer>
-            <motion.h1 
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="inquiry-board-header"
-            >
-                문의사항
-            </motion.h1>
-            <StyledButton 
-                className="mb-4 inquiry-board-button"
-                onClick={handleShow}
-            >
-                문의하기
-            </StyledButton>
+        <Container className="inquiry-board-container mt-5">
+            <div className="header-section">
+                <h1 className="inquiry-board-header">문의사항</h1>
+                <Button variant="primary" className="inquiry-board-button" onClick={handleShow}>
+                    문의하기
+                </Button>
+            </div>
             <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
+                className="list-group-container"
             >
                 <ListGroup>
                     {inquiries.map((inquiry) => (
@@ -83,16 +85,29 @@ const InquiryBoard = () => {
                             key={inquiry.id}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
+                            onClick={() => navigate(`/inquiries/${inquiry.id}`)}
                         >
-                            <StyledListGroupItem onClick={() => handleItemClick(inquiry.id)}>
-                                <StyledLink>{inquiry.title}</StyledLink>
-                            </StyledListGroupItem>
+                            <div className="inquiry-board-list-group-item">
+                                <Link to={`/inquiries/${inquiry.id}`} className="inquiry-title-link">{inquiry.title}</Link>
+                                <p>{inquiry.content}</p>
+                                <small>{new Date(inquiry.createdAt).toLocaleString()}</small>
+                            </div>
                         </motion.div>
                     ))}
                 </ListGroup>
             </motion.div>
-            
-            <StyledModal show={show} onHide={handleClose} centered>
+            <Pagination className="pagination-container">
+                {[...Array(totalPages).keys()].map(page => (
+                    <Pagination.Item 
+                        key={page} 
+                        active={page === currentPage} 
+                        onClick={() => handlePageChange(page)}
+                    >
+                        {page + 1}
+                    </Pagination.Item>
+                ))}
+            </Pagination>
+            <Modal show={show} onHide={handleClose} className="inquiry-board-modal">
                 <Modal.Header closeButton>
                     <Modal.Title>문의 작성</Modal.Title>
                 </Modal.Header>
@@ -100,7 +115,7 @@ const InquiryBoard = () => {
                     <Form>
                         <Form.Group controlId="formTitle">
                             <Form.Label>제목</Form.Label>
-                            <StyledFormControl 
+                            <Form.Control 
                                 type="text" 
                                 placeholder="제목을 입력하세요" 
                                 value={title}
@@ -109,8 +124,8 @@ const InquiryBoard = () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formContent" className="mt-3">
-                            <Form.Label>내용</Form.Label><br/>
-                            <StyledFormControl 
+                            <Form.Label>내용</Form.Label>
+                            <Form.Control 
                                 as="textarea" 
                                 rows={5} 
                                 placeholder="내용을 입력하세요"
@@ -125,77 +140,13 @@ const InquiryBoard = () => {
                     <Button variant="secondary" onClick={handleClose}>
                         취소
                     </Button>
-                    <StyledButton onClick={createInquiry}>
+                    <Button variant="primary" onClick={createInquiry}>
                         작성
-                    </StyledButton>
+                    </Button>
                 </Modal.Footer>
-            </StyledModal>
-        </StyledContainer>
+            </Modal>
+        </Container>
     );
 };
 
 export default InquiryBoard;
-
-const StyledContainer = styled(Container)`
-    .inquiry-board-header {
-        color: #93278F;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-`;
-
-const StyledButton = styled(Button)`
-    background-color: #93278F;
-    border: none;
-    &:hover {
-        background-color: #8CC63F;
-    }
-`;
-
-const StyledListGroupItem = styled(ListGroup.Item)`
-    margin-bottom: 10px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        background-color: #F0F0F0;
-    }
-`;
-
-const StyledLink = styled.span`
-    color: #93278F;
-    text-decoration: none;
-`;
-
-const StyledFormControl = styled(Form.Control)`
-    border-radius: 10px;
-    padding: 10px;
-    border: 1px solid #93278F;
-    width: 100%;
-    &:focus {
-        border-color: #8CC63F;
-        box-shadow: 0 0 0 0.2rem rgba(140, 198, 63, 0.25);
-    }
-`;
-
-const StyledModal = styled(Modal)`
-    .modal-dialog {
-        max-width: 800px;
-    }
-    .modal-content {
-        padding: 20px;
-        border-radius: 20px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-    .modal-header, .modal-footer {
-        border: none;
-        justify-content: center;
-    }
-    .modal-body {
-        padding: 20px;
-    }
-`;
