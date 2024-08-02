@@ -66,7 +66,7 @@ const ModifyForm = () => {
     };
 
     fetch('http://localhost:8080/notice/modify', {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },

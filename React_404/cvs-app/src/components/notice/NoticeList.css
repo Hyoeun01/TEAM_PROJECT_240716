@@ -1,11 +1,11 @@
 .notice-list-container {
-  padding: 30px;
+  padding: 20px;
   max-width: 1200px;
   margin: 40px auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* 검색 바 스타일 */
@@ -18,18 +18,10 @@
 .search-bar input[type="text"],
 .search-bar button {
   margin-left: 10px;
-  padding: 12px 18px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   font-size: 16px;
-}
-
-.search-bar select {
-  background-color: #fff;
-}
-
-.search-bar input[type="text"] {
-  background-color: #fff;
 }
 
 .search-bar button {
@@ -38,7 +30,6 @@
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
-  font-weight: 600;
 }
 
 .search-bar button:hover {
@@ -51,7 +42,7 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -59,14 +50,14 @@
 .notice-table th,
 .notice-table td {
   border: 1px solid #ddd;
-  padding: 16px 20px;
+  padding: 15px 20px;
   text-align: left;
 }
 
 .notice-table th {
-  background-color: #f4f4f4;
-  color: #555;
-  font-weight: 600;
+  background-color: #f8f8f8;
+  color: #333;
+  font-weight: bold;
 }
 
 .notice-table td {
@@ -75,7 +66,7 @@
 }
 
 .notice-table td:hover {
-  background-color: #f9f9f9;
+  background-color: #f1f1f1;
 }
 
 /* 글쓰기 버튼 스타일 */
@@ -85,13 +76,12 @@
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 6px;
-  padding: 12px 24px;
+  border-radius: 4px;
+  padding: 10px 20px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
-  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .write-button:hover {
@@ -108,7 +98,7 @@
 
 .pagination {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -122,15 +112,14 @@
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 6px;
-  padding: 12px 20px;
+  border-radius: 4px;
+  padding: 10px 15px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease, transform 0.3s ease;
   text-align: center;
   display: inline-block;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
-  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .page-link:hover {
@@ -140,10 +129,9 @@
 
 .notice-list-container h1 {
   text-align: center;
-  font-size: 32px;
+  font-size: 28px;
   color: #333;
   margin-bottom: 30px;
-  border-bottom: 3px solid #e4e4e4;
+  border-bottom: 2px solid #f4f4f4;
   padding-bottom: 10px;
-  font-weight: 600;
 }

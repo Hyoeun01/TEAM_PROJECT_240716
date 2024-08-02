@@ -64,6 +64,18 @@ public class NoticeService {
                 .total((int)result.getTotalElements())
                 .build();
     }
+    @Transactional
+    public NoticeDTO modifyNotice(NoticeDTO noticeDTO) {
+        Notice notice = noticeRepository.findById(noticeDTO.getBno())
+                .orElseThrow(() -> new RuntimeException("Notice not found"));
+
+        // 수정 요청 시 조회수는 변경하지 않음
+        notice.updateDetails(noticeDTO.getTitle(), noticeDTO.getContent());
+
+        noticeRepository.save(notice);
+
+        return modelMapper.map(notice, NoticeDTO.class);
+    }
 
     @Transactional
     public NoticeDTO updateViews(Long bno) {
@@ -71,9 +83,11 @@ public class NoticeService {
                 .orElseThrow(() -> new RuntimeException("Notice not found"));
 
         notice.incrementViews(); // 조회수 증가
+
         noticeRepository.save(notice);
 
         return modelMapper.map(notice, NoticeDTO.class);
     }
+
 
 }
