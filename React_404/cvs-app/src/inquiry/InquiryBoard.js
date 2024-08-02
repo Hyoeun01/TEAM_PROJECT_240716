@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container, Button, ListGroup, Modal, Form, Pagination } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import './InquiryBoard.css';
@@ -83,14 +82,12 @@ const InquiryBoard = () => {
                     {inquiries.map((inquiry) => (
                         <motion.div
                             key={inquiry.id}
-                            whileHover={{ scale: 1.05 }}
+                            whileHover={{ scale: 1.02 }}  // 마우스 오버 시 효과를 작게 조정
                             whileTap={{ scale: 0.95 }}
                             onClick={() => navigate(`/inquiries/${inquiry.id}`)}
                         >
                             <div className="inquiry-board-list-group-item">
                                 <Link to={`/inquiries/${inquiry.id}`} className="inquiry-title-link">{inquiry.title}</Link>
-                                <p>{inquiry.content}</p>
-                                <small>{new Date(inquiry.createdAt).toLocaleString()}</small>
                             </div>
                         </motion.div>
                     ))}
