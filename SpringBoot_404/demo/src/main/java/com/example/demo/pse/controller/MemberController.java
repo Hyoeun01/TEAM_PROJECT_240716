@@ -16,7 +16,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,6 +64,7 @@ public class MemberController {
         member.setEmail(memberDTO.getEmail());
         member.setNickname(memberDTO.getNickname());
         member.setPhone(memberDTO.getPhone());
+        member.setAddress(memberDTO.getAddress()); // Set address
         memberService.saveMember(member);
         return ResponseEntity.ok(member);
     }
@@ -117,6 +117,7 @@ public class MemberController {
         member.setEmail(memberDTO.getEmail());
         member.setNickname(memberDTO.getNickname());
         member.setPhone(memberDTO.getPhone());
+        member.setAddress(memberDTO.getAddress()); // Set address
 
         memberService.updateMember(username, memberDTO);
         return ResponseEntity.ok(member);
@@ -128,7 +129,6 @@ public class MemberController {
     public boolean checkMid(@RequestParam String mid) {
         return memberService.existsByMid(mid);
     }
-
 
     @GetMapping("/checkLogin")
     @ResponseBody
@@ -164,6 +164,7 @@ public class MemberController {
         memberDTO.setEmail(member.getEmail());
         memberDTO.setNickname(member.getNickname());
         memberDTO.setPhone(member.getPhone());
+        memberDTO.setAddress(member.getAddress()); // Set address
         memberDTO.setPoint(member.getPoint());
         memberDTO.setRole(member.getRole());
 
@@ -194,7 +195,8 @@ public class MemberController {
         memberService.deleteMember(mid);
         return ResponseEntity.ok().build();
     }
-//관리자 권한이면 공지사항 글쓰기 버튼 생성
+
+    //관리자 권한이면 공지사항 글쓰기 버튼 생성
     @GetMapping("/checkAdmin")
     @ResponseBody
     public ResponseEntity<Map<String, Boolean>> checkAdmin(HttpServletRequest request) {
@@ -219,7 +221,7 @@ public class MemberController {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setMid(member.getMid());
         memberDTO.setNickname(member.getNickname());
+        memberDTO.setAddress(member.getAddress()); // Set address
         return memberDTO;
     }
-
 }
