@@ -1,35 +1,52 @@
 .modify-form-container {
     max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 16px; /* 더 부드러운 모서리 */
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1); /* 더 강한 그림자 효과 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .modify-form-container h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 28px;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #007bff; /* 강조된 하단 테두리 */
 }
 
 .modify-form-container input[type="text"],
 .modify-form-container textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 15px;
+    padding: 14px 18px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1); /* 깊이감 추가 */
+    transition: box-shadow 0.3s ease; /* 호버 시 그림자 변화 */
+}
+
+.modify-form-container input[type="text"]:focus,
+.modify-form-container textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); /* 포커스 시 강조 */
+    outline: none; /* 기본 포커스 아웃라인 제거 */
 }
 
 .modify-form-container textarea {
-    height: 150px;
+    height: 160px;
     resize: vertical;
 }
 
 .modify-form-container .button-group {
     display: flex;
-    justify-content: flex-end; /* 버튼들을 오른쪽으로 정렬 */
-    gap: 10px; /* 버튼 사이의 간격 */
+    justify-content: flex-end;
+    gap: 20px;
 }
 
 .modify-form-container button,
@@ -37,21 +54,50 @@
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 4px;
-    padding: 10px 20px; /* 패딩을 통일하여 크기 조정 */
+    border-radius: 8px;
+    padding: 14px 28px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     text-align: center;
-    display: inline-block; /* 인라인 블록으로 버튼 크기 조정 */
+    display: inline-block;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .modify-form-container button:hover,
 .modify-form-container input[type="submit"]:hover {
     background-color: #0056b3;
+    transform: translateY(-2px); /* 버튼이 약간 위로 올라가는 효과 */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* 삭제 버튼을 오른쪽으로 배치하기 위한 클래스 */
+.modify-form-container button:active,
+.modify-form-container input[type="submit"]:active {
+    background-color: #004494;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
 .remove-form {
-    margin-left: 10px; /* 삭제 버튼과 수정 버튼 사이 간격 */
+    display: inline; /* 버튼들이 한 줄에 나란히 오도록 설정 */
+}
+
+.modify-form-container .remove-button {
+    background-color: #dc3545;
+    border-radius: 8px;
+    padding: 14px 28px;
+    font-weight: 600;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.modify-form-container .remove-button:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.modify-form-container .remove-button:active {
+    background-color: #bd2130;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }

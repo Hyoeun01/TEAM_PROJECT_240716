@@ -18,13 +18,14 @@ const NoticeList = () => {
     next: false
   });
   const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchFilter, setSearchFilter] = useState('');
 
   const navigate = useNavigate();
 
-  const fetchNotices = async (page = 1, keyword = '') => {
+  const fetchNotices = async (page = 1, keyword = '', filter = '') => {
     try {
-      const response = await axios.get(`http://localhost:8080/notice/list`, {
-        params: { page, size: 10, keyword }
+      const response = await axios.get('http://localhost:8080/notice/list', {
+        params: { page, size: 10, keyword, filter }
       });
       if (response.status !== 200) {
         throw new Error('Network response was not ok');
@@ -88,16 +89,34 @@ const NoticeList = () => {
 
   const handlePageChange = (page) => {
     setLoading(true);
-    fetchNotices(page, searchKeyword);
+    fetchNotices(page, searchKeyword, searchFilter);
   };
 
-  const onChange = (e) => {
+  const onKeywordChange = (e) => {
     setSearchKeyword(e.target.value);
+  };
+
+  const onFilterChange = (e) => {
+    setSearchFilter(e.target.value);
   };
 
   const onSearch = () => {
     setLoading(true);
-    fetchNotices(1, searchKeyword);
+    fetchNotices(1, searchKeyword, searchFilter);
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // 날짜 부분만 추출
+  };
+
+  const handleNoticeClick = async (id) => {
+    try {
+      await axios.put(`http://localhost:8080/notice/updateViews/${id}`);
+      navigate(`/notice/read/${id}`);
+    } catch (error) {
+      console.error('Error updating views:', error);
+    }
   };
 
   if (loading) return <p>Loading...</p>;
@@ -117,14 +136,14 @@ const NoticeList = () => {
 
   return (
     <div className="notice-list-container">
-      <h1 align>공지사항</h1>
+      <h1>공지사항</h1>
       <div className="search-bar">
-        <select name="sk" onChange={onChange}>
+        <select name="filter" onChange={onFilterChange}>
           <option value="">-선택-</option>
           <option value="title">제목</option>
           <option value="contents">내용</option>
         </select>
-        <input type="text" name="sv" onChange={onChange} />
+        <input type="text" name="keyword" onChange={onKeywordChange} />
         <button onClick={onSearch}>검색</button>
       </div>
       <table className="notice-table">
@@ -133,18 +152,22 @@ const NoticeList = () => {
             <th>번호</th>
             <th>제목</th>
             <th>작성일</th>
+            <th>조회수</th> {/* 조회수 열 추가 */}
           </tr>
         </thead>
         <tbody>
           {notices.length > 0 ? notices.map(notice => (
             <tr key={notice.bno}>
               <td>{notice.bno}</td>
-              <td><a href={`http://localhost:3000/notice/read/${notice.bno}`}>{notice.title}</a></td>
-              <td>{notice.reg_date}</td>
+              <td>
+                <a href="#" onClick={() => handleNoticeClick(notice.bno)}>{notice.title}</a>
+              </td>
+              <td>{formatDate(notice.reg_date)}</td>
+              <td>{notice.views}</td> {/* 조회수 표시 */}
             </tr>
           )) : (
             <tr>
-              <td colSpan="3">No notices found.</td>
+              <td colSpan="4">No notices found.</td>
             </tr>
           )}
         </tbody>

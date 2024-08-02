@@ -1,91 +1,149 @@
 .notice-list-container {
-  padding: 20px;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 40px auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* 검색 바 스타일 */
 .search-bar {
   margin-bottom: 20px;
-  text-align: right; /* 검색 바를 오른쪽으로 정렬 */
+  text-align: right;
 }
 
 .search-bar select,
 .search-bar input[type="text"],
 .search-bar button {
-  margin-left: 10px; /* 각 요소 사이의 간격 */
+  margin-left: 10px;
+  padding: 12px 18px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.search-bar select {
+  background-color: #fff;
+}
+
+.search-bar input[type="text"] {
+  background-color: #fff;
+}
+
+.search-bar button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: 600;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
 /* 테이블 스타일 */
 .notice-table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .notice-table th,
 .notice-table td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 16px 20px;
   text-align: left;
 }
 
 .notice-table th {
-  background-color: #f2f2f2;
+  background-color: #f4f4f4;
+  color: #555;
+  font-weight: 600;
+}
+
+.notice-table td {
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.notice-table td:hover {
+  background-color: #f9f9f9;
 }
 
 /* 글쓰기 버튼 스타일 */
 .write-button {
   margin-top: 20px;
-  float: right; /* 버튼을 오른쪽으로 정렬 */
+  float: right;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
+  border-radius: 6px;
+  padding: 12px 24px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
 }
 
-/* 글쓰기 버튼 호버 스타일 */
 .write-button:hover {
   background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
 /* 페이지네이션 컨테이너 스타일 */
 .pagination-container {
   margin-top: 20px;
   display: flex;
-  justify-content: center; /* 페이지네이션을 가운데로 정렬 */
+  justify-content: center;
 }
 
 .pagination {
-  display: flex; /* 페이지네이션 버튼을 수평으로 나열 */
-  gap: 10px; /* 페이지네이션 버튼 간의 간격 */
-  list-style: none; /* 기본 리스트 스타일 제거 */
-  padding: 0; /* 기본 패딩 제거 */
-  margin: 0; /* 기본 마진 제거 */
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .page-item {
-  display: inline; /* 페이지 아이템을 인라인으로 설정 */
+  display: inline;
 }
 
 .page-link {
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 10px 15px;
+  border-radius: 6px;
+  padding: 12px 20px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   text-align: center;
-  display: inline-block; /* 인라인 블록으로 버튼 크기 조정 */
+  display: inline-block;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
 }
 
 .page-link:hover {
   background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
 .notice-list-container h1 {
   text-align: center;
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #e4e4e4;
+  padding-bottom: 10px;
+  font-weight: 600;
 }

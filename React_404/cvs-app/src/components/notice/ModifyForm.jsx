@@ -56,11 +56,13 @@ const ModifyForm = () => {
   const handleSubmitModify = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
+
     const modifiedNotice = {
       bno: formData.get('bno'),
       title: formData.get('title'),
       content: formData.get('content'),
-      writer: dto.writer
+      writer: dto.writer,
+      reg_date: dto.reg_date // 작성일 포함
     };
 
     fetch('http://localhost:8080/notice/modify', {

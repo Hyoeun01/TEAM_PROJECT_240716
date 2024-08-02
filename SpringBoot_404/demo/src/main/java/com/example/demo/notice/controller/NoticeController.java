@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -67,6 +66,13 @@ public class NoticeController {
         Map<String, String> response = new HashMap<>();
         response.put("message", "Notice removed successfully");
         return ResponseEntity.ok(response);
+    }
+
+
+    @PutMapping("/updateViews/{bno}")
+    public ResponseEntity<NoticeDTO> updateViews(@PathVariable("bno") Long bno) {
+        NoticeDTO updatedNotice = noticeService.updateViews(bno);
+        return ResponseEntity.ok(updatedNotice);
     }
 
 }

@@ -25,12 +25,21 @@ public class Notice {
 
     private String writer;
     private String content;
-
+    private int views;
     // 엔티티가 저장되기 전에 호출됩니다.
     @PrePersist
     public void prePersist() {
         if (reg_date == null) {
             reg_date = LocalDate.now();
         }
+    }
+
+    public void incrementViews() {
+        this.views++;
+    }
+
+    // 필드 값을 직접 설정하는 메서드
+    public void setViews(int views) {
+        this.views = views;
     }
 }
