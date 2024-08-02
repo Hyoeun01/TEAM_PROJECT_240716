@@ -144,7 +144,7 @@ const NoticeList = () => {
           <option value="contents">내용</option>
         </select>
         <input type="text" name="keyword" onChange={onKeywordChange} />
-        <button className="search-button" onClick={onSearch}>검색</button>
+        <button onClick={onSearch}>검색</button>
       </div>
       <table className="notice-table">
         <thead>

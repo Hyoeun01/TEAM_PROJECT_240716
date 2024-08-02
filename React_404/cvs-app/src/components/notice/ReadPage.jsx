@@ -69,7 +69,7 @@ const ReadPage = () => {
       </div>
       <div>
        
-        <p><strong>Writer:</strong> {dto.writer}</p>
+        <p><strong>작성자:</strong> {dto.writer}</p>
       </div>
       <div className="buttons-container">
         <button className="center-button" onClick={() => navigate('/notice/list')}>목록</button> 
