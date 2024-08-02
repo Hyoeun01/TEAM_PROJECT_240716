@@ -66,14 +66,12 @@ const InquiryBoard = () => {
             >
                 문의사항
             </motion.h1>
-            <ButtonContainer>
-                <StyledButton 
-                    className="mb-4 inquiry-board-button"
-                    onClick={handleShow}
-                >
-                    문의하기
-                </StyledButton>
-            </ButtonContainer>
+            <StyledButton 
+                className="mb-4 inquiry-board-button"
+                onClick={handleShow}
+            >
+                문의하기
+            </StyledButton>
             <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -144,11 +142,6 @@ const StyledContainer = styled(Container)`
         text-align: center;
         margin-bottom: 20px;
     }
-`;
-
-const ButtonContainer = styled.div`
-    text-align: right;
-    margin-bottom: 20px;
 `;
 
 const StyledButton = styled(Button)`

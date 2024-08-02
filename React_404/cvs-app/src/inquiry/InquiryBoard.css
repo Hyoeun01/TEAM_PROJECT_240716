@@ -32,14 +32,14 @@
 
 .inquiry-board-list-group-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px rgba(41, 230, 35, 0.866);
     background-color: #F0F0F0;
 }
 
 .inquiry-board-modal .modal-content {
     border-radius: 20px;
     padding: 20px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px rgba(44, 237, 106, 0.808);
     max-width: 800px;
     margin: auto;
 }

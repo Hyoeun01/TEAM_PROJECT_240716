@@ -26,6 +26,7 @@ const InquiryView = () => {
             setTitle(response.data.title);
             setContent(response.data.content);
             setReply(response.data.reply || ''); // Initialize reply with existing data or empty string
+
         } catch (error) {
             console.error('Error fetching inquiry:', error);
         }
@@ -72,6 +73,13 @@ const InquiryView = () => {
         }
     };
 
+    const formatDateString = (dateString) => {
+        // Replace space with 'T' for correct parsing
+        const formattedDate = dateString.replace(' ', 'T');
+        const date = new Date(formattedDate);
+        return date.toLocaleString(); // Adjust to your locale and format needs
+    };
+
     if (!inquiry) {
         return <div>Loading...</div>;
     }
@@ -104,7 +112,8 @@ const InquiryView = () => {
                 )}
                 <hr className="divider" />
                 <div className="metadata">
-                    작성일: {new Date(inquiry.createdAt).toLocaleString()} <br />
+                {/* 작성일: {new Date(formatDateString(inquiry.createdAt)).toLocaleString()} <br /> */}
+                    작성일: {new Date(...inquiry.createdAt).toLocaleString()} <br />
                     작성자: {inquiry.nickname} <br />
                 </div>
                 {user?.role === 'ADMIN' ? (
