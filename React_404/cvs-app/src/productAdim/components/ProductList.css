@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 12px;
+  justify-content: center;
 }
 .product-link {
   /* a태그를 무시하고 기존 색상유지 */

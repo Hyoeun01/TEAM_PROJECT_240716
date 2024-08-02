@@ -25,7 +25,7 @@ public class PurchaseListServiceImpl implements PurchaseListService{
     @Override
     public Long register(PurchaseListDTO purchaseListDTO) {
         PurchaseDetail purchaseDetail = modelMapper.map(purchaseListDTO, PurchaseDetail.class);
-        return purchaseDetailRepository.save(purchaseDetail).getPurchaseDetailId();
+        return purchaseDetailRepository.save(purchaseDetail).getPurchase_detail_id();
     }
 
     @Override

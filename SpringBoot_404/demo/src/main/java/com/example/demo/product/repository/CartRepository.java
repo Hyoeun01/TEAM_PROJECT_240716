@@ -17,5 +17,6 @@ public interface CartRepository  extends JpaRepository<Cart, Long> {
     List<Cart> findByMid(String mid);
     @Query("SELECT c FROM Cart c WHERE c.member.mid=:mid AND c.product.product_id=:product_id")
     Optional<Cart> findByMidAndProduct_id(String mid, Long product_id);
-
+    @Query("SELECT c FROM Cart c WHERE c.member.mid=:mid AND c.purchaseCheck=true")
+    List<Cart> purchaseList(String mid);
 }

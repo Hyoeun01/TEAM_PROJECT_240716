@@ -42,9 +42,9 @@ public class PurchaseServiceImpl implements PurchaseService {
                 PurchaseDTO.builder()
                     .purchase_id(entity.getPurchase_id())
                     .name(entity.getName())
+                    .address(entity.getAddress())
                     .phone(entity.getPhone())
                     .email(entity.getEmail())
-                    .address(entity.getAddress())
                     .totalPrice(entity.getTotalPrice())
                     .message(entity.getMessage())
                     .purchase_status(entity.getPurchase_status())
@@ -65,28 +65,33 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public void register(PurchaseDTO purchaseDTO) {
         Member member = memberRepository.findByMid(purchaseDTO.getMid()).orElseThrow();
-        List<Cart> cartList = Arrays.stream(purchaseDTO.getCartArray()).map(cartId ->
-            cartRepository.findById(cartId).orElseThrow()).collect(Collectors.toList());
+        List<Cart> cartList = cartRepository.purchaseList(purchaseDTO.getMid());
         Purchase purchase = Purchase.builder()
             .name(purchaseDTO.getName())
+            .address(purchaseDTO.getAddress())
             .phone(purchaseDTO.getPhone())
             .email(purchaseDTO.getEmail())
-            .address(purchaseDTO.getAddress())
             .totalPrice(purchaseDTO.getTotalPrice())
             .message(purchaseDTO.getMessage())
-            .purchase_status(purchaseDTO.getPurchase_status())
+            .purchase_status("결제완료")
+            .payment(purchaseDTO.getPayment())
+            .member(member)
             .build();
-        Purchase saveData = purchaseRepository.save(purchase);
+        Long pid = purchaseRepository.save(purchase).getPurchase_id();
+        Purchase savePurchase = purchaseRepository.findById(pid).orElseThrow();
         List<PurchaseDetail> purchaseList = cartList.stream().map(
             cart ->
                 PurchaseDetail.builder()
-                    .purchase(saveData)
+                    .purchase(savePurchase)
                     .product(cart.getProduct())
                     .quantity(cart.getQuantity())
                     .discount(0)
                 .build()
         ).collect(Collectors.toList());
-        purchaseDetailRepository.saveAll(purchaseList);
+//        for(PurchaseDetail purchaseDetail : purchaseList) {
+//            purchaseDetailRepository.save(purchaseDetail);
+//        }
+
     }
 
     @Override
