@@ -61,7 +61,7 @@ const ProductCard = ({ product, onSelect, isSelected, isSelectionMode }) => {
             />
           </div>
           <div className="product-contents2">
-            <span className="product-name2">{product.product_name}</span>
+            <span className="product-name2"><b>{product.product_name}</b></span>
             <span className="product-price2">{product.price}원</span>
             <span className="product-category2">{product.category}</span>
             <span className="product-quantity2">

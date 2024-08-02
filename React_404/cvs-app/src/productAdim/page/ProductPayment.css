@@ -1,81 +1,131 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-}
-
-.container {
-  width: 50%;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
 div {
-  margin-bottom: 15px;
+  font-family: Arial, sans-serif;
+  padding: 20px;
 }
 
-.label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-input[type="text"],
-input[type="password"] {
-  width: calc(100% - 22px);
-  padding: 10px;
-  border: 1px solid #ddd;
+/* 배송지 섹션 스타일 */
+.order-section h3 {
+  margin-bottom: 10px;
+}
+
+/* 배송지 입력 폼 스타일 */
+
+
+.order-section label {
+  display: block;
+  font-weight: bold;
+}
+
+.order-section input[type="text"],
+.order-section input[type="email"],
+.order-section input[type="phone"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box;
+}
+.message_ssj {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-input[type="text"]::placeholder,
-input[type="password"]::placeholder {
-  color: #aaa;
-}
-
-button {
-  padding: 10px 15px;
+.order-section button {
+  padding: 8px 15px;
   border: none;
-  background-color: #4caf50;
+  background-color: #007bff;
   color: white;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
-  margin-bottom: 10px; /* 버튼과 입력 필드 사이에 여백 추가 */
 }
 
-button:hover {
-  background-color: #45a049;
+.order-section button:hover {
+  background-color: #0056b3;
 }
 
-select {
-  width: calc(100% - 22px);
-  padding: 10px;
-  border: 1px solid #ddd;
+/* 주문 상품 요약 섹션 스타일 */
+.order-item ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.order-item li {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.order-total {
+  font-weight: bold;
+}
+
+/* 결제 수단 섹션 스타일 */
+
+
+
+
+.payment-section input[type="radio"] {
+  margin-right: 5px;
+}
+
+
+.payment-agreement input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* 결제 버튼 스타일 */
+.payment-section button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #28a745;
+  color: white;
   border-radius: 4px;
-  box-sizing: border-box;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
-.input-group {
+.payment-section button:hover {
+  background-color: #218838;
+}
+
+/* ProductPayment.css */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
-  gap: 10px;
   align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
-.input-group input {
-  flex: 1;
+.modal-content {
+  background: #fff;
+  border-radius: 5px;
+  width: 500px;
+  max-width: 90%;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.input-group select {
-  flex: 0;
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+}
+
+.checkbox_ssj {
+  display : wrap;
 }
