@@ -18,14 +18,22 @@ const NoticeList = () => {
     next: false
   });
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [searchFilter, setSearchFilter] = useState('');
 
   const navigate = useNavigate();
 
-  const fetchNotices = async (page = 1, keyword = '', filter = '') => {
+  // 날짜를 YYYY-MM-DD 형식으로 포맷팅하는 함수
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  };
+
+  const fetchNotices = async (page = 1, keyword = '') => {
     try {
-      const response = await axios.get('http://localhost:8080/notice/list', {
-        params: { page, size: 10, keyword, filter }
+      const response = await axios.get(`http://localhost:8080/notice/list`, {
+        params: { page, size: 10, keyword }
       });
       if (response.status !== 200) {
         throw new Error('Network response was not ok');
@@ -89,34 +97,16 @@ const NoticeList = () => {
 
   const handlePageChange = (page) => {
     setLoading(true);
-    fetchNotices(page, searchKeyword, searchFilter);
+    fetchNotices(page, searchKeyword);
   };
 
-  const onKeywordChange = (e) => {
+  const onChange = (e) => {
     setSearchKeyword(e.target.value);
-  };
-
-  const onFilterChange = (e) => {
-    setSearchFilter(e.target.value);
   };
 
   const onSearch = () => {
     setLoading(true);
-    fetchNotices(1, searchKeyword, searchFilter);
-  };
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toISOString().split('T')[0]; // 날짜 부분만 추출
-  };
-
-  const handleNoticeClick = async (id) => {
-    try {
-      await axios.put(`http://localhost:8080/notice/updateViews/${id}`);
-      navigate(`/notice/read/${id}`);
-    } catch (error) {
-      console.error('Error updating views:', error);
-    }
+    fetchNotices(1, searchKeyword);
   };
 
   if (loading) return <p>Loading...</p>;
@@ -138,12 +128,12 @@ const NoticeList = () => {
     <div className="notice-list-container">
       <h1>공지사항</h1>
       <div className="search-bar">
-        <select name="filter" onChange={onFilterChange}>
+        <select name="sk" onChange={onChange}>
           <option value="">-선택-</option>
           <option value="title">제목</option>
           <option value="contents">내용</option>
         </select>
-        <input type="text" name="keyword" onChange={onKeywordChange} />
+        <input type="text" name="sv" onChange={onChange} />
         <button onClick={onSearch}>검색</button>
       </div>
       <table className="notice-table">
@@ -159,15 +149,13 @@ const NoticeList = () => {
           {notices.length > 0 ? notices.map(notice => (
             <tr key={notice.bno}>
               <td>{notice.bno}</td>
-              <td>
-                <a href="#" onClick={() => handleNoticeClick(notice.bno)}>{notice.title}</a>
-              </td>
-              <td>{formatDate(notice.reg_date)}</td>
-              <td>{notice.views}</td> {/* 조회수 표시 */}
+              <td><a href={`http://localhost:3000/notice/read/${notice.bno}`}>{notice.title}</a></td>
+              <td>{formatDate(notice.reg_date)}</td> {/* 작성일 포맷팅 */}
+              <td>{notice.views || 0}</td> {/* 조회수 표시 */}
             </tr>
           )) : (
             <tr>
-              <td colSpan="4">No notices found.</td>
+              <td colSpan="4">No notices found.</td> {/* 열 수에 맞게 수정 */}
             </tr>
           )}
         </tbody>
