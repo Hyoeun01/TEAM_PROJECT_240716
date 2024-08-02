@@ -18,5 +18,6 @@ public class CartDTO {
     private String product_img;
     private int price;
     private int quantity;
+    private boolean purchaseCheck = true;
 
 }

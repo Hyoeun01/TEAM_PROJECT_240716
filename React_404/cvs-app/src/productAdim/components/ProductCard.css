@@ -16,11 +16,11 @@
   /* box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.2),
     그라데이션 효과 0 0 0 8px rgba(0, 123, 255, 0.1); 더 큰 그라데이션 */
   background: linear-gradient(white, white),
-    linear-gradient(to right, #d60da4, #06499b); /* 배경을 겹쳐서 그라데이션 효과 */
+    linear-gradient(to right, #93278F, #93278F); /* 배경을 겹쳐서 그라데이션 효과 */
   background-origin: border-box;
   background-clip: content-box, border-box;
-  box-shadow: 0 0 10px rgba(240, 28, 211, 0.582),
-    0 0 20px rgba(218, 135, 218, 0.884), 0 0 30px rgba(187, 255, 0, 0.3),
+  box-shadow: 0 0 10px rgba(255, 0, 221, 0.582),
+    0 0 20px rgba(207, 164, 207, 0.884), 0 0 30px rgba(245, 48, 212, 0.3),
     0 0 40px rgba(228, 26, 255, 0.2);
   /* 그라데이션 효과 추가 */
 }
@@ -34,7 +34,7 @@
   flex-direction: column;
   padding: 8px;
   align-items: center; /* 텍스트 중앙 정렬 */
-  text-align: center; /* 텍스트 중앙 정렬 */
+  text-align: center;  /* 텍스트 중앙 정렬 */
 }
 .product-name2 {
   font-size: 15px;

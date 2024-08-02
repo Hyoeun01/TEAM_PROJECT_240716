@@ -34,7 +34,7 @@ public class PurchaseController {
     }
     @PostMapping
     public ResponseEntity<Object> register(PurchaseDTO purchaseDTO, Principal principal) {
-
+        purchaseService.register(purchaseDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @PutMapping

@@ -10,5 +10,6 @@ public interface CartService {
     List<CartDTO> getCartListByMid(String mid);
     void modify(CartDTO cartDTO);
     void remove(Long cart_id);
+    void changeCheck(Long cart_id);
     //void addItemToCart(Long cartId, CartItem cartItem);
 }

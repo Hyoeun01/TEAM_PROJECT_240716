@@ -17,7 +17,7 @@ const ProductList = ({ role }) => {
   const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 카테고리
   const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
   const { user } = useAuth();
-  const pageSize = 27; // 한 페이지에 보여줄 제품 개수
+  const pageSize = 24; // 한 페이지에 보여줄 제품 개수
 
   useEffect(() => {
     // 제품 데이터를 가져오는 함수
@@ -116,7 +116,7 @@ const ProductList = ({ role }) => {
               물품 등록하기
             </Link>
             <button
-              className="btn btn-primary"
+              className="btn btn-warning"
               onClick={() => setIsSelectionMode((prevMode) => !prevMode)}
             >
               {isSelectionMode ? "선택 취소" : "선택삭제"}

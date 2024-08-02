@@ -17,10 +17,12 @@ import AuthGuard from "./productAdim/guards/AuthGuard";
 import Unauthorized from "./productAdim/page/UnAuthorized";
 import ProductCart from "./productAdim/page/ProductCart";
 import ProductPayment from "./productAdim/page/ProductPayment";
+import ProductPayment2 from "./productAdim/page/ProductPayment2";
 import InquiryView from "./inquiry/InquiryView";
 import { AuthProvider } from "./context/AuthContext";
 import ProductList from "./productAdim/components/ProductList";
 import Payment from "./productAdim/components/Payment";
+import Payment2 from "./productAdim/components/Payment2";
 import CartList from "./cart/page/CartList";
 import ReadPage from "./components/notice/ReadPage";
 import NoticeList from "./components/notice/NoticeList";
@@ -98,7 +100,9 @@ function App() {
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/productCart" element={<ProductCart />} />
           <Route path="/productPayment" element={<ProductPayment />} />
+          <Route path="/productPayment2" element={<ProductPayment2 />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/payment2" element={<Payment2 />} />
           <Route path="/cart" element={<CartList />} />
           <Route path="/notice/list" element={<NoticeList />} />
           <Route path="/notice/read/:bno" element={<ReadPage />} />{" "}
