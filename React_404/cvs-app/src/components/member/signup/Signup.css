@@ -1,0 +1,41 @@
+/* Signup.css */
+
+.link-primary {
+    color: #93278F !important;
+    font-weight: bold;
+}
+
+.btn-secondary.ms-2 {
+    background-color: #8CC63F !important;
+    border-color: #8CC63F !important;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary.ms-2:hover {
+    background-color: #7AB82F !important; /* Hover 시 더 진한 색상 */
+    border-color: #7AB82F !important;
+}
+
+.btn-dark.rounded-0.fs-6 {
+    background-color: #93278F !important;
+    border-color: #93278F !important;
+    transition: background-color 0.3s ease;
+}
+
+.btn-dark.rounded-0.fs-6:hover {
+    background-color: #822070 !important; /* Hover 시 더 진한 색상 */
+    border-color: #822070 !important;
+}
+
+.btn-outline-dark {
+    border: 1px solid #000 !important;
+}
+
+.link-primary.text-decoration-none {
+    color: #93278F !important;
+}
+
+.link-primary.text-decoration-none:hover {
+    color: #822070 !important;
+}

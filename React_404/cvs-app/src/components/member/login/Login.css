@@ -1,1 +1,22 @@
 /* Login.css */
+.btn-primary.btn-block.fa-lg.gradient-custom-2.mb-3 {
+    background-color: #8CC63F !important;
+    border-color: #8CC63F !important;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary.btn-block.fa-lg.gradient-custom-2.mb-3:hover {
+    background-color: #7AB82F !important; /* Hover 시 더 진한 색상 */
+    border-color: #7AB82F !important;
+}
+
+.btn-outline-danger {
+    background-color:#93278F !important;
+    color: #ffffff !important;
+    transition: background-color 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+    background-color: #822070 !important;
+    color: #ffffff !important; /* Hover 시 글자 색상 흰색 */
+}

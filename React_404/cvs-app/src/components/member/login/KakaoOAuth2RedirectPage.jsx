@@ -25,6 +25,7 @@ const KakaoOAuth2RedirectPage = () => {
         if (code) {
             getToken(code).then((res) => {
                 localStorage.setItem('token', res.access_token);
+                localStorage.setItem('loginMethod', 'kakao'); // 카카오톡 로그인 방법 저장
                 navigate('/');
             });
         }

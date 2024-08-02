@@ -26,7 +26,10 @@ public class Member {
     @Column(name = "phone", length = 15)
     private String phone;
 
-    @Column(name = "point", columnDefinition = "INT DEFAULT 0")
+    @Column(name = "address", nullable = false, length = 400)
+    private String address;
+
+    @Column(name = "point", nullable = false, columnDefinition = "INT DEFAULT 0")
     private int point;
 
     @Enumerated(EnumType.STRING)

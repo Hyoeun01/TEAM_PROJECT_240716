@@ -1,3 +1,4 @@
+
 package com.example.demo.productAdmin.domain;
 
 import jakarta.persistence.*;
