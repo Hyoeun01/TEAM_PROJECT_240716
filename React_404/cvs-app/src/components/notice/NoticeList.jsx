@@ -21,6 +21,15 @@ const NoticeList = () => {
 
   const navigate = useNavigate();
 
+  // 날짜를 YYYY-MM-DD 형식으로 포맷팅하는 함수
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  };
+
   const fetchNotices = async (page = 1, keyword = '') => {
     try {
       const response = await axios.get(`http://localhost:8080/notice/list`, {
@@ -133,6 +142,7 @@ const NoticeList = () => {
             <th>번호</th>
             <th>제목</th>
             <th>작성일</th>
+            <th>조회수</th> {/* 조회수 열 추가 */}
           </tr>
         </thead>
         <tbody>
@@ -140,11 +150,12 @@ const NoticeList = () => {
             <tr key={notice.bno}>
               <td>{notice.bno}</td>
               <td><a href={`http://localhost:3000/notice/read/${notice.bno}`}>{notice.title}</a></td>
-              <td>{notice.reg_date}</td>
+              <td>{formatDate(notice.reg_date)}</td> {/* 작성일 포맷팅 */}
+              <td>{notice.views || 0}</td> {/* 조회수 표시 */}
             </tr>
           )) : (
             <tr>
-              <td colSpan="3">No notices found.</td>
+              <td colSpan="4">No notices found.</td> {/* 열 수에 맞게 수정 */}
             </tr>
           )}
         </tbody>

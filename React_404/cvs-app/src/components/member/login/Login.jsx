@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import logo from '../../../logo/1st_logo.png'; // 로고 이미지 추가
-import kakaoIcon from '../../../assets/images/kakao_icon.png'; // 카카오 아이콘 추가
-import googleIcon from '../../../assets/images/google_icon.png'; // 구글 아이콘 추가
-import banner from '../../../assets/images/login_banner.jpg'; // 배너 이미지 추가
-import './Login.css'; // Bootstrap CSS 포함
+import logo from '../../../logo/1st_logo.png';
+import kakaoIcon from '../../../assets/images/kakao_icon-removebg.png';
+import googleIcon from '../../../assets/images/google_icon-removebg.png';
+import banner from '../../../assets/images/login_banner.jpg';
+import './Login.css';
 
 const Login = () => {
     const [mid, setMid] = useState('');
@@ -103,7 +103,7 @@ const Login = () => {
                                                     type="password"
                                                     id="mpw"
                                                     className="form-control"
-                                                    placeholder="password"
+                                                    placeholder="비밀번호"
                                                     value={mpw}
                                                     onChange={(e) => setMpw(e.target.value)}
                                                     required
@@ -129,7 +129,7 @@ const Login = () => {
                                             onMouseLeave={() => setKakaoButtonHovered(false)}
                                         >
                                             <img src={kakaoIcon} alt="Kakao Icon" style={{ width: '20px', marginRight: '10px' }} />
-                                            카카오톡 로그인
+                                            Continue with Kakao
                                         </button>
                                         <button
                                             onClick={() => window.location.href = '#'}
@@ -139,13 +139,13 @@ const Login = () => {
                                             onMouseLeave={() => setGoogleButtonHovered(false)}
                                         >
                                             <img src={googleIcon} alt="Google Icon" style={{ width: '20px', marginRight: '10px' }} />
-                                            구글 로그인
+                                            Continue with Google
                                         </button>
                                     </div>
                                 </div>
                                 <div className="col-lg-6 d-flex align-items-center gradient-custom-2" style={{ backgroundImage: `url(${banner})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                                     <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                                   
+
                                     </div>
                                 </div>
                             </div>

@@ -28,7 +28,22 @@ const ReadPage = () => {
           setError(error);
           setLoading(false);
         });
-
+  // 조회수 증가 요청 추가
+  fetch(`http://localhost:8080/notice/updateViews/${bno}`, {
+    method: 'PUT'
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(updatedData => {
+      console.log('Updated Notice with incremented views:', updatedData);
+    })
+    .catch(error => {
+      console.error('Error updating views:', error);
+    });
       // 사용자 권한 확인하기
       fetch('http://localhost:8080/members/checkAdmin', {
         headers: {
@@ -51,6 +66,11 @@ const ReadPage = () => {
     }
   }, [bno]);
 
+  const handleModifyClick = (bno) => {
+    console.log('Modify button clicked, navigating to:', `/notice/modify/${bno}`);
+    navigate(`/notice/modify/${bno}`);
+  }
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   if (!dto) return <p>No notice found.</p>;
@@ -68,13 +88,12 @@ const ReadPage = () => {
         <textarea value={dto.content} readOnly></textarea>
       </div>
       <div>
-       
-        <p><strong>Writer:</strong> {dto.writer}</p>
+        <p><strong>작성자:</strong> {dto.writer}</p>
       </div>
       <div className="buttons-container">
         <button className="center-button" onClick={() => navigate('/notice/list')}>목록</button> 
         {isAdmin && (
-          <button className="right-button" onClick={() => navigate(`/notice/modify/${dto.bno}`)}>수정</button> 
+          <button className="right-button" onClick={() => handleModifyClick(dto.bno)}>수정</button> 
         )}
       </div>
     </div>

@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ModifyForm.css'; // CSS 파일 import
 
-const ModifyForm = () => {
+const ModifyPage = () => {
   const { bno } = useParams();
   const navigate = useNavigate();
   const [dto, setDto] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [nickname, setNickname] = useState('');
 
   useEffect(() => {
     // 공지사항 데이터 가져오기
@@ -28,43 +27,22 @@ const ModifyForm = () => {
         setError(error);
         setLoading(false);
       });
-
-    // 사용자 닉네임 가져오기
-    const fetchUserData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8080/members/me', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setNickname(data.nickname); // 닉네임을 상태에 저장
-        } else {
-          throw new Error('Failed to fetch user data');
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    fetchUserData();
   }, [bno]);
 
   const handleSubmitModify = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
+
     const modifiedNotice = {
       bno: formData.get('bno'),
       title: formData.get('title'),
       content: formData.get('content'),
-      writer: dto.writer
+      writer: dto.writer,
+      reg_date: dto.reg_date // 작성일 포함
     };
 
     fetch('http://localhost:8080/notice/modify', {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -122,13 +100,13 @@ const ModifyForm = () => {
       <form onSubmit={handleSubmitModify}>
         <input type="hidden" name="bno" value={dto.bno} />
         <div>
-          <input type="text" placeholder="Title" name="title" defaultValue={dto.title} />
+          <input type="text" placeholder="제목" name="title" defaultValue={dto.title} />
         </div>
         <div>
-          <textarea placeholder="Content" name="content" defaultValue={dto.content}></textarea>
+          <textarea placeholder="내용" name="content" defaultValue={dto.content}></textarea>
         </div>
         <div>
-          <p><strong>Writer:</strong> {dto.writer}</p>
+          <p><strong>작성자:</strong> {dto.writer}</p>
         </div>
         <div className="button-group">
           <button type="button" onClick={() => navigate('/notice/list')}>목록</button>
@@ -140,4 +118,4 @@ const ModifyForm = () => {
   );
 };
 
-export default ModifyForm;
+export default ModifyPage;

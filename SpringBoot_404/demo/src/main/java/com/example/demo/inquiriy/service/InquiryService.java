@@ -3,9 +3,11 @@ package com.example.demo.inquiriy.service;
 import com.example.demo.inquiriy.domain.Inquiry;
 import com.example.demo.inquiriy.repository.InquiryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InquiryService {
@@ -13,16 +15,16 @@ public class InquiryService {
     @Autowired
     private InquiryRepository inquiryRepository;
 
-    public List<Inquiry> getAllInquiries() {
-        return inquiryRepository.findAll();
+    public Page<Inquiry> getAllInquiries(int page, int size) {
+        return inquiryRepository.findAll(PageRequest.of(page, size));
     }
 
     public Inquiry createInquiry(Inquiry inquiry) {
         return inquiryRepository.save(inquiry);
     }
 
-    public Inquiry getInquiryById(Long id) {
-        return inquiryRepository.findById(id).orElseThrow(() -> new RuntimeException("Inquiry not found"));
+    public Optional<Inquiry> getInquiryById(Long id) {
+        return inquiryRepository.findById(id);
     }
 
     public Inquiry updateInquiry(Inquiry inquiry) {
@@ -34,8 +36,9 @@ public class InquiryService {
     }
 
     public Inquiry addReply(Long id, String reply) {
-        Inquiry inquiry = inquiryRepository.findById(id).orElse(null);
-        if (inquiry != null) {
+        Optional<Inquiry> inquiryOpt = inquiryRepository.findById(id);
+        if (inquiryOpt.isPresent()) {
+            Inquiry inquiry = inquiryOpt.get();
             inquiry.setReply(reply);
             return inquiryRepository.save(inquiry);
         }

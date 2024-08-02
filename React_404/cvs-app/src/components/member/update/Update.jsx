@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import kakaoIcon from '../../../assets/images/kakao_icon-removebg.png';
+import googleIcon from '../../../assets/images/google_icon-removebg.png';
+import logo from '../../../logo/1st_logo.png';
+
 
 const Update = () => {
     const [member, setMember] = useState({
@@ -9,6 +13,7 @@ const Update = () => {
         email: '',
         nickname: '',
         phone: '',
+        address: '', // address 필드 추가
         point: 0,
     });
 
@@ -88,46 +93,167 @@ const Update = () => {
     };
 
     return (
-        <div className="container">
-            <h2>회원정보 수정</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="mid">ID:</label>
-                    <input type="text" id="mid" name="mid" value={member.mid} readOnly />
+        <section className="py-3 py-md-5 py-xl-8">
+            <div className="container">
+                <div className="row">
+                    <div className="col-12">
+                        <div className="mb-5">
+                            <h2 className="display-5 fw-bold text-center">회원정보 수정</h2>
+                        </div>
+                    </div>
                 </div>
-                {loginMethod !== 'kakao' && (
-                    <>
-                        <div>
-                            <label htmlFor="mpw">비밀번호:</label>
-                            <input type="password" id="mpw" name="mpw" value={member.mpw} onChange={handleChange} required />
+                <div className="row justify-content-center">
+                    <div className="col-12 col-lg-10 col-xl-8">
+                        <div className="row gy-5 justify-content-center">
+                            <div className="col-12 col-lg-5">
+                                <form onSubmit={handleSubmit}>
+                                    <div className="row gy-3 overflow-hidden">
+                                        <div className="col-12">
+                                            <div className="form-floating mb-3">
+                                                <input
+                                                    type="text"
+                                                    className="form-control border-0 border-bottom rounded-0"
+                                                    id="mid"
+                                                    placeholder="ID"
+                                                    value={member.mid}
+                                                    readOnly
+                                                />
+                                                <label htmlFor="mid" className="form-label">ID</label>
+                                            </div>
+                                        </div>
+                                        {loginMethod !== 'kakao' && (
+                                            <>
+                                                <div className="col-12">
+                                                    <div className="form-floating mb-3">
+                                                        <input
+                                                            type="password"
+                                                            className="form-control border-0 border-bottom rounded-0"
+                                                            id="mpw"
+                                                            name="mpw"
+                                                            placeholder="Password"
+                                                            value={member.mpw}
+                                                            onChange={handleChange}
+                                                            required
+                                                        />
+                                                        <label htmlFor="mpw" className="form-label">비밀번호</label>
+                                                    </div>
+                                                </div>
+                                                <div className="col-12">
+                                                    <div className="form-floating mb-3">
+                                                        <input
+                                                            type="password"
+                                                            className="form-control border-0 border-bottom rounded-0"
+                                                            id="confirmMpw"
+                                                            name="confirmMpw"
+                                                            placeholder="Confirm Password"
+                                                            value={member.confirmMpw}
+                                                            onChange={handleChange}
+                                                            required
+                                                        />
+                                                        <label htmlFor="confirmMpw" className="form-label">비밀번호 확인</label>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
+                                        <div className="col-12">
+                                            <div className="form-floating mb-3">
+                                                <input
+                                                    type="email"
+                                                    className="form-control border-0 border-bottom rounded-0"
+                                                    id="email"
+                                                    name="email"
+                                                    placeholder="Email"
+                                                    value={member.email}
+                                                    onChange={handleChange}
+                                                    required
+                                                />
+                                                <label htmlFor="email" className="form-label">Email</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="form-floating mb-3">
+                                                <input
+                                                    type="text"
+                                                    className="form-control border-0 border-bottom rounded-0"
+                                                    id="nickname"
+                                                    name="nickname"
+                                                    placeholder="Nickname"
+                                                    value={member.nickname}
+                                                    onChange={handleChange}
+                                                    required
+                                                />
+                                                <label htmlFor="nickname" className="form-label">Nickname</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="form-floating mb-3">
+                                                <input
+                                                    type="text"
+                                                    className="form-control border-0 border-bottom rounded-0"
+                                                    id="phone"
+                                                    name="phone"
+                                                    placeholder="Phone"
+                                                    value={member.phone}
+                                                    onChange={handleChange}
+                                                />
+                                                <label htmlFor="phone" className="form-label">전화번호</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-12"> {/* Address 입력 필드 추가 */}
+                                            <div className="form-floating mb-3">
+                                                <input
+                                                    type="text"
+                                                    className="form-control border-0 border-bottom rounded-0"
+                                                    id="address"
+                                                    name="address"
+                                                    placeholder="Address"
+                                                    value={member.address}
+                                                    onChange={handleChange}
+                                                    required
+                                                />
+                                                <label htmlFor="address" className="form-label">주소</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="form-floating mb-3">
+                                                <input
+                                                    type="number"
+                                                    className="form-control border-0 border-bottom rounded-0"
+                                                    id="point"
+                                                    name="point"
+                                                    placeholder="Point"
+                                                    value={member.point}
+                                                    readOnly
+                                                />
+                                                <label htmlFor="point" className="form-label">포인트</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="d-grid">
+                                                <button className="btn btn-lg btn-dark rounded-0 fs-6" type="submit">수정완료</button>
+                                                {loginMethod !== 'kakao' && (
+                                                    <button className="btn btn-outline-dark mt-2" type="button" onClick={() => setShowModal(true)}>회원탈퇴</button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div className="col-12 col-lg-2 d-flex align-items-center justify-content-center gap-3 flex-lg-column">
+                                <div className="bg-dark h-100 d-none d-lg-block" style={{ width: '1px', opacity: 0.1 }}></div>
+                                <div className="bg-dark w-100 d-lg-none" style={{ height: '1px', opacity: 0.1 }}></div>
+                              
+                            </div>
+                            <div className="col-12 col-lg-5 d-flex flex-column align-items-center justify-content-center">
+                                <div className="col-10 mb-3">
+                                    <img src={logo} alt="logo" className="img-fluid mb-3" />
+                                </div>
+                      
+                            </div>
                         </div>
-                        <div>
-                            <label htmlFor="confirmMpw">비밀번호 확인:</label>
-                            <input type="password" id="confirmMpw" name="confirmMpw" value={member.confirmMpw} onChange={handleChange} required />
-                        </div>
-                        <div>
-                            <label htmlFor="email">Email:</label>
-                            <input type="email" id="email" name="email" value={member.email} onChange={handleChange} required />
-                        </div>
-                        <div>
-                            <label htmlFor="nickname">닉네임:</label>
-                            <input type="text" id="nickname" name="nickname" value={member.nickname} onChange={handleChange} required />
-                        </div>
-                        <div>
-                            <label htmlFor="phone">전화번호:</label>
-                            <input type="text" id="phone" name="phone" value={member.phone} onChange={handleChange} />
-                        </div>
-                    </>
-                )}
-                <div>
-                    <label htmlFor="point">포인트:</label>
-                    <input type="number" id="point" name="point" value={member.point} readOnly />
+                    </div>
                 </div>
-                <div>
-                    <button type="submit">수정완료</button>
-                    {loginMethod !== 'kakao' && <button type="button" onClick={() => setShowModal(true)}>회원탈퇴</button>}
-                </div>
-            </form>
+            </div>
 
             {showModal && (
                 <div className="modal">
@@ -150,8 +276,7 @@ const Update = () => {
                     </div>
                 </div>
             )}
-
-        </div>
+        </section>
     );
 };
 

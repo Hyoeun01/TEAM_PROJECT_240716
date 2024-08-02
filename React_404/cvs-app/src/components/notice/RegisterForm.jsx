@@ -64,13 +64,13 @@ const RegisterForm = () => {
       <h1>공지사항 등록</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <input type="text" placeholder="Title" name="title" />
+          <input type="text" placeholder="제목" name="title" />
         </div>
         <div>
-          <textarea placeholder="Content" name="content"></textarea>
+          <textarea placeholder="내용" name="content"></textarea>
         </div>
         <div>
-          <p><strong>Writer:</strong> {nickname}</p>
+          <p><strong>작성자:</strong> {nickname}</p>
         </div>
         <div className="button-group">
           <button type="button" onClick={() => window.location.href='/notice/list'}>목록</button>

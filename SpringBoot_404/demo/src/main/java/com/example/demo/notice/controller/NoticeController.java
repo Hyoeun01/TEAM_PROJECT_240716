@@ -5,12 +5,12 @@ import com.example.demo.notice.dto.PageRequestDTO; // 추가된 부분
 import com.example.demo.notice.dto.PageResponseDTO; // 추가된 부분
 import com.example.demo.notice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -69,4 +69,20 @@ public class NoticeController {
         return ResponseEntity.ok(response);
     }
 
+
+    @PutMapping("/updateViews/{bno}")
+    public ResponseEntity<NoticeDTO> updateViews(@PathVariable("bno") Long bno) {
+        NoticeDTO updatedNotice = noticeService.updateViews(bno);
+        return ResponseEntity.ok(updatedNotice);
+    }
+
+    @PutMapping("/modify")
+    public ResponseEntity<NoticeDTO> modifyNotice(@RequestBody NoticeDTO noticeDTO) {
+        try {
+            NoticeDTO updatedNotice = noticeService.modifyNotice(noticeDTO);
+            return ResponseEntity.ok(updatedNotice);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 }
