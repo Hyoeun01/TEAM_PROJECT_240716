@@ -3,6 +3,7 @@ import axios from 'axios';
 import kakaoIcon from '../../../assets/images/kakao_icon-removebg.png';
 import googleIcon from '../../../assets/images/google_icon-removebg.png';
 import logo from '../../../logo/1st_logo.png';
+import './Update.css'; 
 
 
 const Update = () => {

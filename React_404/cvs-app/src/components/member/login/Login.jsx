@@ -3,7 +3,9 @@ import logo from '../../../logo/1st_logo.png';
 import kakaoIcon from '../../../assets/images/kakao_icon-removebg.png';
 import googleIcon from '../../../assets/images/google_icon-removebg.png';
 import banner from '../../../assets/images/login_banner.jpg';
+
 import './Login.css';
+import Footer from '../../Footer/Footer';
 
 const Login = () => {
     const [mid, setMid] = useState('');
@@ -153,7 +155,9 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </section>
+       
     );
 };
 

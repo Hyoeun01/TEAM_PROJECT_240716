@@ -202,7 +202,7 @@ const Signup = () => {
                                                 <label htmlFor="phone" className="form-label">전화번호</label>
                                             </div>
                                         </div>
-                                        <div className="col-12"> {/* Address 입력 필드 추가 */}
+                                        <div className="col-12">
                                             <div className="form-floating mb-3">
                                                 <input
                                                     type="text"
@@ -226,10 +226,8 @@ const Signup = () => {
                             </div>
                             <div className="col-12 col-lg-2 d-flex align-items-center justify-content-center gap-3 flex-lg-column">
                                 <div className="bg-dark h-100 d-none d-lg-block" style={{ width: '1px', opacity: 0.1 }}></div>
-                                <div className="bg-dark w-100 d-lg-none" style={{ height: '1px', opacity: 0.1 }}></div>
                                 <div>or</div>
                                 <div className="bg-dark h-100 d-none d-lg-block" style={{ width: '1px', opacity: 0.1 }}></div>
-                                <div className="bg-dark w-100 d-lg-none" style={{ height: '1px', opacity: 0.1 }}></div>
                             </div>
                             <div className="col-12 col-lg-5 d-flex flex-column align-items-center justify-content-center"> {/* 중앙 정렬을 위한 클래스 추가 */}
                                 <div className="col-10 mb-3"> {/* 여백을 위해 mb-3 추가 */}
