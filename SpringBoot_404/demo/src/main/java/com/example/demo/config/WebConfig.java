@@ -11,7 +11,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000") // 프론트엔드 주소
+//                .allowedOrigins("http://localhost:3000") // 로컬 주소
+                .allowedOrigins("http://43.203.244.127:3000") // 프론트엔드 주소 (로컬 개발 환경)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);

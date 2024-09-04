@@ -28,7 +28,7 @@ public class Product {
     @Column(length = 100, nullable = false)
     private String content;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 255, nullable = false)
     private String product_img;
 
     private String uuid;

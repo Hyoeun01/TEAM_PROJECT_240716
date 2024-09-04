@@ -16,6 +16,7 @@ import java.util.UUID;
 //@Controller
 @RestController
 @RequestMapping("/product")
+@CrossOrigin(origins = "http://43.203.244.127:3000") // 배포용으로 추가됨
 @RequiredArgsConstructor
 public class ProductController {
 
